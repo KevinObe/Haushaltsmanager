@@ -1,0 +1,122 @@
+/*grid templates */
+
+.body-grid{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 20% 1fr 1fr;
+
+  height: 100%;
+  width: 100%;
+
+  & header{
+    grid-column: 2/12;
+    grid-row: 1;
+  }
+
+  & main{
+    grid-column: 2/12;
+    grid-row: 2;
+  }
+
+  & footer{
+    grid-column: 2/12;
+    grid-row: 3;
+  }
+}
+
+/* header grid settings */
+
+header{
+  display: grid;
+  grid-template-columns: 1fr 15%;
+  grid-template-rows: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+
+  & h1{
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  & .menuToggler{
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+/* main grid templates */
+
+form{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: repeat(5, 1fr);
+
+  gap: 20%;
+
+  & .firstname{
+    grid-column: 1fr;
+    grid-row: 1;
+  }
+
+  & .lastname{
+    grid-column: 1fr;
+    grid-row: 2;
+  }
+
+  & .username{
+    grid-column: 1fr;
+    grid-row: 3;
+  }
+
+  & .password{
+    grid-column: 1fr;
+    grid-row: 4;
+  }
+
+  & .submit{
+    grid-column: 1fr;
+    grid-row: 5;
+  }
+}
+
+/* footer grid templates */
+
+/* mobile Menu */
+
+.menuToggler{
+  width: 100%;
+  color: white;
+  margin: 10%;
+}
+
+.toggleBar{
+  display: block;
+  width: 90%;
+  background-color: var(--main-color);
+  padding: 5%;
+  margin: 5%;
+  border: 1px solid var(--main-color);
+}
+
+/* css style settings */
+
+header {
+  & h1{
+    color: var(--main-color);
+    font-size: 2.5rem;
+    height: 100%;
+  }
+}
+
+form div input{
+  height: 100%;
+  width: 100%;
+  border: 1% solid black;
+}
+
+.submit input{
+  height: 200%;
+  background-color: var(--main-color);
+  color: white;
+  border: 1% solid black;
+}
