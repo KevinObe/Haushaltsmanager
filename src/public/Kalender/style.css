@@ -102,23 +102,6 @@ header{
 
 /* css styles */
 
-/* mobile Menu */
-
-.menuToggler{
-  width: 100%;
-  color: white;
-  margin: 10%;
-}
-
-.toggleBar{
-  display: block;
-  width: 90%;
-  background-color: var(--main-color);
-  padding: 5%;
-  margin: 5%;
-  border: 1px solid var(--main-color);
-}
-
 /* header */
 
 header{
@@ -151,13 +134,13 @@ header h1{
 }
 
 .previous{
-  padding: 10%;
-  font-weight: bold;
+  padding: 20%;
+  font-weight: bolder;
 }
 
 .next{
-  padding: 10%;
-  font-weight: bold;
+  padding: 20%;
+  font-weight: bolder;
 }
 
 .calendar p{
@@ -172,7 +155,7 @@ header h1{
 .days li{
   list-style: none;
   padding: 20%;
-  border-radius: 40%;
+  border-radius: 20%;
 }
 
 .days li.inactive{
