@@ -12,6 +12,7 @@
 
 :root{
   --main-color: blue;
+  --optional-color: #00d4ff;
 }
 
 /* support classes */
@@ -67,14 +68,14 @@ body {
   margin: 0px;
   padding: 0px;
 
-  background-color: lightblue;
+  background-color: black;
   z-index: 1;
-
+  opacity: 0.8;
 }
 
 #mobile-menu a{
   text-decoration:none;
-  color: var(--main-color);
+  color: var(--optional-color);
   font-size: 2rem;
   padding:12px 12px;
   display: inline-block;
@@ -82,7 +83,7 @@ body {
 
 #mobile-menu div{
   text-decoration:none;
-  color: red;
+  color: rgb(255, 0, 0);
   font-size: 20px;
   padding: 10px 10px;
   display: inline-block;
