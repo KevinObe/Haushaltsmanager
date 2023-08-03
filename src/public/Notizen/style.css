@@ -52,7 +52,6 @@ main{
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 12% 1fr;
-  gap: 10%;
 
   & .newNote{
     grid-column: 1;
@@ -68,8 +67,8 @@ main{
 .newNote{
   display: grid;
   grid-template-columns: 1fr 15%;
-  grid-template-rows: 1fr;
-  max-height: 50vh;
+  grid-template-rows: 100%;
+  max-height: 50px;
 
   & .entryValue{
     grid-column: 1/2;
@@ -114,23 +113,6 @@ h1{
   color: var(--main-color);
   font-size: 3.5rem;
   height: 100%;
-}
-
-/* mobile Menu */
-
-.menuToggler{
-  width: 100%;
-  color: white;
-  margin: 10%;
-}
-
-.toggleBar{
-  display: block;
-  width: 90%;
-  background-color: var(--main-color);
-  padding: 5%;
-  margin: 5%;
-  border: 1px solid var(--main-color);
 }
 
 /* mobile css main */
