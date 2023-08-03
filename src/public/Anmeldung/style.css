@@ -44,23 +44,6 @@ header{
   }
 }
 
-/* mobile Menu */
-
-.menuToggler{
-  width: 100%;
-  color: white;
-  margin: 10%;
-}
-
-.toggleBar{
-  display: block;
-  width: 90%;
-  background-color: var(--main-color);
-  padding: 5%;
-  margin: 5%;
-  border: 1px solid var(--main-color);
-}
-
 /* mobile main */
 
 form{
