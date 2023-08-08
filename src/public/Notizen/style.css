@@ -3,21 +3,26 @@
 body{
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: 20% 1fr 20%;
+  grid-template-rows: 20% 10% 1fr 20%;
 
   & header{
     grid-column: 2/12;
     grid-row: 1;
   }
 
-  & main{
+  & section{
     grid-column: 2/12;
     grid-row: 2;
   }
 
-  & footer{
+  & main{
     grid-column: 2/12;
     grid-row: 3;
+  }
+
+  & footer{
+    grid-column: 2/12;
+    grid-row: 4;
   }
 }
 
@@ -48,15 +53,19 @@ header{
 
 /* main area grid */
 
+section{
+  height: 100%;
+
+  & .newNote{
+    border: 2px solid var(--main-color);
+    height: 80%;
+  }
+}
+
 main{
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 12% 1fr;
-
-  & .newNote{
-    grid-column: 1;
-    grid-row: 1;
-  }
 
   & ul {
     grid-column: 1;
@@ -127,6 +136,18 @@ header .addButton{
 main{
   height: 100%;
 
+  & .noteValue{
+    width: 100%;
+    resize: none;
+  }
+
+  & .deleteButton{
+    width: 100%;
+    background-color: var(--main-color);
+    color: white;
+  }
+}
+section{
   & .newNote{
     border: 2px solid var(--main-color);
   }
@@ -137,17 +158,6 @@ main{
   }
 
   & .addButton{
-    width: 100%;
-    background-color: var(--main-color);
-    color: white;
-  }
-
-  & .noteValue{
-    width: 100%;
-    resize: none;
-  }
-
-  & .deleteButton{
     width: 100%;
     background-color: var(--main-color);
     color: white;

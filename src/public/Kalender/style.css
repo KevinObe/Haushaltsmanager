@@ -166,4 +166,9 @@ header h1{
   color: white;
   background-color: var(--main-color);
 }
+
+.days li.event{
+  color: white;
+  background-color: red;
+}
 /* footer */
