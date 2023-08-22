@@ -10,6 +10,7 @@ let currentMonth = date.getMonth(); //returns 0 to 11!
 
 const months = ['Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'Novenber', 'Dezember'];
 
+const calendarEvents = [];
 
 /**************************************************************************************************/
 /** ELEMENTS                                                                                     **/
@@ -25,14 +26,16 @@ const $nextIcon = document.querySelector('.next');
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
 /**************************************************************************************************/
-upddateCalendarData();
+updateCalendarData();
 
 
 /**************************************************************************************************/
 /** FUNCTIONS                                                                                    **/
 /** Put the main logic of the application in functions and declare them in this section.         **/
 /**************************************************************************************************/
-function upddateCalendarData() {
+function updateCalendarData() {
+  let $li;
+
   let firstDay = new Date(currentYear, currentMonth, 1).getDay(); // getDay() returns the day of the week (0 - 6), parameter 1 is getting the first day of the current month's day of the week;
   let lastDateCurrMonth = new Date(currentYear, currentMonth + 1, 0).getDate(); // month + 1 is next month, parameter 0 means 1 day less, which is the last day in the current month => getDate method gives back the day;
   let lastDatePrevMonth = new Date(currentYear, currentMonth, 0).getDate(); //returns the last day of the previous month with the parameter 0;
@@ -48,6 +51,14 @@ function upddateCalendarData() {
     //setting the class active on today in the loop by checking if the day matches the current date, month and year otherwise set no class;
     let today = i === date.getDate() && currentMonth === new Date().getMonth() && currentYear === new Date().getFullYear() ? "active" : "";
     day += `<li class="${today}">${i}</li>`; // gives a day as a li tag back to insert it into the calender for each day of the current month;
+    /*
+    let calendarEvent = calendarEvents.find();
+    if(calendarEvent){
+      console.log('existing event')
+    } else {
+      console.log('no events registered')
+    }
+    */
   };
 
   for(let i = lastDay; i < 6; i++){
@@ -56,6 +67,25 @@ function upddateCalendarData() {
 
   $currentDate.textContent = `${months[currentMonth]} ${currentYear}`;
   $days.innerHTML = day;
+
+  //calendar events for all calendar sheets;
+  $li = document.querySelectorAll('.days li');
+  $li.forEach(li => {
+    li.addEventListener('click', addNewEvent);
+  });
+
+  $li.forEach(li => {
+    li.addEventListener('click', showEvent)
+  });
+};
+
+//calendar event functions;
+function addNewEvent(){
+  console.log('new Event')
+};
+
+function showEvent() {
+  console.log('saved event')
 };
 
 /**************************************************************************************************/
@@ -73,7 +103,7 @@ $previousIcon.addEventListener('click', () => {
     date = new Date(); //else go with the new date as it was at the beginning for the current year, no changes;
   };
 
-  upddateCalendarData();
+  updateCalendarData();
 });
 $nextIcon.addEventListener('click', () => {
   currentMonth = currentMonth + 1; // shows next Month and days in the HTML;
@@ -86,8 +116,9 @@ $nextIcon.addEventListener('click', () => {
     date = new Date(); //else go with the new date as it was at the beginning for the current year, no changes;
   };
 
-  upddateCalendarData();
+  updateCalendarData();
 });
+
 
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
