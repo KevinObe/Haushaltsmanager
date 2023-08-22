@@ -73,7 +73,6 @@ endpoints.add('/api/v1/notes/:id', (request, response, session, match) => {
       try{
         notes = JSON.parse(data);
       }
-
       catch(error){
         console.log('Fehler beim Parsen der Notizen:', error);
         response.statusCode = 500;
@@ -110,7 +109,7 @@ endpoints.add('/api/v1/notes/:id', (request, response, session, match) => {
     request.on('data', (chunk) => body += chunk);
     request.on('end', () => {
       let note;
-      console.log(note)
+
       try{
         note = JSON.parse(body);
 
