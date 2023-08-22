@@ -11,9 +11,9 @@
 /** ELEMENTS                                                                                     **/
 /** Get access to all relevant elements of the DOM in this section.                              **/
 /**************************************************************************************************/
-const $li = document.querySelectorAll('.days li');
-const calendarEvents = [];
-
+const $menuToggler = document.querySelector('.menuToggler');
+const $mobileMenu = document.querySelector('#mobile-menu');
+const $closeButton = document.querySelector('#closeButton');
 
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
@@ -26,19 +26,20 @@ const calendarEvents = [];
 /** FUNCTIONS                                                                                    **/
 /** Put the main logic of the application in functions and declare them in this section.         **/
 /**************************************************************************************************/
-function addNewEvent(){
-  console.log('new Event.')
-};
+
 
 
 /**************************************************************************************************/
 /** EVENTS                                                                                       **/
 /** Combine the Elements from above with the declared Functions in this section.                 **/
 /**************************************************************************************************/
-$li.forEach(li => {
-  li.addEventListener('click', addNewEvent);
+$menuToggler.addEventListener('click', () => {
+  $mobileMenu.className = 'inactive' ? 'active' : 'inactive';
 });
 
+$closeButton.addEventListener('click', () => {
+  $mobileMenu.className = 'inactive';
+});
 
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
