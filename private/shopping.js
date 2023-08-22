@@ -12,9 +12,9 @@
 /** Get access to all relevant elements of the DOM in this section.                              **/
 /**************************************************************************************************/
 const $addButton = document.querySelector('.addButton');
-const $input = document.querySelector('.entryValue');
-const $notes = document.querySelector('.notes');
-const notes = [];
+const $listName = document.querySelector('.listname');
+const $entries = [];
+let shoppingLists = [];
 
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
@@ -27,45 +27,120 @@ const notes = [];
 /** FUNCTIONS                                                                                    **/
 /** Put the main logic of the application in functions and declare them in this section.         **/
 /**************************************************************************************************/
-function addNote() {
+function loadLists(){
+  const request = new XMLHttpRequest();
 
-  const $noteValue = $input.value;
+  request.open('GET', '/api/v1/shoppingLists');
 
-  const note = {
+  request.send();
+
+  request.responseType = 'json';
+
+  request.addEventListener('load', () => {
+    if(request.status === 200){
+      shoppingLists = request.response;
+
+      for(const shoppingList of shoppingLists){
+        shoppingList.save = saveList;
+        shoppingList.delete = deleteList;
+
+        createNewList(shoppingList);
+      }
+      return;
+    }
+
+    alert(`Fehler: ${response.status}`);
+  });
+}
+
+function saveList(){
+  const shoppingList = this;
+
+  const request = new XMLHttpRequest();
+
+  request.open('POST', `/api/v1/shoppingLists/${shoppingList.id}`)
+
+  request.send(JSON.stringify(shoppingList));
+
+  request.addEventListener('load', () => {
+    if(request.status !== 204){
+      alert(`Fehler: ${response.status}`);
+    }
+  });
+}
+
+function deleteList(){
+  const shoppingList = this;
+
+  const request = new XMLHttpRequest();
+
+  request.open('DELETE', `/api/v1/shoppingLists/${shoppingList.id}`);
+
+  request.send();
+
+  request.addEventListener('load', () => {
+    if(request.status !== 204){
+      alert(`Fehler: ${request.status}`);
+    }
+  });
+}
+
+//older code without server
+function addNewList() {
+
+  let listName = $listName.value;
+
+  const shoppingList = {
     id: crypto.randomUUID(),
-    text: $noteValue,
+    title: listName,
+    text: $entries,
+    save: saveList,
+    delete: deleteList,
   };
 
-  notes.push(note);
-  $input.value = '';
-  console.log(note)
-  createNewNote(note);
+  shoppingLists.push(shoppingList)
+  shoppingList.save();
+  $listName.value = '';
+  console.log(shoppingLists)
+  console.log(shoppingList)
+  createNewList(shoppingList);
 };
 
-function createNewNote(note){
-  const $note = document.createElement('li');
-  $note.className = 'note';
+function createNewList(shoppingList){
 
-  const $textarea = document.createElement('textarea');
-  $textarea.className = 'noteValue';
-  $textarea.value = note.text;
+  const $shoppingList = document.createElement('div');
+  $shoppingList.className = 'shoppingList';
+
+  const $listTitle = document.createElement('h2');
+  $listTitle.textContent = shoppingList.title;
+  $listTitle.className = 'listTitle';
+
+  const $openListButton = document.createElement('button');
+  $openListButton.textContent = 'Anzeigen';
+  $openListButton.className = 'openListButton';
 
   const $deleteButton = document.createElement('button');
+  $deleteButton.textContent = 'Löschen';
   $deleteButton.className = 'deleteButton';
-  $deleteButton.textContent = '-';
+
+  document.querySelector('main').append($shoppingList);
+  $shoppingList.append($listTitle, $openListButton, $deleteButton);
+
+  $openListButton.addEventListener('click', openList);
 
   $deleteButton.addEventListener('click', () => {
-    const index = notes.indexOf(note);
-    notes.splice(index, 1);
+    const index = shoppingLists.indexOf(shoppingList);
+    shoppingLists.splice(index, 1);
 
-  $note.remove(); //removes the created li element;
+    shoppingList.delete();
+
+    $shoppingList.remove();
   });
 
-  $note.append($textarea, $deleteButton);
+};
 
-  $notes.append($note);
-
-
+function openList(){
+  console.log('Liste wird geöffnet.')
 };
 
 
@@ -73,10 +148,11 @@ function createNewNote(note){
 /** EVENTS                                                                                       **/
 /** Combine the Elements from above with the declared Functions in this section.                 **/
 /**************************************************************************************************/
-$addButton.addEventListener('click', addNote);
+$addButton.addEventListener('click', addNewList);
 
 
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/
 /**************************************************************************************************/
+loadLists();

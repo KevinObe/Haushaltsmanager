@@ -2,7 +2,7 @@
 
 const fs = require('node:fs');
 
-endpoints.add('/{index.html}?', (request, response) => {
+endpoints.add('/{ìndex.html}?', (request, response) => {
   response.statusCode = 302;
   response.setHeader('Location', '/login.html');
   response.end();
@@ -10,12 +10,12 @@ endpoints.add('/{index.html}?', (request, response) => {
 
 endpoints.add('/private/{index.html}?', (request, response) => {
   response.statusCode = 302;
-  response.setHeader('Location', '/private/notes.html');
+  response.setHeader('Location', '/private/shopping.html');
   response.end();
 });
 
-endpoints.add('/api/v1/notes', (request, response, session) => {
-  if(!['GET', 'HEAD'].includes(request.method)) {
+endpoints.add('/api/v1/shoppingLists', (request, response, session) => {
+  if(!['GET', 'HEAD'].includes(request.method)){
     response.statusCode = 405;
     response.end();
     return;
@@ -27,14 +27,14 @@ endpoints.add('/api/v1/notes', (request, response, session) => {
     return;
   }
 
-  fs.readFile(`users/${session.profile.username}/notes.json`, (error, data) => {
+  fs.readFile(`users/${session.profile.username}/shoppingLists.json`, (error, data) => {
     response.setHeader('Content-Type', 'application/json');
 
     if(error){
       response.end(JSON.stringify([
         {
-          id: 'fcd04f12-0786-4c34-baca-8f60e5d3a4c8',
-          text: 'Meine erste Notiz',
+          id:'fcd04f12-0786-4c34-baca-8f60e5d3a4c6',
+          title: 'Meine Einkaufsliste',
         }
       ]));
 
@@ -45,7 +45,7 @@ endpoints.add('/api/v1/notes', (request, response, session) => {
   });
 });
 
-endpoints.add('/api/v1/notes/:id', (request, response, session, match) => {
+endpoints.add('/api/v1/shoppingLists/:id', (request, response, session, match) => {
   if(!['POST', 'DELETE'].includes(request.method)){
     response.statusCode = 405;
     response.end();
@@ -65,23 +65,23 @@ endpoints.add('/api/v1/notes/:id', (request, response, session, match) => {
     return;
   }
 
-  const file = `users/${session.profile.username}/notes.json`;
+  const file = `users/${session.profile.username}/shoppingLists.json`;
   fs.readFile(file, 'utf8', (error, data) => {
-    let notes = [];
+    let shoppingLists = [];
 
     if(!error){
       try{
-        notes = JSON.parse(data);
+        shoppingLists = JSON.parse(data);
       }
       catch(error){
-        console.log('Fehler beim Parsen der Notizen:', error);
+        console.log('Fehler beim Parsen der Einkaufslisten:', error);
         response.statusCode = 500;
         response.end();
         return;
       }
     }
 
-    const index = notes.findIndex((note) => note.id === match.pathname.groups.id);
+    const index = shoppingLists.findIndex((shoppingList) => shoppingList.id === match.pathname.groups.id);
 
     if(request.method === 'DELETE'){
       if(index === -1){
@@ -90,9 +90,9 @@ endpoints.add('/api/v1/notes/:id', (request, response, session, match) => {
         return;
       }
 
-      notes.splice(index, 1);
+      shoppingLists.splice(index, 1);
 
-      fs.writeFile(file, JSON.stringify(notes, null, 2), (error) => {
+      fs.writeFile(file, JSON.stringify(shoppingLists, null, 2), (error) => {
         if(error){
           response.statusCode = 500;
           response.end();
@@ -100,7 +100,7 @@ endpoints.add('/api/v1/notes/:id', (request, response, session, match) => {
         }
 
         response.statusCode = 204;
-        response.end();
+        response.end('Fehler');
       });
       return;
     }
@@ -108,41 +108,41 @@ endpoints.add('/api/v1/notes/:id', (request, response, session, match) => {
     let body = '';
     request.on('data', (chunk) => body += chunk);
     request.on('end', () => {
-      let note;
+      let shoppingList;
 
       try{
-        note = JSON.parse(body);
+        shoppingList = JSON.parse(body);
 
-        if(typeof note !== 'object') throw 'notes are no object';
+        if(typeof shoppingList !== 'object') throw 'lists are no objects';
 
-        if(note.id === undefined) throw 'missing id';
+        if(shoppingList.id === undefined) throw 'missing id';
         if(
-          typeof note.id !== 'string' || !note.id.match(/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/)
-        ) throw 'ivalid id';
+          typeof shoppingList.id !== 'string' || !shoppingList.id.match(/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/)
+        ) throw 'invalid id';
 
-        if (note.text === undefined) throw 'missing text key';
-        if (typeof note.text !== 'string') throw 'invalid text key';
-        if (note.text.length > 512) throw 'text key is too long';
+        if(shoppingList.text === undefined) throw 'missing text key';
+        //if (typeof shoppingList.text !== 'array') throw 'invalid text key';
+        if (shoppingList.text.length > 512) throw 'text key is too long';
 
-        if (Object.keys(note).length !== 2) throw 'too many keys';
+        if (Object.keys(shoppingList).length !== 3) throw 'too many keys';
       }
       catch(error){
-        console.log('Fehler beim parsen der Notizen', error);
+        console.log('Fehler beim parsen der Einkauflisten', error);
         response.statusCode = 400;
         response.end();
         return;
       }
 
       if (index === -1) {
-        notes.push(note);
+        shoppingLists.push(shoppingList);
       } else {
-        notes[index] = note;
+        shoppingLists[index] = shoppingList;
       }
 
-      fs.writeFile(file, JSON.stringify(notes, null, 2), (error) => {
+      fs.writeFile(file, JSON.stringify(shoppingLists, null, 2), (error) => {
         if(error){
           response.statusCode = 500;
-          response.end();
+          response.end('Fehler');
           return;
         }
 
