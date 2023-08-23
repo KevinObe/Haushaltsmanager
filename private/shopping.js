@@ -141,6 +141,20 @@ function createNewList(shoppingList){
 
 function openList(){
   console.log('Liste wird geöffnet.')
+
+  const request = new XMLHttpRequest();
+
+  request.open('GET', `/api/v1/shoppingLists`);
+
+  request.send();
+
+  request.responseType = 'json';
+
+  request.addEventListener('load', () => {
+    if(request.readyState === 4 && request.status === 200){
+      window.location.href = 'shoppinglist.html';
+    }
+  })
 };
 
 
