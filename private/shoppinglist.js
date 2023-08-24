@@ -15,7 +15,8 @@ const $addButton = document.querySelector('.addButton');
 const $input = document.querySelector('.entryValue');
 const $list = document.querySelector('.list');
 let entries = [];
-
+let shoppingLists = [];
+let shoppingList = {};
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -27,29 +28,44 @@ let entries = [];
 /** FUNCTIONS                                                                                    **/
 /** Put the main logic of the application in functions and declare them in this section.         **/
 /**************************************************************************************************/
+/*
+function loadLists(){
+  const request = new XMLHttpRequest();
+  request.open('GET', '/api/v1/shoppingLists');
+  request.send();
+
+  request.addEventListener('load', function () {
+    if(request.readyState === 4 && request.status === 200){
+      shoppingLists = JSON.parse(request.response);
+      console.log(shoppingLists);
+
+      loadEntries();
+    }
+    return;
+  })
+}
+*/
 function loadEntries(){
   const request = new XMLHttpRequest();
 
   request.open('GET', '/api/v1/shoppinglist');
-
   request.send();
-
   request.responseType = 'json';
 
-  request.addEventListener('load', () => {
-    if(request.status === 200){
-      entries = request.response;
+  request.addEventListener('load', function () {
+    if(request.readyState === 4 && request.status === 200){
+      let clickedList = request.response;
+      let listEntries = clickedList.entries;
 
-      for(const entry of entries) {
-        entry.save = saveEntry;
-        entry.delete = deleteEntry;
+      console.log(clickedList)
+      console.log(listEntries)
 
-        createNewEntry(entry);
-      }
-      return;
+        createNewEntry();
+        return;
     }
-
-    alert(`Fehler: ${response.status}`);
+    if(response.status !== 200) {
+      alert(`Fehler: ${response.status}`);
+    }
   });
 }
 

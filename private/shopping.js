@@ -93,7 +93,7 @@ function addNewList() {
   const shoppingList = {
     id: crypto.randomUUID(),
     title: listName,
-    text: $entries,
+    entries: $entries,
     save: saveList,
     delete: deleteList,
   };
@@ -126,7 +126,9 @@ function createNewList(shoppingList){
   document.querySelector('main').append($shoppingList);
   $shoppingList.append($listTitle, $openListButton, $deleteButton);
 
-  $openListButton.addEventListener('click', openList);
+  $openListButton.addEventListener('click', function () {
+    openList(shoppingList);
+  });
 
   $deleteButton.addEventListener('click', () => {
     const index = shoppingLists.indexOf(shoppingList);
@@ -139,12 +141,11 @@ function createNewList(shoppingList){
 
 };
 
-function openList(){
-  console.log('Liste wird geöffnet.')
+function openList(shoppingList){
 
   const request = new XMLHttpRequest();
 
-  request.open('GET', `/api/v1/shoppingLists`);
+  request.open('GET', `/api/v1/shoppinglist/${shoppingList.id}`);
 
   request.send();
 
@@ -152,7 +153,9 @@ function openList(){
 
   request.addEventListener('load', () => {
     if(request.readyState === 4 && request.status === 200){
-      window.location.href = 'shoppinglist.html';
+      shoppingList = request.response;
+      window.location.href = '/private/shoppinglist.html';
+      console.log(shoppingList)
     }
   })
 };

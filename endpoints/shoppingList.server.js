@@ -1,4 +1,5 @@
 'use strict';
+const clickedList = require('./test.server.js');
 
 const fs = require('node:fs');
 
@@ -26,26 +27,21 @@ endpoints.add('/api/v1/shoppinglist', (request, response, session) => {
     response.end();
     return;
   }
-
-  fs.readFile(`users/${session.profile.username}/shoppinglist.json`, (error, data) => {
+  let file = `users/${session.profile.username}/shoppingList.json/:${clickedList.id}`;
+  fs.readFile(file, (error, data) => {
     response.setHeader('Content-Type', 'application/json');
 
     if(error){
-      response.end(JSON.stringify([
-        {
-          id:'fcd04f12-0786-4c34-baca-8f60e5d3a4c4',
-          text: 'erster Eintrag!',
-        }
-      ]));
-
+      response.end(JSON.stringify(clickedList));
       return;
     }
-
+    console.log(clickedList);
     response.end(data);
   });
 });
 
-endpoints.add('/api/v1/shoppinglist/:id', (request, response, session, match) => {
+
+endpoints.add('/api/v1/shoppinglists/:id', (request, response, session, match) => {//list zu lists geändert
   if(!['POST', 'DELETE'].includes(request.method)){
     response.statusCode = 405;
     response.end();
