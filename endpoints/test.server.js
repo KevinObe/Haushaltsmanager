@@ -1,5 +1,5 @@
 'use strict';
-const serverLists = require('./shoppingList.server.js')
+const serverLists = require('./test.2.server.js');
 const fs = require('node:fs');
 
 endpoints.add('/{ìndex.html}?', (request, response) => {

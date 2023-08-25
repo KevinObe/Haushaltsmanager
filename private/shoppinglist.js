@@ -17,6 +17,8 @@ const $list = document.querySelector('.list');
 let entries = [];
 let shoppingLists = [];
 let shoppingList = {};
+let clickedList = {};
+let entry = {};
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -54,13 +56,18 @@ function loadEntries(){
 
   request.addEventListener('load', function () {
     if(request.readyState === 4 && request.status === 200){
-      let clickedList = request.response;
-      let listEntries = clickedList.entries;
-
+      clickedList = request.response;
       console.log(clickedList)
-      console.log(listEntries)
 
-        createNewEntry();
+      let savedEntries = clickedList.entries;
+      for(let savedEntry of savedEntries){
+        entry = savedEntry;
+        entry.save = saveEntry;
+        entry.delete = deleteEntry;
+        console.log(entry)
+
+        createNewEntry(entry);
+      }
         return;
     }
     if(response.status !== 200) {
@@ -72,14 +79,18 @@ function loadEntries(){
 function saveEntry() {
   const entry = this;
 
+  if(clickedList.id){
+    entry.listId = clickedList.id;
+  };
+  console.log(entry);
   const request = new XMLHttpRequest();
 
-  request.open('POST', `/api/v1/shoppinglist/${entry.id}`)
+  request.open('POST', `/api/v1/shoppingList/${entry.id}`)
 
   request.send(JSON.stringify(entry));
 
   request.addEventListener('load', () => {
-    if(request.status !== 204){
+    if(request.status !== 200){
       alert(`Fehler: ${request.status}`);
     }
   });
@@ -108,6 +119,7 @@ function addEntry() {
   const entry = {
     id: crypto.randomUUID(),
     text: $entryValue,
+    listId: '',
     save: saveEntry,
     delete: deleteEntry,
   };
