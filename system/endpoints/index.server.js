@@ -14,7 +14,7 @@ endpoints.add('/{index.html}?', (request, response) => {
   // this endpoint is effectively overruling the default static file delivery in case the user has
   // provided a custom index.html page, so in order to deliver our default one or the user provided
   // one we have to check if the latter is available
-  fs.access('public/index.html', (error) => {
+  fs.access('public/startpage.html', (error) => {
     // if no custom index.html file is available, then use our internal one, which contains a simple
     // explanation of the server
     if (error) {
@@ -39,6 +39,6 @@ endpoints.add('/{index.html}?', (request, response) => {
     }
 
     // at this point we know that the user has created a custom index.html page, thus we serve that
-    serve(response, 'public/index.html');
+    serve(response, 'public/startpage.html');
   });
 });

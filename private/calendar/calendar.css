@@ -1,0 +1,174 @@
+/* grid templates */
+
+body{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 20% 1fr 1fr 5%;
+
+  & header{
+    grid-column: 2/12;
+    grid-row: 1;
+  }
+
+  & section{
+    grid-column: 2/12;
+    grid-row: 2;
+  }
+
+  & main{
+    grid-column: 2/12;
+    grid-row: 3;
+  }
+
+  & footer{
+    grid-column: 2/12;
+    grid-row: 4;
+  }
+}
+/* header grid templates */
+
+header{
+  display: grid;
+  grid-template-columns: 1fr 15%;
+  grid-template-rows: repeat(3, 1fr);
+  justify-items: center;
+  align-items: center;
+
+  & h1{
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  & .menuToggler{
+    grid-column: 2;
+    grid-row: 2;
+  }
+}
+
+/* main grid templates */
+
+.calendar{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 15% 10% 1fr;
+
+  & div{
+    grid-row: 1;
+  }
+
+  & .weeks{
+    grid-row: 2;
+  }
+
+  & .days{
+    grid-row: 3;
+  }
+}
+
+.calendar div{
+  display:grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 1fr;
+
+  & p{
+    grid-column: 1/6;
+  }
+
+  & .previous{
+    grid-column: 6;
+  }
+
+  & .next{
+    grid-column: 7;
+  }
+}
+
+.weeks{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: 1fr;
+
+  justify-items: center;
+  align-items: center;
+}
+
+.days{
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(7, 1fr);
+
+  justify-items: center;
+}
+
+/* css styles */
+
+/* header */
+
+header{
+  height: 100%;
+  width: 100%;
+  justify-items: center;
+}
+
+header h1{
+  color: var(--main-color);
+  font-size: 3.5rem;
+}
+
+/* contentSpace */
+
+.contentSpace{
+  height: 100%;
+  width: 100%;
+}
+
+/* main */
+
+.calendar{
+  height: 100%;
+}
+
+.calendar div{
+  justify-items: center;
+  align-items: center;
+}
+
+.previous{
+  padding: 20%;
+  font-weight: bolder;
+}
+
+.next{
+  padding: 20%;
+  font-weight: bolder;
+}
+
+.calendar p{
+  font-weight: bold;
+}
+
+.weeks li{
+  list-style: none;
+  padding: 10%;
+}
+
+.days li{
+  list-style: none;
+  padding: 20%;
+  border-radius: 20%;
+}
+
+.days li.inactive{
+  color: lightgrey;
+}
+
+.days li.active{
+  color: white;
+  background-color: var(--main-color);
+}
+
+.days li.event{
+  color: white;
+  background-color: red;
+}
+/* footer */

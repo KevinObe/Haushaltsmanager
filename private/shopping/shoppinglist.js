@@ -12,10 +12,13 @@
 /** Get access to all relevant elements of the DOM in this section.                              **/
 /**************************************************************************************************/
 const $addButton = document.querySelector('.addButton');
-const $listName = document.querySelector('.listname');
-const $entries = [];
+const $input = document.querySelector('.entryValue');
+const $list = document.querySelector('.list');
+let entries = [];
 let shoppingLists = [];
-
+let shoppingList = {};
+let clickedList = {};
+let entry = {};
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -27,54 +30,78 @@ let shoppingLists = [];
 /** FUNCTIONS                                                                                    **/
 /** Put the main logic of the application in functions and declare them in this section.         **/
 /**************************************************************************************************/
+/*
 function loadLists(){
   const request = new XMLHttpRequest();
-
   request.open('GET', '/api/v1/shoppingLists');
-
   request.send();
 
-  request.responseType = 'json';
+  request.addEventListener('load', function () {
+    if(request.readyState === 4 && request.status === 200){
+      shoppingLists = JSON.parse(request.response);
+      console.log(shoppingLists);
 
-  request.addEventListener('load', () => {
-    if(request.status === 200){
-      shoppingLists = request.response;
-
-      for(const shoppingList of shoppingLists){
-        shoppingList.save = saveList;
-        shoppingList.delete = deleteList;
-
-        createNewList(shoppingList);
-      }
-      return;
+      loadEntries();
     }
-
-    alert(`Fehler: ${response.status}`);
-  });
+    return;
+  })
 }
-
-function saveList(){
-  const shoppingList = this;
-
+*/
+function loadEntries(){
   const request = new XMLHttpRequest();
 
-  request.open('POST', `/api/v1/shoppingLists/${shoppingList.id}`)
+  request.open('GET', '/api/v1/shoppinglist');
+  request.send();
+  request.responseType = 'json';
 
-  request.send(JSON.stringify(shoppingList));
+  request.addEventListener('load', function () {
+    if(request.readyState === 4 && request.status === 200){
+      clickedList = request.response;
+      console.log(clickedList)
 
-  request.addEventListener('load', () => {
-    if(request.status !== 204){
+      let savedEntries = clickedList.entries;
+      for(let savedEntry of savedEntries){
+        entry = savedEntry;
+        entry.save = saveEntry;
+        entry.delete = deleteEntry;
+        console.log(entry)
+
+        createNewEntry(entry);
+      }
+        return;
+    }
+    if(response.status !== 200) {
       alert(`Fehler: ${response.status}`);
     }
   });
 }
 
-function deleteList(){
-  const shoppingList = this;
+function saveEntry() {
+  const entry = this;
+
+  if(clickedList.id){
+    entry.listId = clickedList.id;
+  };
+  console.log(entry);
+  const request = new XMLHttpRequest();
+
+  request.open('POST', `/api/v1/shoppingList/${entry.id}`)
+
+  request.send(JSON.stringify(entry));
+
+  request.addEventListener('load', () => {
+    if(request.status !== 200){
+      alert(`Fehler: ${request.status}`);
+    }
+  });
+}
+
+function deleteEntry(){
+  const entry = this;
 
   const request = new XMLHttpRequest();
 
-  request.open('DELETE', `/api/v1/shoppingLists/${shoppingList.id}`);
+  request.open('DELETE', `/api/v1/shoppingList/${entry.id}`);
 
   request.send();
 
@@ -85,79 +112,49 @@ function deleteList(){
   });
 }
 
-//older code without server
-function addNewList() {
+function addEntry() {
 
-  let listName = $listName.value;
+  const $entryValue = $input.value;
 
-  const shoppingList = {
+  const entry = {
     id: crypto.randomUUID(),
-    title: listName,
-    entries: $entries,
-    save: saveList,
-    delete: deleteList,
+    text: $entryValue,
+    listId: '',
+    save: saveEntry,
+    delete: deleteEntry,
   };
 
-  shoppingLists.push(shoppingList)
-  shoppingList.save();
-  $listName.value = '';
-  console.log(shoppingLists)
-  console.log(shoppingList)
-  createNewList(shoppingList);
+  entries.push(entry);
+  entry.save();
+  $input.value = '';
+  console.log(entry)
+  createNewEntry(entry);
 };
 
-function createNewList(shoppingList){
+function createNewEntry(entry){
+  const $listItem = document.createElement('li');
+  $listItem.className = 'listItem';
 
-  const $shoppingList = document.createElement('div');
-  $shoppingList.className = 'shoppingList';
-
-  const $listTitle = document.createElement('h2');
-  $listTitle.textContent = shoppingList.title;
-  $listTitle.className = 'listTitle';
-
-  const $openListButton = document.createElement('button');
-  $openListButton.textContent = 'Anzeigen';
-  $openListButton.className = 'openListButton';
+  const $textarea = document.createElement('textarea');
+  $textarea.className = 'itemValue';
+  $textarea.value = entry.text;
 
   const $deleteButton = document.createElement('button');
-  $deleteButton.textContent = 'Löschen';
   $deleteButton.className = 'deleteButton';
+  $deleteButton.textContent = '-';
 
-  document.querySelector('main').append($shoppingList);
-  $shoppingList.append($listTitle, $openListButton, $deleteButton);
+  $deleteButton.addEventListener('click', function () {
+    const index = entries.indexOf(entry);
+    entries.splice(index, 1);
 
-  $openListButton.addEventListener('click', function () {
-    openList(shoppingList);
+    entry.delete();
+
+  $listItem.remove(); //removes the created li element;
   });
 
-  $deleteButton.addEventListener('click', () => {
-    const index = shoppingLists.indexOf(shoppingList);
-    shoppingLists.splice(index, 1);
+  $listItem.append($textarea, $deleteButton);
 
-    shoppingList.delete();
-
-    $shoppingList.remove();
-  });
-
-};
-
-function openList(shoppingList){
-
-  const request = new XMLHttpRequest();
-
-  request.open('GET', `/api/v1/shoppinglist/${shoppingList.id}`);
-
-  request.send();
-
-  request.responseType = 'json';
-
-  request.addEventListener('load', () => {
-    if(request.readyState === 4 && request.status === 200){
-      shoppingList = request.response;
-      window.location.href = '/private/shoppinglist.html';
-      console.log(shoppingList)
-    }
-  })
+  $list.append($listItem);
 };
 
 
@@ -165,11 +162,11 @@ function openList(shoppingList){
 /** EVENTS                                                                                       **/
 /** Combine the Elements from above with the declared Functions in this section.                 **/
 /**************************************************************************************************/
-$addButton.addEventListener('click', addNewList);
+$addButton.addEventListener('click', addEntry);
 
 
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/
 /**************************************************************************************************/
-loadLists();
+loadEntries();

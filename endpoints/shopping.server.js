@@ -100,7 +100,7 @@ endpoints.add('/api/v1/shoppingLists/:id', (request, response, session, match) =
         }
 
         response.statusCode = 204;
-        response.end('Fehler');
+        response.end();
       });
       return;
     }
