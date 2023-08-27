@@ -99,8 +99,38 @@ endpoints.add(`/api/v1/shoppingList/:id`, (request, response, session) => {
         return;
       }
     };
-    console.log(shoppingLists);
-    console.log('confirmed');
+
+    if(request.method === 'DELETE'){
+      const url = new URL(request.url, 'http://127.0.0.1');
+      let urlParts = url.pathname.split('/');
+      let entryId = urlParts[4];
+
+      let index;
+      for(let shoppingList of shoppingLists){
+        for(let i = 0; i < shoppingList.entries.length; i++){
+          if(shoppingList.entries[i].id === entryId){
+            console.log(shoppingList.entries[i].id)
+            console.log(entryId)
+            index = i;
+            console.log(index)
+
+            shoppingList.entries.splice(index, 1);
+          }
+        }
+      }
+
+      fs.writeFile(file, JSON.stringify(shoppingLists, null, 2), (error) => {
+        if(error){
+          response.statusCode = 500;
+          response.end();
+          return
+        }
+
+        response.statusCode = 204;
+        response.end();
+      })
+      return;
+    }
 
     let body = '';
     request.on('data', (chunk) => body += chunk);
@@ -114,7 +144,6 @@ endpoints.add(`/api/v1/shoppingList/:id`, (request, response, session) => {
         response.end();
         return;
       }
-      console.log(entry)
 
       if(entry.listId === ''){
         response.statusCode = 500;
@@ -129,24 +158,15 @@ endpoints.add(`/api/v1/shoppingList/:id`, (request, response, session) => {
         if(shoppingList.id === listIndex){
           entries = shoppingList.entries;
           console.log('its a match')
-          console.log(shoppingList)
-          console.log(entries)
           entries.push(entry);
-          console.log('push')
-          console.log(shoppingList)
-          console.log(entries)
         }
       }
 
-      const index = shoppingLists.findIndex((shoppingList) => shoppingList.id === listIndex);
+      let index = shoppingLists.findIndex((shoppingList) => shoppingList.id === listIndex);
 
       if (index === -1) {
         shoppingLists.push(shoppingList);
       };
-
-      console.log(shoppingLists)
-      console.log(index)
-      console.log(shoppingList)
 
       fs.writeFile(file, JSON.stringify(shoppingLists, null, 2), (error) => {
         if(error){
