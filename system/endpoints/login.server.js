@@ -58,6 +58,7 @@ endpoints.add('/login{.html}?', (request, response, session) => {
         `);
 
         // the integrated login page has been served
+
         return;
       }
 
@@ -178,7 +179,7 @@ endpoints.add('/login{.html}?', (request, response, session) => {
 
       // forward the user to the private homepage, which is only accessable for logged in users
       response.statusCode = 302;
-      response.setHeader('Location', '/private/');
+      response.setHeader('Location', 'private/home.html');
       response.end();
     });
   });

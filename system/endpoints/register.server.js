@@ -27,7 +27,7 @@ let config = { enabled: true };
 //
 // GET,HEAD,POST /register{.html}?
 // Add an endpoint to allow new users to register to this server (if enabled in the config file).
-endpoints.add('/register{.html}?', (request, response, session) => {
+endpoints.add('/register/register{.html}?', (request, response, session) => {
   // only allow the user to request this resource with a GET, HEAD or POST request
   if (!['GET', 'HEAD', 'POST'].includes(request.method)) {
     response.statusCode = 405;
@@ -46,7 +46,7 @@ endpoints.add('/register{.html}?', (request, response, session) => {
   // the server or a custom one provided in the location `public/register.html`
   if (['GET', 'HEAD'].includes(request.method)) {
     // first try to read the custom register page provided within the public directory
-    fs.access('public/register.html', (error) => {
+    fs.access('public/register/register.html', (error) => {
       // if an error occured then we could not exist the custom register page thus we response with
       // the default integrated register page instead
       if (error) {
@@ -82,7 +82,7 @@ endpoints.add('/register{.html}?', (request, response, session) => {
       }
 
       // at this point the existence of the custom register page is confirmed thus serve that file
-      serve(response, 'public/register.html');
+      serve(response, 'public/register/register.html');
     });
 
     // the register page has been served

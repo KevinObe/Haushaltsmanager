@@ -100,7 +100,7 @@ endpoints.add('/api/v1/shoppingLists/:id', (request, response, session, match) =
         }
 
         response.statusCode = 204;
-        response.end('Fehler');
+        response.end();
       });
       return;
     }
@@ -120,9 +120,9 @@ endpoints.add('/api/v1/shoppingLists/:id', (request, response, session, match) =
           typeof shoppingList.id !== 'string' || !shoppingList.id.match(/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/)
         ) throw 'invalid id';
 
-        if(shoppingList.text === undefined) throw 'missing text key';
+        if(shoppingList.entries === undefined) throw 'missing text key';
         //if (typeof shoppingList.text !== 'array') throw 'invalid text key';
-        if (shoppingList.text.length > 512) throw 'text key is too long';
+        if (shoppingList.entries.length > 512) throw 'text key is too long';
 
         if (Object.keys(shoppingList).length !== 3) throw 'too many keys';
       }
