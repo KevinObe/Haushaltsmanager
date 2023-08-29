@@ -15,6 +15,8 @@ const $menuToggler = document.querySelector('.menuToggler');
 const $mobileMenu = document.querySelector('#mobile-menu');
 const $closeButton = document.querySelector('#closeButton');
 
+const logoutBtn = document.querySelector('#logoutBtn');
+
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -26,7 +28,11 @@ const $closeButton = document.querySelector('#closeButton');
 /** FUNCTIONS                                                                                    **/
 /** Put the main logic of the application in functions and declare them in this section.         **/
 /**************************************************************************************************/
-
+function logoutUser() {
+  const request = new XMLHttpRequest();
+  request.open('GET', '/logout.html');
+  request.send();
+}
 
 
 /**************************************************************************************************/
@@ -40,6 +46,8 @@ $menuToggler.addEventListener('click', () => {
 $closeButton.addEventListener('click', () => {
   $mobileMenu.className = 'inactive';
 });
+
+logoutBtn.addEventListener('click', logoutUser);
 
 /**************************************************************************************************/
 /** SETUP                                                                                        **/

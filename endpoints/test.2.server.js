@@ -58,7 +58,7 @@ endpoints.add('/api/v1/shoppinglist', (request, response, session) => {
         return;
       }
     }
-    console.log('mia hen do')
+    console.log('Einkaufslisten')
     response.end();
   });
 });

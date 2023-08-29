@@ -81,6 +81,14 @@ body {
   display: inline-block;
 }
 
+#mobile-menu li{
+  text-decoration:none;
+  color: var(--optional-color);
+  font-size: 2rem;
+  padding:12px 12px;
+  display: inline-block;
+}
+
 #mobile-menu div{
   text-decoration:none;
   color: rgb(255, 0, 0);
