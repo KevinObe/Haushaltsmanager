@@ -193,9 +193,9 @@ endpoints.add('/logout{.html}?', (request, response, session) => {
   // remove the profile from the session indicating that the session owner is no longer logged in
   delete session.profile;
   session.save();
-
+  console.log('abgemeldet')
   // forward the user back to the public homepage
   response.statusCode = 302;
-  response.setHeader('Location', '/');
+  response.setHeader('Location', 'logout/logout.html');
   response.end();
 });
