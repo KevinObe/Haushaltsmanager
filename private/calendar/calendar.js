@@ -20,7 +20,6 @@ const $days = document.querySelector('.days');
 const $previousIcon = document.querySelector('.previous');
 const $nextIcon = document.querySelector('.next');
 
-
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -56,6 +55,32 @@ function upddateCalendarData() {
 
   $currentDate.textContent = `${months[currentMonth]} ${currentYear}`;
   $days.innerHTML = day;
+
+  const $li = document.querySelectorAll('.days li');
+
+  $li.forEach(li => {
+    li.addEventListener('click', function () {
+      let clickedDay = {};
+
+      clickedDay = {
+        id: crypto.randomUUID(),
+        date:`${li.textContent} ${$currentDate.textContent}`,
+        eventTitle: '',
+        eventTime: '',
+      }
+        console.log(clickedDay)
+
+    const request = new XMLHttpRequest();
+    request.open('POST', `/api/v1/calendarEvents/${clickedDay.id}`);
+    request.send(JSON.stringify(clickedDay));
+
+    request.addEventListener('load', () => {
+      console.log(request.response);
+      window.location.href = 'events.html';
+    })
+    });
+  });
+
 };
 
 /**************************************************************************************************/
