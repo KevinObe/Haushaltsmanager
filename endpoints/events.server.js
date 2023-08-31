@@ -15,9 +15,6 @@ endpoints.add('/private/{index.html}?', (request, response) => {
   response.end();
 });
 
-let clickedDay = module.exports;
-console.log(clickedDay);
-
 endpoints.add('/api/v1/calendarEvents', (request, response, session) => {
   if(!['GET', 'HEAD'].includes(request.method)){
     response.statusCode = 405;
@@ -31,5 +28,12 @@ endpoints.add('/api/v1/calendarEvents', (request, response, session) => {
     return;
   }
 
+  let clickedDay = serverFile;
+  console.log(clickedDay, 'events.server.js');
+
+  let data = JSON.stringify(clickedDay);
+
+
+response.end(data);
 
 }); //endpoint GET
