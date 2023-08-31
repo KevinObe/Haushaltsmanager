@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../common.css">
+  <link rel="stylesheet" href="../../common.css">
   <link rel="stylesheet" href="event_style.css">
-  <script src="../mobileMenu.js" defer></script>
+  <script src="events.js" defer></script>
+  <script src="../../mobileMenu.js" defer></script>
   <title>Kalender - Events</title>
 </head>
 <body>
@@ -23,26 +24,21 @@
       <li class="menu-item"><a href="../Notizen/index.html">Notizen</a></li>
       <li class="menu-item"><a href="#">Einstellungen</a></li>
       <li class="menu-item"><a href="#">Profil</a></li>
-      <li class="menu-item"><a href="../Anmeldung/index.html">Logout</a></li>
+      <li id="logoutBtn" class="menu-item">Logout</li>
       <li class="menu-item"><div id="closeButton">X</div></li>
     </ul>
   </header>
 
   <section>
     <div class="newEvent">
-      <input class="eventTitle" type="text" placeholder="Name">
-      <input class="eventTime" type="text" placeholder="Zeit">
+      <input class="inputTitle" type="text" placeholder="Name des Ereignisses">
+      <input class="inputTime" type="text" placeholder="Uhrzeit">
       <button class="addButton"> + </button>
     </div>
   </section>
 
   <main>
-    <div class="eventList">
-      <h2 class="eventTitle">Neues Ereignis</h2>
-      <div class="eventDate">08.08.2023</div>
-      <div class="eventTime">22:00 Uhr</div>
-      <button class="deleteButton">Löschen</button>
-    </div>
+
   </main>
 
   <footer>

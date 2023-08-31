@@ -227,7 +227,7 @@ endpoints.add('/registered{.html}?', (request, response, session) => {
   // this endpoint is effectively overruling the default static file delivery in case the user has
   // provided a custom registered.html page, so in order to deliver our default one or the user
   // provided one we have to check if the latter is available
-  fs.access('public/registered.html', (error) => {
+  fs.access('public/register/registered.html', (error) => {
     // if no custom index.html file is available, then use our internal one, which contains a simple
     // explanation of the server
     if (error) {
@@ -252,6 +252,6 @@ endpoints.add('/registered{.html}?', (request, response, session) => {
     }
 
     // at this point we know that the user has created a custom index.html page, thus we serve that
-    serve(response, 'public/registered.html');
+    serve(response, 'public/register/registered.html');
   });
 });

@@ -11,8 +11,7 @@
 /** ELEMENTS                                                                                     **/
 /** Get access to all relevant elements of the DOM in this section.                              **/
 /**************************************************************************************************/
-const $li = document.querySelectorAll('.days li');
-const calendarEvents = [];
+const $loginBtn = document.querySelector('#loginBtn');
 
 
 /**************************************************************************************************/
@@ -26,17 +25,15 @@ const calendarEvents = [];
 /** FUNCTIONS                                                                                    **/
 /** Put the main logic of the application in functions and declare them in this section.         **/
 /**************************************************************************************************/
-function addNewEvent(){
-  console.log('new Event.')
-};
+
 
 
 /**************************************************************************************************/
 /** EVENTS                                                                                       **/
 /** Combine the Elements from above with the declared Functions in this section.                 **/
 /**************************************************************************************************/
-$li.forEach(li => {
-  li.addEventListener('click', addNewEvent);
+$loginBtn.addEventListener('click', () => {
+  window.location.href = '../login.html';
 });
 
 

@@ -20,7 +20,6 @@ const $days = document.querySelector('.days');
 const $previousIcon = document.querySelector('.previous');
 const $nextIcon = document.querySelector('.next');
 
-
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -56,6 +55,69 @@ function upddateCalendarData() {
 
   $currentDate.textContent = `${months[currentMonth]} ${currentYear}`;
   $days.innerHTML = day;
+
+  const $li = document.querySelectorAll('.days li');
+
+  $li.forEach(li => {
+    if(li.className !== 'inactive'){
+      li.addEventListener('click', function () {
+        let clickedDay = {};
+
+        clickedDay = {
+          id: crypto.randomUUID(),
+          date:`${li.textContent} ${$currentDate.textContent}`,
+          eventTitle: '',
+          eventTime: '',
+        }
+          console.log(clickedDay)
+
+      const request = new XMLHttpRequest();
+      request.open('POST', `/api/v1/calendarEvents/${clickedDay.id}`);
+      request.send(JSON.stringify(clickedDay));
+
+      request.addEventListener('load', () => {
+        console.log(request.response);
+        window.location.href = 'events.html';
+      })
+      });
+    };
+  });
+
+  const request = new XMLHttpRequest();
+  request.open('GET', '/api/v1/savedEvents');
+  request.send();
+
+  request.addEventListener('load', function () {
+
+    let calendarEvents = JSON.parse(request.response);
+    let calendarDays = [];
+    let eventDays = [];
+    let calendarDay;
+
+    $li.forEach(day => {
+      calendarDay = `${day.textContent} ${$currentDate.textContent}`;
+      calendarDays.push(calendarDay);
+    })
+
+    for(const event of calendarEvents){
+      for(let i = 0; i < calendarDays.length; i++){
+        if(event.eventDate === calendarDays[i]){
+          eventDays.push(calendarDays[i])
+        }
+      }
+    }
+
+    for(let i = 0; i < eventDays.length; i++){
+      $li.forEach(li => {
+        if(`${li.innerText} ${$currentDate.textContent}` === eventDays[i]){
+        console.log(`${li.innerText} ${$currentDate.textContent}`);
+          if(li.className !== 'inactive' && li.className !== 'active'){
+            li.className = 'event';
+          }
+        }
+      })
+    }
+  })
 };
 
 /**************************************************************************************************/

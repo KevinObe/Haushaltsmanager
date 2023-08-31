@@ -11,11 +11,8 @@
 /** ELEMENTS                                                                                     **/
 /** Get access to all relevant elements of the DOM in this section.                              **/
 /**************************************************************************************************/
-const $menuToggler = document.querySelector('.menuToggler');
-const $mobileMenu = document.querySelector('#mobile-menu');
-const $closeButton = document.querySelector('#closeButton');
-
-const logoutBtn = document.querySelector('#logoutBtn');
+const $loginBtn = document.querySelector('#loginBtn');
+const $registerBtn = document.querySelector('#registerBtn');
 
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
@@ -28,26 +25,21 @@ const logoutBtn = document.querySelector('#logoutBtn');
 /** FUNCTIONS                                                                                    **/
 /** Put the main logic of the application in functions and declare them in this section.         **/
 /**************************************************************************************************/
-function logoutUser() {
-  const request = new XMLHttpRequest();
-  request.open('GET', '/logout.html');
-  request.send();
-}
+
 
 
 /**************************************************************************************************/
 /** EVENTS                                                                                       **/
 /** Combine the Elements from above with the declared Functions in this section.                 **/
 /**************************************************************************************************/
-$menuToggler.addEventListener('click', () => {
-  $mobileMenu.className = 'inactive' ? 'active' : 'inactive';
+$loginBtn.addEventListener('click', () => {
+  window.location.href = 'login.html';
 });
 
-$closeButton.addEventListener('click', () => {
-  $mobileMenu.className = 'inactive';
+$registerBtn.addEventListener('click', () => {
+  window.location.href = '/register/register.html';
 });
 
-logoutBtn.addEventListener('click', logoutUser);
 
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
