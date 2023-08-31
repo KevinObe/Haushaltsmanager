@@ -17,6 +17,7 @@ const $addButton = document.querySelector('.addButton');
 
 let calendarEvent = {};
 let calendarEvents = [];
+let clickedDay = {};
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -28,19 +29,79 @@ let calendarEvents = [];
 /** FUNCTIONS                                                                                    **/
 /** Put the main logic of the application in functions and declare them in this section.         **/
 /**************************************************************************************************/
+function loadClickedDate() {
+  const request = new XMLHttpRequest();
+  request.open('GET', '/api/v1/calendarEvents');
+  request.send();
+
+  request.addEventListener('load', function () {
+    clickedDay = JSON.parse(request.response)
+    console.log(clickedDay);
+  });
+;}
+
+function loadEvents(){
+
+  const request = new XMLHttpRequest();
+  request.open('GET', '/api/v1/savedEvents');
+  request.send();
+
+  request.addEventListener('load', function () {
+    let savedEvents = JSON.parse(request.response);
+    for(let i = 0; i < savedEvents.length; i++){
+      if(clickedDay.date === savedEvents[i].eventDate){
+        calendarEvents.push(savedEvents[i]);
+        calendarEvent = savedEvents[i];
+        calendarEvent.save = saveEvent;
+        calendarEvent.delete = deleteEvent;
+        console.log(calendarEvent)
+        createNewEvent(calendarEvent);
+      };
+    };
+  });
+};
+
+function saveEvent(){
+  const request = new XMLHttpRequest();
+  request.open('POST', `/api/v1/calendarEvents/${calendarEvent.id}`);
+  request.send(JSON.stringify(calendarEvent));
+
+  console.log(request.response)
+}
+
+function deleteEvent(calendarEvent){
+  const request = new XMLHttpRequest();
+  console.log(calendarEvent)
+  request.open('DELETE', `/api/v1/calendarEvents/${calendarEvent.id}`);
+  request.send();
+
+  request.addEventListener('load', () => {
+    console.log(request.status, request.response);
+  })
+}
+
 function addNewEvent() {
 
   let eventTitle = $inputTitle.value;
   let eventTime = $inputTime.value;
 
   calendarEvent = {
+    id: clickedDay.id,
     eventTitle: eventTitle,
-    eventDate: '',
+    eventDate: clickedDay.date,
     eventTime: eventTime,
-
+    save: saveEvent,
+    delete: deleteEvent,
   };
 
+  for(let i = 0; i < calendarEvents.length; i++){
+    if(calendarEvent.id === calendarEvents[i].id){
+      calendarEvent.id = crypto.randomUUID();
+    }
+  }
+
   calendarEvents.push(calendarEvent);
+  calendarEvent.save();
   $inputTitle.value = '';
   $inputTime.value = '';
   console.log(calendarEvents)
@@ -73,8 +134,13 @@ function createNewEvent(calendarEvent) {
 
   $deleteButton.addEventListener('click', function () {
     console.log('Löschen');
-  });
+    let index = calendarEvents.indexOf(calendarEvent);
+    calendarEvents.splice(index, 1);
 
+    calendarEvent.delete(calendarEvent);
+
+    $eventList.remove();
+  });
 
 };
 
@@ -89,3 +155,5 @@ $addButton.addEventListener('click', addNewEvent);
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/
 /**************************************************************************************************/
+loadClickedDate();
+loadEvents();
