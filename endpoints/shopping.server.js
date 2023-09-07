@@ -34,7 +34,7 @@ endpoints.add('/api/v1/shoppingLists', (request, response, session) => {
       response.end(JSON.stringify([
         {
           id:'fcd04f12-0786-4c34-baca-8f60e5d3a4c6',
-          title: 'Meine Einkaufsliste',
+          title: 'Beispiel Einkaufsliste',
         }
       ]));
 
