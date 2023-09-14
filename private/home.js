@@ -14,8 +14,9 @@
 const $notes = document.querySelector('.notes');
 const $shopping = document.querySelector('.shopping');
 const $calendar = document.querySelector('.calendar');
-
-
+const $settings = document.querySelector('.groupSettings');
+const $groupShopping = document.querySelector('.groupShopping');
+const $groupNotes = document.querySelector('.groupNotes');
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -57,6 +58,23 @@ function openCalendar(){
   })
 }
 
+function openGroupSettings(){
+  const request = new XMLHttpRequest();
+  request.open('GET', '/private/groups/groups.html');
+  request.send();
+
+  request.addEventListener('load', () => {
+    window.location.href = '/private/groups/groups.html';
+  })
+}
+
+function openGroupShopping() {
+  window.location.href = '/private/groupShopping/groupShopping.html';
+}
+
+function openGroupNotes() {
+
+}
 
 
 /**************************************************************************************************/
@@ -66,8 +84,9 @@ function openCalendar(){
 $notes.addEventListener('click', openNotes);
 $shopping.addEventListener('click', openShopping);
 $calendar.addEventListener('click', openCalendar);
-
-
+$settings.addEventListener('click', openGroupSettings);
+$groupShopping.addEventListener('click', openGroupShopping);
+$groupNotes.addEventListener('click', openGroupNotes);
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/
