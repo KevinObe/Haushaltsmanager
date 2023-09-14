@@ -18,6 +18,13 @@ endpoints.add('/api/v1/joinGroup', (request, response, session) => {
     return;
   }
 
+  if(session.profile.groups.length === 1){
+    console.log(`${session.profile.username} ist bereits in einer Gruppe`);
+    response.statusCode = 409;
+    response.end('409 Conflict');
+    return;
+  }
+
   let group;
   let savedGroup;
   let body = '';
@@ -26,7 +33,7 @@ endpoints.add('/api/v1/joinGroup', (request, response, session) => {
     try{
     group = JSON.parse(body);
     } catch (error) {
-      console.log('Fehler beim beitreten zu der Gruppe im Profil');
+      console.log('Fehler beim beitreten');
       response.statusCode = 500;
       response.end('500 internal server error.');
       return;
@@ -34,7 +41,7 @@ endpoints.add('/api/v1/joinGroup', (request, response, session) => {
 
     groupname = group.groupname.trim().toLowerCase();
 
-    let file = `groups/${groupname}.json`;
+    let file = `config/groups/${groupname}/${groupname}.json`;
 
     fs.readFile(file, (error, data) => {
       if(error){
@@ -61,7 +68,6 @@ endpoints.add('/api/v1/joinGroup', (request, response, session) => {
         .digest('hex');
 
       if(savedGroup.groupname === groupname && savedGroup.password === password){
-
         let member = {
           id: session.profile.id,
           username: session.profile.username,
@@ -73,16 +79,16 @@ endpoints.add('/api/v1/joinGroup', (request, response, session) => {
         }
 
         for(let i = 0; i < savedGroup.members.length; i++){
-          if(savedGroup.members[i] === member){
+          if(savedGroup.members[i].id === member.id && savedGroup.members[i].username === member.username){
             console.log(`${member.username} ist bereits in der Gruppe ${savedGroup.groupname}`);
             response.statusCode = 409;
-            response.end('409, Conflict');
+            response.end('409, user is allready a member of the group.');
             return;
-          } else {
-            savedGroup.members.push(member);
-            session.profile.groups.push(joinedGroup);
           }
         }
+
+        savedGroup.members.push(member);
+        session.profile.groups.push(joinedGroup);
 
         fs.writeFile(file, JSON.stringify(savedGroup, null, 2), (error) => {
           if(error){
@@ -109,11 +115,12 @@ endpoints.add('/api/v1/joinGroup', (request, response, session) => {
         response.end();
         return;
         });
+      } else {
+        console.log('Falsche Zugangsdaten.');
+        response.statusCode = 409;
+        response.end('409, Wrong groupname or password');
+        return;
       };
-      console.log('Falsche Zugangsdaten.');
-      response.statusCode = 409;
-      response.end('409, Wrong groupname or password');
-      return;
     }); //readFile
   });
 })//endpoint

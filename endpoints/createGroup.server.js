@@ -3,11 +3,12 @@
 const crypto = require('node:crypto');
 const fs = require('node:fs');
 
-let directory = `groups`;
-let file = `groups/groups.json`;
+let directory = `config/groups`;
+let file = `config/groups/groups.json`;
 let group = {};
 
 fs.mkdirSync(directory, { recursive: true });
+
 
 endpoints.add('/api/v1/createGroup', (request, response, session) => {
   if (!['POST'].includes(request.method)) {
@@ -19,6 +20,13 @@ endpoints.add('/api/v1/createGroup', (request, response, session) => {
   if(!session.profile){
     response.statusCode = 403;
     response.end();
+    return;
+  }
+
+  if(session.profile.groups.length === 1){
+    console.log(`${session.profile.username} ist bereits in einer Gruppe`);
+    response.statusCode = 409;
+    response.end('409 Conflict');
     return;
   }
 
@@ -46,7 +54,7 @@ endpoints.add('/api/v1/createGroup', (request, response, session) => {
 
     groupname = groupname.trim().toLowerCase();
 
-    file = `groups/${groupname}.json`;
+    file = `config/groups/${groupname}/${groupname}.json`;
 
     fs.access(file, (error) => {
       if (!error) {
@@ -82,6 +90,16 @@ endpoints.add('/api/v1/createGroup', (request, response, session) => {
         session.profile.groups.push(joinedGroup);
 
         let newProfile = `users/${session.profile.username}/profile.json`;
+        let newDir = `config/groups/${groupname}`;
+
+        fs.mkdir(newDir, (error) => {
+          if(error){
+            response.statusCode = 500;
+            response.end('500');
+            return;
+          }
+        })
+
         fs.writeFile(newProfile, JSON.stringify(session.profile, null, 2), (error) => {
           if(error){
             console.log('Fehler beim beitreten zu der Gruppe im Profil');
