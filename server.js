@@ -47,7 +47,7 @@ endpoints.scan(['endpoints', 'system/endpoints']);
 // create the actual webserver itself, which handles two kinds of targets: dynamic endpoints, which
 // are provided in the custom and system endpoints and static file delivery as fallback, if no end-
 // points is registered to handle a given pathname
-const server = http.createServer((request, response) => {
+const server = http.createServer(async (request, response) => {
   // create an url instance for the given requests url in order to comfortably extract the pathname
   const url = new URL(request.url, 'http://127.0.0.1');
 
@@ -65,7 +65,15 @@ const server = http.createServer((request, response) => {
     const match = endpoint.exec(url.href);
     if (match) {
       // execute the endpoints serve method and pass along any vital data related to the request
-      endpoint.serve(request, response, session, match);
+      const statusCode = await endpoint.serve(request, response, session, match);
+
+      // an endpoint might directly return number which we will apply as the status code of the re-
+      // sponse, but only if `response.end()` has not be called yet. within the condition we end the
+      // response with a string like `400 Bad Request`.
+      if (typeof statusCode === 'number' && !response.writableEnded) {
+        response.statusCode = statusCode;
+        response.end(`${statusCode} ${http.STATUS_CODES[statusCode]}`);
+      }
 
       // the dynamic endpoint is now considered as handled by the endpoint module and thus we can
       // stop any further processing within the servers callback function
