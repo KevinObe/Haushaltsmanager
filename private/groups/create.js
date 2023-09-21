@@ -33,18 +33,21 @@ const $password = document.querySelector('.password');
 /** EVENTS                                                                                       **/
 /** Combine the Elements from above with the declared Functions in this section.                 **/
 /**************************************************************************************************/
-$submitBtn.addEventListener('click', function () {
-
+$submitBtn.addEventListener('click', async () => {
   const group = {
     groupname: $groupname.value,
     password: $password.value,
   }
 
-  const request = new XMLHttpRequest();
-  request.open('POST', '/api/v1/createGroup');
-  request.send(JSON.stringify(group));
-
-})
+  const response = await fetch('/api/v1/createGroup', {
+    method: 'POST',
+    body: JSON.stringify(group),
+  });
+  console.log(`${response.status} ${response.statusText}`);
+  if(response.status === 204){
+    window.location.href = 'joined.html';
+  };
+})();
 
 
 /**************************************************************************************************/

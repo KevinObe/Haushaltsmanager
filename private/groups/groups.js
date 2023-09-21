@@ -13,8 +13,9 @@
 /**************************************************************************************************/
 const $joinBtn = document.querySelector('#loginBtn');
 const $createBtn = document.querySelector('#registerBtn');
+const $leaveBtn = document.querySelector('#leaveBtn');
 
-let joinedGroup = {};
+let joinedGroup;
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -37,19 +38,42 @@ function checkGroup() {
   });
 };
 
+function leaveGroup() {
+  if(joinedGroup !== undefined){
+    const request = new XMLHttpRequest();
+    request.open('DELETE', '/api/v1/leaveGroup');
+    request.send(JSON.stringify(joinedGroup));
+
+    request.addEventListener('load', () => {
+      window.location.href = '/private/groups/groups.html';
+    });
+  } else {
+    alert('Noch keiner Gruppe beigetreten.');
+  };
+};
+
 
 /**************************************************************************************************/
 /** EVENTS                                                                                       **/
 /** Combine the Elements from above with the declared Functions in this section.                 **/
 /**************************************************************************************************/
 $joinBtn.addEventListener('click', function () {
-  window.location.href = 'join.html';
+  if(joinedGroup){
+    alert(`Bereits Mitglied in der Gruppe ${joinedGroup.groupname}`)
+  } else {
+    window.location.href = 'join.html';
+  };
 });
 
 $createBtn.addEventListener('click', function () {
-  window.location.href = 'create.html';
+  if(joinedGroup){
+    alert(`Bereits Mitglied in der Gruppe ${joinedGroup.groupname}`)
+  } else {
+    window.location.href = 'create.html';
+  };
 });
 
+$leaveBtn.addEventListener('click', leaveGroup);
 
 /**************************************************************************************************/
 /** SETUP                                                                                        **/

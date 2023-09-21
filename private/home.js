@@ -29,64 +29,56 @@ const $groupNotes = document.querySelector('.groupNotes');
 /** Put the main logic of the application in functions and declare them in this section.         **/
 /**************************************************************************************************/
 function openNotes(){
-  const request = new XMLHttpRequest();
-  request.open('GET', '/private/notes/notes.html');
-  request.send();
-
-  request.addEventListener('load', () => {
-    window.location.href = '/private/notes/notes.html';
-  })
-}
+  window.location.href = '/private/notes/notes.html';
+};
 
 function openShopping(){
-  const request = new XMLHttpRequest();
-  request.open('GET', '/private/shopping/shopping.html');
-  request.send();
-
-  request.addEventListener('load', () => {
-    window.location.href = '/private/shopping/shopping.html';
-  })
-}
+  window.location.href = '/private/shopping/shopping.html';
+};
 
 function openCalendar(){
-  const request = new XMLHttpRequest();
-  request.open('GET', '/private/calendar/calendar.html');
-  request.send();
-
-  request.addEventListener('load', () => {
-    window.location.href = '/private/calendar/calendar.html';
-  })
-}
+  window.location.href = '/private/calendar/calendar.html';
+};
 
 function openGroupSettings(){
-  const request = new XMLHttpRequest();
-  request.open('GET', '/private/groups/groups.html');
-  request.send();
-
-  request.addEventListener('load', () => {
-    window.location.href = '/private/groups/groups.html';
-  })
-}
-
-function openGroupShopping() {
-  window.location.href = '/private/groupShopping/groupShopping.html';
-}
-
-function openGroupNotes() {
-
-}
-
+  window.location.href = '/private/groups/groups.html';
+};
 
 /**************************************************************************************************/
 /** EVENTS                                                                                       **/
 /** Combine the Elements from above with the declared Functions in this section.                 **/
 /**************************************************************************************************/
 $notes.addEventListener('click', openNotes);
-$shopping.addEventListener('click', openShopping);
-$calendar.addEventListener('click', openCalendar);
 $settings.addEventListener('click', openGroupSettings);
-$groupShopping.addEventListener('click', openGroupShopping);
-$groupNotes.addEventListener('click', openGroupNotes);
+$calendar.addEventListener('click', openCalendar);
+$shopping.addEventListener('click', openShopping);
+
+$groupShopping.addEventListener('click', async () => {
+  try{
+    const response = await fetch('/api/v1/checkGroup');
+    const joinedGroup = await response.json();
+    console.log(joinedGroup, response.status)
+    if(response.status === 200){
+      window.location.href = 'groupShopping/groupShopping.html';
+    };
+  } catch(error){
+      window.location.href = 'groups/groups.html';
+  };
+});
+
+
+$groupNotes.addEventListener('click', async () => {
+  try{
+    const response = await fetch('/api/v1/checkGroup');
+    const joinedGroup = await response.json();
+    console.log(joinedGroup, response.status);
+    if(response.status === 200){
+      window.location.href = 'groupNotes/groupNotes.html';
+    };
+  } catch (error){
+      window.location.href = 'groups/groups.html';
+  };
+});
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/
