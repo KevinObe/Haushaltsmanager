@@ -3,7 +3,7 @@
 body{
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: 20% 1fr 15%;
+  grid-template-rows: 20% 1fr 20%;
 
   height: 100%;
   width: 100%;
@@ -49,7 +49,7 @@ header{
 main{
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: repeat(3, 1fr);
   height: 100%;
   gap: 10%;
 
@@ -58,22 +58,16 @@ main{
     grid-row: 1;
   }
 
-  & .leaveGroup{
-    grid-column: 1;
-    grid-row: 4;
-  }
-
-  & .loginArea{
+  & .contentArea{
     grid-column: 1;
     grid-row: 2;
   }
 
-  & .registerArea{
+  & .home{
     grid-column: 1;
     grid-row: 3;
   }
 }
-
 /* mobile footer */
 
 footer{
@@ -130,5 +124,5 @@ a{
 }
 
 p{
-  font-size: 1.8rem;
+  font-size: 2rem;
 }
