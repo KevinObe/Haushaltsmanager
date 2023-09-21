@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../common.css">
+  <link rel="stylesheet" href="groupNotes.css">
+  <script src="../../mobileMenu.js" defer></script>
+  <script src="groupNotes.js" defer></script>
+  <title>Gruppe - Notizen</title>
+</head>
+<body>
+
+  <header>
+    <div class="menuToggler">
+      <span class="toggleBar"></span>
+      <span class="toggleBar"></span>
+      <span class="toggleBar"></span>
+    </div>
+
+    <ul id="mobile-menu" class="inactive">
+      <li class="menu-item"><a href="../home.html">Übersicht</a></li>
+      <li class="menu-item"><a href="../shopping/shopping.html">Einkaufen</a></li>
+      <li class="menu-item"><a href="../calendar/calendar.html">Kalender</a></li>
+      <li class="menu-item"><a href="#">Einstellungen</a></li>
+      <li class="menu-item"><a href="#">Profil</a></li>
+      <li id="logoutBtn" class="menu-item">Logout</li>
+      <li class="menu-item"><div id="closeButton">X</div></li>
+    </ul>
+
+    <h1>Gruppe - Notizen</h1>
+
+    <!--<button class="addButton"> + </button>-->
+  </header>
+
+  <section>
+    <div class="newNote">
+      <input class="entryValue" type="text" placeholder="Neue Notiz">
+      <button class="addButton"> + </button>
+    </div>
+  </section>
+
+  <main>
+    <ul class="notes"></ul>
+  </main>
+
+  <footer>
+
+  </footer>
+
+</body>
+</html>
