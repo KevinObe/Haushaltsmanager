@@ -32,6 +32,10 @@ function logoutUser() {
   const request = new XMLHttpRequest();
   request.open('GET', '/logout.html');
   request.send();
+
+  request.addEventListener('load', () => {
+    window.location.href = '../logout/logout.html';
+  })
 }
 
 
