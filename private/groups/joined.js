@@ -12,7 +12,7 @@
 /** Get access to all relevant elements of the DOM in this section.                              **/
 /**************************************************************************************************/
 const $homeBtn = document.querySelector('#homeBtn');
-
+const $groupInfo = document.querySelector('#groupInfo');
 
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
@@ -25,7 +25,17 @@ const $homeBtn = document.querySelector('#homeBtn');
 /** FUNCTIONS                                                                                    **/
 /** Put the main logic of the application in functions and declare them in this section.         **/
 /**************************************************************************************************/
-
+async function renderGroup() {
+  try{
+    const response = await fetch('/api/v1/checkGroup');
+    const joinedGroup = await response.json();
+    if(response.status === 200){
+      $groupInfo.textContent = `Du bist nun Mitglied der Gruppe ${joinedGroup.groupname}!`
+    }
+  }catch(error){
+    console.log(error);
+  };
+};
 
 
 /**************************************************************************************************/
@@ -41,3 +51,4 @@ $homeBtn.addEventListener('click', () => {
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/
 /**************************************************************************************************/
+renderGroup();

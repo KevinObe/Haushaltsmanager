@@ -196,6 +196,6 @@ endpoints.add('/logout{.html}?', (request, response, session) => {
   console.log('abgemeldet')
   // forward the user back to the public homepage
   response.statusCode = 302;
-  response.setHeader('Location', 'logout/logout.html');
+  response.setHeader('Location', 'public/logout/logout.html');
   response.end();
 });

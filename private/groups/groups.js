@@ -14,6 +14,7 @@
 const $joinBtn = document.querySelector('#loginBtn');
 const $createBtn = document.querySelector('#registerBtn');
 const $leaveBtn = document.querySelector('#leaveBtn');
+const groupInfo = document.querySelector('#groupInfo');
 
 let joinedGroup;
 /**************************************************************************************************/
@@ -27,15 +28,17 @@ let joinedGroup;
 /** FUNCTIONS                                                                                    **/
 /** Put the main logic of the application in functions and declare them in this section.         **/
 /**************************************************************************************************/
-function checkGroup() {
-  const request = new XMLHttpRequest();
-  request.open('GET', '/api/v1/checkGroup');
-  request.send();
-
-  request.addEventListener('load', () => {
-    joinedGroup = JSON.parse(request.response);
-    console.log(joinedGroup);
-  });
+async function checkGroup() {
+  try{
+    const response = await fetch('/api/v1/checkGroup');
+    joinedGroup = await response.json();
+    console.log(joinedGroup, response.status);
+    if(response.status === 200){
+      groupInfo.textContent = `Du bist Mitglied der Gruppe ${joinedGroup.groupname}. Du kannst in der Übersicht Inhalte teilen.`
+    };
+  } catch(error){
+    console.log(error);
+  };
 };
 
 function leaveGroup() {

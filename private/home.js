@@ -17,6 +17,8 @@ const $calendar = document.querySelector('.calendar');
 const $settings = document.querySelector('.groupSettings');
 const $groupShopping = document.querySelector('.groupShopping');
 const $groupNotes = document.querySelector('.groupNotes');
+
+let joinedGroup;
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -44,6 +46,19 @@ function openGroupSettings(){
   window.location.href = '/private/groups/groups.html';
 };
 
+async function renderGroup() {
+  try{
+    const response = await fetch('/api/v1/checkGroup');
+    joinedGroup = await response.json();
+    if(response.status === 200){
+      $groupShopping.textContent = `${joinedGroup.groupname} - Einkaufen`;
+      $groupNotes.textContent = `${joinedGroup.groupname} - Notizen`;
+    };
+  }catch(error){
+    console.log(error);
+  };
+};
+
 /**************************************************************************************************/
 /** EVENTS                                                                                       **/
 /** Combine the Elements from above with the declared Functions in this section.                 **/
@@ -57,7 +72,6 @@ $groupShopping.addEventListener('click', async () => {
   try{
     const response = await fetch('/api/v1/checkGroup');
     const joinedGroup = await response.json();
-    console.log(joinedGroup, response.status)
     if(response.status === 200){
       window.location.href = 'groupShopping/groupShopping.html';
     };
@@ -71,7 +85,6 @@ $groupNotes.addEventListener('click', async () => {
   try{
     const response = await fetch('/api/v1/checkGroup');
     const joinedGroup = await response.json();
-    console.log(joinedGroup, response.status);
     if(response.status === 200){
       window.location.href = 'groupNotes/groupNotes.html';
     };
@@ -83,3 +96,4 @@ $groupNotes.addEventListener('click', async () => {
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/
 /**************************************************************************************************/
+renderGroup();

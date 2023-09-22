@@ -53,12 +53,12 @@ main{
   height: 100%;
   gap: 10%;
 
-  & p{
+  & #groupInfo{
     grid-column: 1;
     grid-row: 1;
   }
 
-  & .contentArea{
+  & p{
     grid-column: 1;
     grid-row: 2;
   }
