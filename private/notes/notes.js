@@ -55,8 +55,8 @@ function loadNotes(){
 }
 
 
-function saveNote() {
-  const note = this;
+function saveNote(note) {
+ // const note = this;
 
   const request = new XMLHttpRequest();
 
@@ -97,12 +97,13 @@ function addNote() {
   const note = {
     id: crypto.randomUUID(),
     text: $noteValue,
+    done: false,
     save: saveNote,
     delete: deleteNote,
   };
 
   notes.push(note);
-  note.save();
+  note.save(note);
   $input.value = '';
   console.log(note)
   createNewNote(note);
@@ -112,14 +113,24 @@ function createNewNote(note){
   const $note = document.createElement('li');
   $note.className = 'note';
 
-  const $textarea = document.createElement('textarea');
+  const $checkbox = document.createElement('input');
+  $checkbox.className = 'checkbox';
+  $checkbox.type = 'checkbox';
+  $checkbox.checked = note.done;
+
+  $checkbox.addEventListener('input', function () {
+    note.done = $checkbox.checked;
+    saveNote(note);
+  });
+
+  const $textarea = document.createElement('input');
   $textarea.className = 'noteValue';
   $textarea.max = 512;
   $textarea.value = note.text;
 
   $textarea.addEventListener('input', function(){
     note.text = $textarea.value;
-    note.save();
+    note.save(note);
   });
 
   const $deleteButton = document.createElement('button');
@@ -135,7 +146,7 @@ function createNewNote(note){
   $note.remove(); //removes the created li element;
   });
 
-  $note.append($textarea, $deleteButton);
+  $note.append($checkbox, $textarea, $deleteButton);
 
   $notes.append($note);
 

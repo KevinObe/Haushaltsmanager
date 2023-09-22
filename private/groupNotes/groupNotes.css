@@ -92,17 +92,22 @@ main{
 
 .note{
   display: grid;
-  grid-template-columns: 1fr 15%;
+  grid-template-columns:10% 1fr 15%;
   grid-template-rows: 1fr;
   row-gap: 20%;
 
+  & .checkbox{
+    grid-column: 1;
+    grid-row: 1;
+  }
+
   & .noteValue{
-    grid-column: 1/2;
+    grid-column: 2;
     grid-row: 1;
   }
 
   & .deleteButton{
-    grid-column: 2;
+    grid-column: 3;
     grid-row: 1;
   }
 }
@@ -136,15 +141,64 @@ header .addButton{
 main{
   height: 100%;
 
+  & .checkbox{
+    width: 100%;
+    height: 100%;
+  }
+
   & .noteValue{
+    height: 150%;
     width: 100%;
     resize: none;
   }
 
   & .deleteButton{
     width: 100%;
+    height: 150%;
     background-color: var(--main-color);
     color: white;
+
+    &:has(:checked){
+      background-color: var(--main-color);
+      color: white;
+      text-decoration: none;
+      text-decoration-style: none;
+    }
+  }
+
+  & li {
+    padding: 1rem;
+    align-items: center;
+
+    &:has(:checked) {
+      text-decoration: line-through;
+      text-decoration-style: wavy;
+      color: blue;
+    }
+  }
+
+  & input[type="checkbox"] {
+    appearance: none;
+    margin-left: 0.2rem;
+    border: 0.2rem solid gray;
+    border-radius: 100vmax;
+    width: 2rem;
+    height: 2rem;
+
+    &:checked::before {
+      content: "";
+      position: absolute;
+      inset: 0.2rem;
+      border-radius: 100vmax;
+    }
+
+    &:active {
+      border-color: black;
+
+      &:checked::before {
+        background: black;
+      }
+    }
   }
 }
 section{

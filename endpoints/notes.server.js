@@ -2,18 +2,6 @@
 
 const fs = require('node:fs');
 
-endpoints.add('/{index.html}?', (request, response) => {
-  response.statusCode = 302;
-  response.setHeader('Location', '/login.html');
-  response.end();
-});
-
-endpoints.add('/private/{index.html}?', (request, response) => {
-  response.statusCode = 302;
-  response.setHeader('Location', '/private/notes.html');
-  response.end();
-});
-
 endpoints.add('/api/v1/notes', (request, response, session) => {
   if(!['GET', 'HEAD'].includes(request.method)) {
     response.statusCode = 405;
@@ -124,7 +112,7 @@ endpoints.add('/api/v1/notes/:id', (request, response, session, match) => {
         if (typeof note.text !== 'string') throw 'invalid text key';
         if (note.text.length > 512) throw 'text key is too long';
 
-        if (Object.keys(note).length !== 2) throw 'too many keys';
+        if (Object.keys(note).length !== 3) throw 'too many keys';
       }
       catch(error){
         console.log('Fehler beim parsen der Notizen', error);

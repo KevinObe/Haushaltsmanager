@@ -2,13 +2,6 @@
 
 const fs = require('node:fs/promises');
 
-endpoints.add('/private/{index.html}?', (request, response) => {
-  response.statusCode = 302;
-  response.setHeader('Location', '/private/notes.html');
-  response.end();
-});
-
-
 let notes = [];
 let savedGroups;
 
@@ -128,7 +121,6 @@ endpoints.add(`/api/v1/groupNotes/:id`, async (request, response, session) => {
       console.log(error);
       return 500;
     }
-    console.log(notes[0], 'hfsfjhsdjfhsfhsdfhsdjkf')
 
     if(index === -1){
       notes.push(note);
