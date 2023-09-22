@@ -39,7 +39,7 @@ endpoints.add('/api/v1/joinGroup', (request, response, session) => {
       return;
     }
 
-    groupname = group.groupname.trim().toLowerCase();
+    groupname = group.groupname.trim();
 
     let file = `config/groups/${groupname}/${groupname}.json`;
 

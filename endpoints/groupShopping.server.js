@@ -6,12 +6,6 @@ let file = '';
 let group = {};
 let joinedGroup = {};
 
-endpoints.add('/private/{index.html}?', (request, response) => {
-  response.statusCode = 302;
-  response.setHeader('Location', '/private/shopping.html');
-  response.end();
-});
-
 endpoints.add('/api/v1/groupShoppingLists', (request, response, session) => {
   if(!['GET', 'HEAD'].includes(request.method)){
     response.statusCode = 405;
@@ -91,9 +85,9 @@ endpoints.add(`/api/v1/groupShoppingLists/:id`, (request, response, session, mat
 
   if(joinedGroup.groupname === group.groupname &&  joinedGroup.id === group.id){
     console.log('passtiii', joinedGroup)
-  file = `config/groups/${joinedGroup.groupname}/shoppingLists.json`;
+    file = `config/groups/${joinedGroup.groupname}/shoppingLists.json`;
 
-  fs.readFile(file, 'utf8', (error, data) => {
+    fs.readFile(file, 'utf8', (error, data) => {
     let shoppingLists = [];
 
     if(!error){

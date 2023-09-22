@@ -2,12 +2,6 @@
 const serverLists = require('./test.2.server.js');
 const fs = require('node:fs');
 
-endpoints.add('/private/{index.html}?', (request, response) => {
-  response.statusCode = 302;
-  response.setHeader('Location', '/private/shopping.html');
-  response.end();
-});
-
 endpoints.add(`/api/v1/groupShoppinglist/:id`, (request, response, session, match) => {
   if(!['GET', 'HEAD'].includes(request.method)){
     response.statusCode = 405;

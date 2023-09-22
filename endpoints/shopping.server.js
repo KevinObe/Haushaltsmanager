@@ -2,18 +2,6 @@
 
 const fs = require('node:fs');
 
-endpoints.add('/{ìndex.html}?', (request, response) => {
-  response.statusCode = 302;
-  response.setHeader('Location', '/login.html');
-  response.end();
-});
-
-endpoints.add('/private/{index.html}?', (request, response) => {
-  response.statusCode = 302;
-  response.setHeader('Location', '/private/shopping.html');
-  response.end();
-});
-
 endpoints.add('/api/v1/shoppingLists', (request, response, session) => {
   if(!['GET', 'HEAD'].includes(request.method)){
     response.statusCode = 405;
@@ -40,7 +28,6 @@ endpoints.add('/api/v1/shoppingLists', (request, response, session) => {
 
       return;
     }
-
     response.end(data);
   });
 });

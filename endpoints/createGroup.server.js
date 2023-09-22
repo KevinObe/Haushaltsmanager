@@ -52,7 +52,7 @@ endpoints.add('/api/v1/createGroup', (request, response, session) => {
       return;
     }
 
-    groupname = groupname.trim().toLowerCase();
+    groupname = groupname.trim();
 
     file = `config/groups/${groupname}/${groupname}.json`;
 
