@@ -127,6 +127,7 @@ function createNewNote(note){
   $textarea.className = 'noteValue';
   $textarea.max = 512;
   $textarea.value = note.text;
+  $textarea.readOnly = true;
 
   $textarea.addEventListener('input', function(){
     note.text = $textarea.value;

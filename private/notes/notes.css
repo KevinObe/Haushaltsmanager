@@ -166,23 +166,30 @@ main{
     &:has(:checked) {
       text-decoration: line-through;
       text-decoration-style: wavy;
-      color: blue;
+      text-decoration-color: green;
+      color: darkolivegreen;
     }
   }
 
   & input[type="checkbox"] {
     appearance: none;
-    margin-left: 0.2rem;
-    border: 0.2rem solid gray;
-    border-radius: 100vmax;
     width: 2rem;
     height: 2rem;
 
-    &:checked::before {
-      content: "";
+    &::before {
+      content: "\2717";
       position: absolute;
-      inset: 0.2rem;
-      border-radius: 100vmax;
+      font-size: 2rem;
+      font-weight: bolder;
+      color: red;
+    }
+
+    &:checked::before{
+      content: "\2713";
+      font-size: 2rem;
+      position: absolute;
+      font-weight: bolder;
+      color: green;
     }
 
     &:active {

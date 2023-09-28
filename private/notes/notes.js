@@ -65,7 +65,7 @@ function saveNote(note) {
   request.send(JSON.stringify(note));
 
   request.addEventListener('load', () => {
-    if(request.status !== 204){
+    if(request.status !== 200){
       alert(`Fehler: ${request.status}`);
     }
   });
@@ -81,7 +81,7 @@ function deleteNote(){
   request.send();
 
   request.addEventListener('load', () => {
-    if(request.status !== 204){
+    if(request.status !== 200){
       alert(`Fehler: ${request.status}`);
     }
   });
@@ -127,6 +127,7 @@ function createNewNote(note){
   $textarea.className = 'noteValue';
   $textarea.max = 512;
   $textarea.value = note.text;
+  $textarea.readOnly = true;
 
   $textarea.addEventListener('input', function(){
     note.text = $textarea.value;
