@@ -17,6 +17,12 @@ const $leaveBtn = document.querySelector('#leaveBtn');
 const groupInfo = document.querySelector('#groupInfo');
 
 let joinedGroup;
+
+// Get references to the custom alert elements
+const customAlertButton = document.getElementById("customAlertButton");
+const customAlert = document.getElementById("customAlert");
+const closeBtn = document.querySelector(".close");
+const $alertText = document.querySelector('#alertText');
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -51,7 +57,8 @@ function leaveGroup() {
       window.location.href = '/private/groups/groups.html';
     });
   } else {
-    alert('Noch keiner Gruppe beigetreten.');
+    $alertText.textContent = `Du bist noch kein Mitglied in einer Gruppe!`;
+    customAlert.style.display = "block";
   };
 };
 
@@ -62,7 +69,8 @@ function leaveGroup() {
 /**************************************************************************************************/
 $joinBtn.addEventListener('click', function () {
   if(joinedGroup){
-    alert(`Bereits Mitglied in der Gruppe ${joinedGroup.groupname}`)
+    $alertText.textContent = `Du bist bereits Mitglied in der Gruppe ${joinedGroup.groupname}!`;
+    customAlert.style.display = "block";
   } else {
     window.location.href = 'join.html';
   };
@@ -70,7 +78,8 @@ $joinBtn.addEventListener('click', function () {
 
 $createBtn.addEventListener('click', function () {
   if(joinedGroup){
-    alert(`Bereits Mitglied in der Gruppe ${joinedGroup.groupname}`)
+    $alertText.textContent = `Du bist bereits Mitglied in der Gruppe ${joinedGroup.groupname}!`;
+    customAlert.style.display = "block";
   } else {
     window.location.href = 'create.html';
   };
@@ -78,6 +87,10 @@ $createBtn.addEventListener('click', function () {
 
 $leaveBtn.addEventListener('click', leaveGroup);
 
+// Close the custom alert when the close button is clicked
+closeBtn.addEventListener("click", () => {
+  customAlert.style.display = "none";
+});
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/
