@@ -1,9 +1,8 @@
 'use strict';
 
-const serverFile = require('./events.server.js');
 const fs = require('node:fs');
 
-endpoints.add('/api/v1/savedEvents', (request, response, session, match) => {
+endpoints.add('/api/v1/savedEvents', (request, response, session) => {
   if(!['GET', 'HEAD'].includes(request.method)){
     response.statusCode = 405;
     response.end();
@@ -132,15 +131,34 @@ endpoints.add('/api/v1/calendarEvents/:id', (request, response, session) => {
         response.end()
         return;
       }
+      console.log(session)
 
-      module.exports.id = clickedDay.id;
-      module.exports.date = clickedDay.date;
-      module.exports.eventTitle = clickedDay.eventTitle;
-      module.exports.eventTime = clickedDay.eventTime;
-
+      session.clickedDay = clickedDay;
       response.end();
       return;
 
     }); //request.on
   });//fs.readFile
 });//endpoint
+
+endpoints.add('/api/v1/calendarEvents', (request, response, session) => {
+  if(!['GET', 'HEAD'].includes(request.method)){
+    response.statusCode = 405;
+    response.end();
+    return;
+  }
+
+  if(!session.profile){
+    response.statusCode = 403;
+    response.end();
+    return;
+  }
+
+  let clickedDay = session.clickedDay;
+  console.log(clickedDay, 'events.server.js');
+
+  let data = JSON.stringify(clickedDay);
+
+response.end(data);
+
+}); //endpoint GET
