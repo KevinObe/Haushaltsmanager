@@ -116,6 +116,18 @@ endpoints.add(`/api/v1/groupNotes/:id`, async (request, response, session) => {
           reject(error);
         });
       });
+      if(typeof note !== 'object') throw 'notes are no object';
+
+      if(note.id === undefined) throw 'missing id';
+      if(
+        typeof note.id !== 'string' || !note.id.match(/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/)
+      ) throw 'ivalid id';
+
+      if (note.text === undefined) throw 'missing text key';
+      if (typeof note.text !== 'string') throw 'invalid text key';
+      if (note.text.length > 512) throw 'text key is too long';
+
+      if (Object.keys(note).length !== 3) throw 'too many keys';
 
     } catch (error) {
       console.log(error);
