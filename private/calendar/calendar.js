@@ -19,19 +19,20 @@ const $currentDate = document.querySelector('.currentDate');
 const $days = document.querySelector('.days');
 const $previousIcon = document.querySelector('.previous');
 const $nextIcon = document.querySelector('.next');
+const $contentSpace = document.querySelector('.contentSpace');
 
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
 /**************************************************************************************************/
-upddateCalendarData();
+updateCalendarData();
 
 
 /**************************************************************************************************/
 /** FUNCTIONS                                                                                    **/
 /** Put the main logic of the application in functions and declare them in this section.         **/
 /**************************************************************************************************/
-function upddateCalendarData() {
+function updateCalendarData() {
   let firstDay = new Date(currentYear, currentMonth, 1).getDay(); // getDay() returns the day of the week (0 - 6), parameter 1 is getting the first day of the current month's day of the week;
   let lastDateCurrMonth = new Date(currentYear, currentMonth + 1, 0).getDate(); // month + 1 is next month, parameter 0 means 1 day less, which is the last day in the current month => getDate method gives back the day;
   let lastDatePrevMonth = new Date(currentYear, currentMonth, 0).getDate(); //returns the last day of the previous month with the parameter 0;
@@ -97,7 +98,12 @@ function upddateCalendarData() {
     $li.forEach(day => {
       calendarDay = `${day.textContent} ${$currentDate.textContent}`;
       calendarDays.push(calendarDay);
-    })
+      if(day.className === 'active'){
+        $contentSpace.textContent = `Für Heute den ${day.textContent} ${$currentDate.textContent} stehen keine Ereignisse bevor.`;
+        $contentSpace.addEventListener('click', () => {
+          window.location.href = 'events.html'});
+      };
+    });
 
     for(const event of calendarEvents){
       for(let i = 0; i < calendarDays.length; i++){
@@ -111,15 +117,41 @@ function upddateCalendarData() {
       $li.forEach(li => {
         if(`${li.innerText} ${$currentDate.textContent}` === eventDays[i]){
         console.log(`${li.innerText} ${$currentDate.textContent}`);
-          if(li.className !== 'inactive' && li.className !== 'active'){
-            li.className = 'event';
+        if(li.className === 'active'){
+          for(const event of calendarEvents){
+            if(li.className === 'active' && event.eventDate === `${li.innerText} ${$currentDate.textContent}`){
+              $contentSpace.textContent = '';
+              { //event today for content space
+                const $eventList = document.createElement('div');
+                $eventList.className = 'eventList';
+
+                const $eventTitle = document.createElement('h2');
+                $eventTitle.textContent = event.eventTitle;
+                $eventTitle.className = 'eventTitle';
+
+                const $eventDate = document.createElement('div');
+                $eventDate.textContent = event.eventDate;
+                $eventDate.className = 'eventDate';
+
+                const $eventTime = document.createElement('div');
+                $eventTime.textContent = event.eventTime;
+                $eventTime.className = 'eventTime';
+
+                $contentSpace.append($eventList);
+                $eventList.append($eventTitle, $eventDate, $eventTime);
+              }
+
+            }
           }
+        }
+        if(li.className !== 'inactive' && li.className !== 'active'){
+          li.className = 'event';
+        }
         }
       })
     }
   })
 };
-
 /**************************************************************************************************/
 /** EVENTS                                                                                       **/
 /** Combine the Elements from above with the declared Functions in this section.                 **/
@@ -135,7 +167,7 @@ $previousIcon.addEventListener('click', () => {
     date = new Date(); //else go with the new date as it was at the beginning for the current year, no changes;
   };
 
-  upddateCalendarData();
+  updateCalendarData();
 });
 $nextIcon.addEventListener('click', () => {
   currentMonth = currentMonth + 1; // shows next Month and days in the HTML;
@@ -148,7 +180,7 @@ $nextIcon.addEventListener('click', () => {
     date = new Date(); //else go with the new date as it was at the beginning for the current year, no changes;
   };
 
-  upddateCalendarData();
+  updateCalendarData();
 });
 
 /**************************************************************************************************/

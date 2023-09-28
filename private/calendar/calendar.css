@@ -119,9 +119,55 @@ header h1{
 /* contentSpace */
 
 .contentSpace{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 5% 1fr 5%;
   height: 100%;
   width: 100%;
+  font-size: 2rem;
+
+  & .eventList{
+    grid-column: 1;
+    grid-row: 2;
+
+    min-height: 20vh;
+    border: 1px solid black;
+  }
 }
+
+  .eventList{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+
+    & .eventTitle{
+      grid-column: 1/4;
+      grid-row: 1;
+      font-size: 2rem;
+    }
+
+    & .eventDate{
+      grid-column: 1/3;
+      grid-row: 2;
+      font-size: 1.8rem;
+
+      background: none;
+      border: none;
+      color: var(--main-color);
+    }
+
+    & .eventTime{
+      grid-column: 3;
+      grid-row: 2;
+      font-size: 1.8rem;
+
+      background: none;
+      border: none;
+      color: var(--main-color);
+    }
+  }
 
 /* main */
 

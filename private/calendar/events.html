@@ -10,6 +10,14 @@
   <title>Kalender - Events</title>
 </head>
 <body>
+
+  <div id="customAlert" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p id="alertText"></p>
+    </div>
+  </div>
+
   <header>
     <h1>Ereignisse</h1>
     <div class="menuToggler">
@@ -33,7 +41,7 @@
   <section>
     <div class="newEvent">
       <input class="inputTitle" type="text" placeholder="Name des Ereignisses">
-      <input class="inputTime" type="text" placeholder="Uhrzeit">
+      <input class="inputTime" type="number" placeholder="Uhrzeit: HHMM">
       <button class="addButton"> + </button>
     </div>
   </section>
@@ -43,7 +51,7 @@
   </main>
 
   <footer>
-
+    <button class="navBtn">zurück zum Kalender</button>
   </footer>
 
 </body>

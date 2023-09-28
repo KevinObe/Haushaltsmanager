@@ -14,10 +14,17 @@
 const $inputTitle = document.querySelector('.inputTitle');
 const $inputTime = document.querySelector('.inputTime');
 const $addButton = document.querySelector('.addButton');
+const $navBtn = document.querySelector('.navBtn');
 
 let calendarEvent = {};
 let calendarEvents = [];
 let clickedDay = {};
+
+// Get references to the custom alert elements
+const customAlertButton = document.getElementById("customAlertButton");
+const customAlert = document.getElementById("customAlert");
+const closeBtn = document.querySelector(".close");
+const $alertText = document.querySelector('#alertText');
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -82,31 +89,46 @@ function deleteEvent(calendarEvent){
 
 function addNewEvent() {
 
-  let eventTitle = $inputTitle.value;
-  let eventTime = $inputTime.value;
+  try{
+    if($inputTitle.value.length > 50) throw 'Zu viele Zeichen!';
+    if($inputTime.value.length > 4) throw 'Falsche Uhrzeit Werte!';
+    if($inputTime.value === typeof('string')) throw 'Verwende ausschließlich Zahlen.';
 
-  calendarEvent = {
-    id: clickedDay.id,
-    eventTitle: eventTitle,
-    eventDate: clickedDay.date,
-    eventTime: eventTime,
-    save: saveEvent,
-    delete: deleteEvent,
-  };
-
-  for(let i = 0; i < calendarEvents.length; i++){
-    if(calendarEvent.id === calendarEvents[i].id){
-      calendarEvent.id = crypto.randomUUID();
+    let eventTitle = $inputTitle.value;
+    let time = $inputTime.value.trim();
+    let eventTime = '';
+    {
+      let hours = time.substr(0, 2);
+      let minutes = time.substr(2, 2);
+      eventTime = `${hours}:${minutes}`;
     }
-  }
+    calendarEvent = {
+      id: clickedDay.id,
+      eventTitle: eventTitle,
+      eventDate: clickedDay.date,
+      eventTime: eventTime,
+      save: saveEvent,
+      delete: deleteEvent,
+    };
 
-  calendarEvents.push(calendarEvent);
-  calendarEvent.save();
-  $inputTitle.value = '';
-  $inputTime.value = '';
-  console.log(calendarEvents)
-  console.log(calendarEvent)
-  createNewEvent(calendarEvent);
+    for(let i = 0; i < calendarEvents.length; i++){
+      if(calendarEvent.id === calendarEvents[i].id){
+        calendarEvent.id = crypto.randomUUID();
+      }
+    }
+
+    calendarEvents.push(calendarEvent);
+    calendarEvent.save();
+    $inputTitle.value = '';
+    $inputTime.value = '';
+    console.log(calendarEvents)
+    console.log(calendarEvent)
+    createNewEvent(calendarEvent);
+
+  } catch (error) {
+    $alertText.textContent = ` ${error} Gib die Uhrzeit in HHMM an`;
+    customAlert.style.display = "block";
+  };
 };
 
 function createNewEvent(calendarEvent) {
@@ -149,8 +171,11 @@ function createNewEvent(calendarEvent) {
 /** Combine the Elements from above with the declared Functions in this section.                 **/
 /**************************************************************************************************/
 $addButton.addEventListener('click', addNewEvent);
+$navBtn.addEventListener('click', () => window.location.href = 'calendar.html');
 
-
+closeBtn.addEventListener("click", () => {
+  customAlert.style.display = "none";
+});
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/
