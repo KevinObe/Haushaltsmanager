@@ -10,17 +10,33 @@ endpoints.add('/api/v1/notes', async (request, response, session) => {
   if(!session.profile){
     return 403;
   }
+  let file = `users/${session.profile.username}/notes.json`;
+  let errorFile =
+  [
+    {
+    "id": "23d874c6-732e-4359-b96f-e8bbee13a4c7",
+    "text": "Beispiel Notiz",
+    "done": false
+    }
+  ];
   try{
-    const data = await fs.readFile(`users/${session.profile.username}/notes.json`, 'utf8');
+    const data = await fs.readFile(file, 'utf8');
     response.end(data);
     return 200;
   } catch (error){
-    if(error){
-      return 500;
-    }
-  }
+    await fs.writeFile(file, JSON.stringify(errorFile, null, 2));
+    console.log('Datei erstellt.');
+    response.end(JSON.stringify(
+      [
+        {
+        "id": "23d874c6-732e-4359-b96f-e8bbee13a4c7",
+        "text": "Beispiel für eine Notiz",
+        "done": false
+        }
+      ]
+    ));
+  };
 });
-
 
 endpoints.add('/api/v1/notes/:id', async (request, response, session, match) => {
   const file = `users/${session.profile.username}/notes.json`;
