@@ -28,18 +28,33 @@ endpoints.add(`/api/v1/groupNotes`, async (request, response, session) => {
     return 500;
   }
 
-  console.log(group)
   if(savedGroups.groupname === group.groupname && savedGroups.id === group.id){
     let file = `config/groups/${group.groupname}/notes.json`;
+    let errorFile =
+      [
+        {
+        "id": "23d874c6-732e-4359-b96f-e8bbee13a4c4",
+        "text": "Beispiel für eine Notiz",
+        "done": false
+        }
+      ];
     try{
     notes = await fs.readFile(file);
-    } catch(error){
-      console.log(error);
-      return 500;
-    }
     response.end(notes);
-    console.log('passt soweit')
     return 200;
+    } catch(error){
+      await fs.writeFile(file, JSON.stringify(errorFile, null, 2));
+      console.log('Datei erstellt.');
+      response.end(JSON.stringify(
+        [
+          {
+          "id": "23d874c6-732e-4359-b96f-e8bbee13a4c4",
+          "text": "Beispiel für eine Notiz",
+          "done": false
+          }
+        ]
+      ));
+    }
   }
 });
 
