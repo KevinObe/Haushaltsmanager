@@ -40,7 +40,7 @@ function loadNotes(){
   request.addEventListener('load', () => {
     if(request.status === 200){
       notes = request.response;
-
+      console.log(request.response)
       for(const note of notes) {
         note.save = saveNote;
         note.delete = deleteNote;

@@ -14,6 +14,7 @@
 const $addButton = document.querySelector('.addButton');
 const $listName = document.querySelector('.listname');
 const $entries = [];
+
 let shoppingLists = [];
 
 /**************************************************************************************************/
@@ -63,8 +64,8 @@ function saveList(){
   request.send(JSON.stringify(shoppingList));
 
   request.addEventListener('load', () => {
-    if(request.status !== 204){
-      alert(`Fehler: ${response.status}`);
+    if(request.status !== 200){
+      alert(`Fehler: ${request.status}`);
     }
   });
 }
@@ -79,7 +80,7 @@ function deleteList(){
   request.send();
 
   request.addEventListener('load', () => {
-    if(request.status !== 204){
+    if(request.status !== 200){
       alert(`Fehler: ${request.status}`);
     }
   });

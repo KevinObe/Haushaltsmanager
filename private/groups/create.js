@@ -44,7 +44,7 @@ $submitBtn.addEventListener('click', async () => {
     body: JSON.stringify(group),
   });
   console.log(`${response.status} ${response.statusText}`);
-  if(response.status === 204){
+  if(response.status === 204 || response.status === 200){
     window.location.href = 'joined.html';
   };
 })();

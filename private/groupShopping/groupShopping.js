@@ -34,11 +34,9 @@ function loadLists(){
 
   request.send();
 
-  request.responseType = 'json';
-
   request.addEventListener('load', () => {
     if(request.response){
-      shoppingLists = request.response;
+      shoppingLists = JSON.parse(request.response);
 
         for(const shoppingList of shoppingLists){
           shoppingList.save = saveList;
@@ -78,7 +76,7 @@ function deleteList(){
   request.send();
 
   request.addEventListener('load', () => {
-    if(request.status !== 204){
+    if(request.status !== 200){
       alert(`Fehler: ${request.status}`);
     }
   });

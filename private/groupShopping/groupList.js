@@ -14,6 +14,8 @@
 const $addButton = document.querySelector('.addButton');
 const $input = document.querySelector('.entryValue');
 const $list = document.querySelector('.list');
+const $navBtn = document.querySelector('.navBtn');
+
 let entries = [];
 let shoppingLists = [];
 let shoppingList = {};
@@ -30,23 +32,6 @@ let entry = {};
 /** FUNCTIONS                                                                                    **/
 /** Put the main logic of the application in functions and declare them in this section.         **/
 /**************************************************************************************************/
-/*
-function loadLists(){
-  const request = new XMLHttpRequest();
-  request.open('GET', '/api/v1/shoppingLists');
-  request.send();
-
-  request.addEventListener('load', function () {
-    if(request.readyState === 4 && request.status === 200){
-      shoppingLists = JSON.parse(request.response);
-      console.log(shoppingLists);
-
-      loadEntries();
-    }
-    return;
-  })
-}
-*/
 function loadEntries(){
   const request = new XMLHttpRequest();
 
@@ -90,7 +75,7 @@ function saveEntry() {
   request.send(JSON.stringify(entry));
 
   request.addEventListener('load', () => {
-    if(request.status !== 200){
+    if(request.status !== 204){
       alert(`Fehler: ${request.status}`);
     }
   });
@@ -106,7 +91,7 @@ function deleteEntry(){
   request.send();
 
   request.addEventListener('load', () => {
-    if(request.status !== 204){
+    if(request.status !== 200){
       alert(`Fehler: ${request.status}`);
     }
   });
@@ -163,7 +148,7 @@ function createNewEntry(entry){
 /** Combine the Elements from above with the declared Functions in this section.                 **/
 /**************************************************************************************************/
 $addButton.addEventListener('click', addEntry);
-
+$navBtn.addEventListener('click', () => window.location.href = 'groupShopping.html');
 
 /**************************************************************************************************/
 /** SETUP                                                                                        **/

@@ -150,3 +150,18 @@ section{
     color: white;
   }
 }
+
+footer{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+
+  & .navBtn{
+    grid-column: 1fr;
+    grid-row: 1fr;
+
+    background-color: var(--main-color);
+    color: white;
+    height: 100%;
+  }
+}
