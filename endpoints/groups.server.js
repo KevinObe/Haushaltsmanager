@@ -2,14 +2,14 @@
 
 const fs = require('node:fs/promises');
 
-endpoints.add('/api/v1/checkGroup', (request, response, session) => {
+endpoints.add('/api/v1/checkGroup', async (request, response, session) => {
   if(session.profile.groups.length === 1){
-    response.statusCode = 200;
     response.end(JSON.stringify(session.profile.groups[0]));
-    return;
+    return 200;
   }
   console.log('nope');
   response.end();
+  return 500;
 });
 
 endpoints.add('/api/v1/leaveGroup', async (request, response, session) => {

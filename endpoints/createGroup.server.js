@@ -1,125 +1,119 @@
 'use strict';
 
 const crypto = require('node:crypto');
-const fs = require('node:fs');
+const fs = require('node:fs/promises');
 
 let directory = `config/groups`;
 let file = `config/groups/groups.json`;
 let group = {};
 
-fs.mkdirSync(directory, { recursive: true });
-
-
-endpoints.add('/api/v1/createGroup', (request, response, session) => {
+endpoints.add('/api/v1/createGroup', async (request, response, session) => {
   if (!['POST'].includes(request.method)) {
-    response.statusCode = 405;
-    response.end('405 Method Not Allowed');
-    return;
+    return 405;
   }
 
   if(!session.profile){
-    response.statusCode = 403;
-    response.end();
-    return;
+    return 403;
   }
 
   if(session.profile.groups.length === 1){
     console.log(`${session.profile.username} ist bereits in einer Gruppe`);
-    response.statusCode = 409;
-    response.end('409 Conflict');
-    return;
+    return 409;
+  }
+  try{
+    group = await new Promise((resolve, reject) => {
+
+      let chunks = [];
+      request.on('data', (chunk) => chunks.push(chunk));
+      request.on('end', () => {
+        resolve(JSON.parse(Buffer.concat(chunks)));
+      });
+      request.on('error', (error) => {
+        reject(error);
+      });
+    });
+  } catch(error){
+    console.log(error);
+    return 500;
+  };
+
+  let groupname, password;
+
+  try{
+    groupname = group.groupname;
+    if (!groupname) throw 'missing groupname';
+    if (!groupname.match(/^[a-z0-9]+$/i)) throw 'invalid groupname';
+
+    password = group.password;
+    if (!password) throw 'missing password';
+  }
+  catch(error) {
+    console.log(`Fehler beim erstellen der Gruppe: ${error}`);
+    return 400;
   }
 
-  let body = '';
-  request.on('data', (chunk) => body += chunk);
-  request.on('end', () => {
-    group = JSON.parse(body);
+  groupname = groupname.trim();
 
-    let groupname, password;
+  file = `config/groups/${groupname}/${groupname}.json`;
 
-    try{
-      groupname = group.groupname;
-      if (!groupname) throw 'missing groupname';
-      if (!groupname.match(/^[a-z0-9]+$/i)) throw 'invalid groupname';
-
-      password = group.password;
-      if (!password) throw 'missing password';
+  try{
+    await fs.access(file);
+    if(!error){
+      console.log('group allready exists!')
+      return 409;
     }
-    catch(error) {
-      console.log(`Fehler beim erstellen der Gruppe: ${error}`);
-      response.statusCode = 400;
-      response.end('400 Bad Request');
-      return;
-    }
+  } catch(error){
+    console.log(error);
+  };
 
-    groupname = groupname.trim();
+  group = {
+    id: crypto.randomUUID(),
+    groupname,
+    password,
+    members: [],
+  };
 
-    file = `config/groups/${groupname}/${groupname}.json`;
+  group.password = crypto
+    .createHash('sha256')
+    .update(`${group.groupname}:${group.password}`)
+    .digest('hex');
 
-    fs.access(file, (error) => {
-      if (!error) {
-        console.log('group allready exists!')
-        response.statusCode = 409;
-        response.end('409 Conflict');
-        return;
-      }
+  let member = {
+    id: session.profile.id,
+    username: session.profile.username,
+  };
 
-      const group = {
-        id: crypto.randomUUID(),
-        groupname,
-        password,
-        members: [],
-        };
+  let joinedGroup = {
+    id: group.id,
+    groupname: group.groupname,
+  };
 
-        group.password = crypto
-          .createHash('sha256')
-          .update(`${group.groupname}:${group.password}`)
-          .digest('hex');
+  group.members.push(member);
+  session.profile.groups.push(joinedGroup);
 
-        let member = {
-          id: session.profile.id,
-          username: session.profile.username,
-        };
+  let newProfile = `users/${session.profile.username}/profile.json`;
+  let newDir = `config/groups/${groupname}`;
 
-        let joinedGroup = {
-          id: group.id,
-          groupname: group.groupname,
-        };
+  try{
+    await fs.mkdir(newDir);
+  } catch (error) {
+    console.log(error);
+    return 500;
+  }
 
-        group.members.push(member);
-        session.profile.groups.push(joinedGroup);
+  try{
+    await fs.writeFile(newProfile, JSON.stringify(session.profile, null, 2));
+  }catch(error){
+    console.log('Fehler beim beitreten zu der Gruppe im Profil');
+    return 500;
+  }
 
-        let newProfile = `users/${session.profile.username}/profile.json`;
-        let newDir = `config/groups/${groupname}`;
-
-        fs.mkdir(newDir, (error) => {
-          if(error){
-            response.statusCode = 500;
-            response.end('500');
-            return;
-          }
-        })
-
-        fs.writeFile(newProfile, JSON.stringify(session.profile, null, 2), (error) => {
-          if(error){
-            console.log('Fehler beim beitreten zu der Gruppe im Profil');
-            response.statusCode = 500;
-            response.end('500 internal server error.');
-            return;
-          }
-
-          fs.writeFile(file, JSON.stringify(group, null, 2), (error) => {
-            if (error) {
-              response.statusCode = 500;
-              response.end('500 Internal Server Error');
-              return;
-            }
-
-          response.statusCode = 204;
-          response.end();
-          return;
-        }); //writeFile
-      }); //writeFile
-    }); //fs.access
-  }); //body request.on
-}); //endpoint
+  try{
+    await fs.writeFile(file, JSON.stringify(group, null, 2));
+  } catch(error) {
+    console.log(error);
+    return 500;
+  }
+  response.end();
+  return 200;
+});
