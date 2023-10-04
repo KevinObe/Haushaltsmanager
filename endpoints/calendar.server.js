@@ -1,164 +1,141 @@
 'use strict';
 
-const fs = require('node:fs');
+const fs = require('node:fs/promises');
 
-endpoints.add('/api/v1/savedEvents', (request, response, session) => {
+endpoints.add('/api/v1/savedEvents', async (request, response, session) => {
   if(!['GET', 'HEAD'].includes(request.method)){
-    response.statusCode = 405;
-    response.end();
-    return;
+    return 405;
   }
 
   if(!session.profile){
-    response.statusCode = 403;
-    response.end();
-    return;
+    return 403;
   }
 
   let file = `users/${session.profile.username}/calendarEvents.json`;
-
-  fs.readFile(file, (error, data) => {
-    response.setHeader('Content-Type', 'application/json');
-
-    if(error){
-      console.log(error)
-      response.statusCode = 500;
-      response.end('fehler beim Laden der Events');
-      return;
+  let errorFile =
+  [
+    {
+      "id": "1ee403f5-7503-421a-9ab6-66024dde5292",
+      "eventTitle": "Beispiel event",
+      "eventDate": "7 August 2023",
+      "eventTime": "12:00"
     }
-
+  ];
+  try{
+    const data = await fs.readFile(file, 'utf8');
     response.end(data);
+    return 200;
+  } catch (error) {
+    await fs.writeFile(file, JSON.stringify(errorFile, null, 2));
+    console.log('Datei erstellt.');
+    response.end(JSON.stringify(
+      [
+        {
+          "id": "1ee403f5-7503-421a-9ab6-66024dde5292",
+          "eventTitle": "Beispiel event",
+          "eventDate": "7 August 2023",
+          "eventTime": "12:00"
+        }
+      ]
+    ));
+  }
+});
 
-  });//readFile
-});//enpoint GET
-
-endpoints.add('/api/v1/calendarEvents/:id', (request, response, session) => {
+endpoints.add('/api/v1/calendarEvents/:id', async (request, response, session) => {
   if(!['POST', 'DELETE'].includes(request.method)){
-    response.statusCode = 405;
-    response.end();
-    return;
+    return 405;
   }
 
   if(!session.profile){
-    response.statusCode = 403;
-    response.end();
-    return;
+    return 403;
   }
 
-  console.log(request.url)
   let file = `users/${session.profile.username}/calendarEvents.json`;
-
-  fs.readFile(file, (error, data) => {
-    let calendarEvents = [];
-
-    if(!error){
-      try{
+  let calendarEvents = [];
+  try{
+    const data = await fs.readFile(file, 'utf8');
     calendarEvents = JSON.parse(data);
+  } catch(error) {
+    console.log('Fehler beim Parsen der Ereignisse:', error);
+    return 500;
+  }
+
+  //events löschen
+  if(request.method === 'DELETE'){
+
+  let index;
+  const url = new URL(request.url, 'http://127.0.0.1');
+  let urlParts = url.pathname.split('/');
+  let eventId = urlParts[4];
+
+  for(let i = 0; i < calendarEvents.length; i++){
+    if(calendarEvents[i].id === eventId){
+      index = calendarEvents.indexOf(calendarEvents[i]);
+      calendarEvents.splice(index, 1);
     }
-    catch (error){
-      console.log('Fehler beim Parsen der Ereignisse:', error);
-        response.statusCode = 500;
-        response.end();
-        return;
-      }
-    };
+  }
+  try{
+  await fs.writeFile(file, JSON.stringify(calendarEvents, null, 2));
+  } catch(error) {
+    console.log(error);
+    return 500;
+  }
+  response.end();
+  return 200;
+  };
 
-     //events löschen
-     if(request.method === 'DELETE'){
-      console.log(calendarEvents, 'Hier sind wir')
-
-      let index;
-      const url = new URL(request.url, 'http://127.0.0.1');
-      let urlParts = url.pathname.split('/');
-      let eventId = urlParts[4];
-
-      for(let i = 0; i < calendarEvents.length; i++){
-        if(calendarEvents[i].id === eventId){
-          index = calendarEvents.indexOf(calendarEvents[i]);
-          calendarEvents.splice(index, 1);
-        }
-      }
-
-      fs.writeFile(file, JSON.stringify(calendarEvents, null, 2), (error) => {
-        if(error){
-          response.statusCode = 500;
-          response.end();
-          return;
-        }
-
-        response.statusCode = 204;
-        response.end();
+  let clickedDay;
+  try{
+    clickedDay = await new Promise((resolve, reject) => {
+      let chunks = [];
+      request.on('data', (chunk) => chunks.push(chunk));
+      request.on('end', () => {
+        resolve(JSON.parse(Buffer.concat(chunks)));
       });
-      return;
+      request.on('error', (error) => {
+        reject(error);
+      });
+    });
+  } catch(error) {
+    console.log(error);
+    return 500;
+  };
+
+  let newEvent;
+  if(clickedDay.eventTitle !== '' || clickedDay.eventTime !== ''){
+    newEvent = clickedDay;
+
+    calendarEvents.push(newEvent);
+
+    file = `users/${session.profile.username}/calendarEvents.json`;
+    try{
+      await fs.writeFile(file, JSON.stringify(calendarEvents, null, 2));
+    } catch(error) {
+      console.log('Fehler beim Speichern der Ereignisse:', error);
+      return 500;
     }
+    response.end()
+    return 200;
+  };
+  console.log(session)
 
-    let body = '';
-    request.on('data', (chunk) => body += chunk);
-    request.on('end', () => {
-      let clickedDay;
-      try{
-      clickedDay = JSON.parse(body);
-      }
-      catch(error){
-        console.log(error)
-        response.end();
-        return;
-      }
+  session.clickedDay = clickedDay;
+  response.end();
+  return;
+});
 
-      //fertiges event speichern
-      console.log('ab hier')
-      console.log(clickedDay)
-      console.log(calendarEvents)
-
-      let newEvent;
-      if(clickedDay.eventTitle !== '' || clickedDay.eventTime !== ''){
-        newEvent = clickedDay;
-
-        calendarEvents.push(newEvent);
-
-        file = `users/${session.profile.username}/calendarEvents.json`;
-
-        fs.writeFile(file, JSON.stringify(calendarEvents, null, 2), (error) => {
-          if(error){
-            console.log('Fehler beim Speichern der Ereignisse:', error);
-            response.statusCode = 500;
-            response.end();
-            return;
-          }
-          response.end()
-          return;
-        })
-        response.end()
-        return;
-      }
-      console.log(session)
-
-      session.clickedDay = clickedDay;
-      response.end();
-      return;
-
-    }); //request.on
-  });//fs.readFile
-});//endpoint
-
-endpoints.add('/api/v1/calendarEvents', (request, response, session) => {
+endpoints.add('/api/v1/calendarEvents', async (request, response, session) => {
   if(!['GET', 'HEAD'].includes(request.method)){
-    response.statusCode = 405;
-    response.end();
-    return;
+    return 405;
   }
 
   if(!session.profile){
-    response.statusCode = 403;
-    response.end();
-    return;
+    return 403;
   }
 
   let clickedDay = session.clickedDay;
-  console.log(clickedDay, 'events.server.js');
-
   let data = JSON.stringify(clickedDay);
 
-response.end(data);
-
-}); //endpoint GET
+  response.end(data);
+  return 204;
+});
