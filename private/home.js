@@ -17,6 +17,8 @@ const $calendar = document.querySelector('.calendar');
 const $settings = document.querySelector('.groupSettings');
 const $groupShopping = document.querySelector('.groupShopping');
 const $groupNotes = document.querySelector('.groupNotes');
+const $shopP = document.querySelector('.groupShopping p');
+const $notesP = document.querySelector('.groupNotes p');
 
 let joinedGroup;
 /**************************************************************************************************/
@@ -51,8 +53,8 @@ async function renderGroup() {
     const response = await fetch('/api/v1/checkGroup');
     joinedGroup = await response.json();
     if(response.status === 200){
-      $groupShopping.textContent = `${joinedGroup.groupname} - Einkaufen`;
-      $groupNotes.textContent = `${joinedGroup.groupname} - Notizen`;
+      $shopP.textContent = `Einkaufen - ${joinedGroup.groupname}`;
+      $notesP.textContent = `To-Do - ${joinedGroup.groupname}`;
     };
   }catch(error){
     console.log(error);
