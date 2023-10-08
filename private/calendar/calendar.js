@@ -183,6 +183,8 @@ $nextIcon.addEventListener('click', () => {
   updateCalendarData();
 });
 
+window.addEventListener('pageshow', updateCalendarData);
+
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/
