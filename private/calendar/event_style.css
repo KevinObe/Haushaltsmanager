@@ -1,206 +1,639 @@
-/* grid templates */
+@media(min-width: 0px) and (max-width: 425px) {
+  /* grid templates */
 
-body{
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: 20% 10% 1fr 20%;
+  body{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 20% 10% 1fr 20%;
 
-  & header{
-    grid-column: 2/12;
-    grid-row: 1;
-  }
-
-  & section{
-    grid-column: 2/12;
-    grid-row: 2;
-  }
-
-  & main{
-    grid-column: 2/12;
-    grid-row: 3;
-  }
-
-  & footer{
-    grid-column: 2/12;
-    grid-row: 4;
-  }
-}
-/* header grid settings */
-
-header{
-  display: grid;
-  grid-template-columns: 1fr 15%;
-  grid-template-rows: repeat(3, 1fr);
-  justify-items: center;
-  align-items: center;
-
-  & h1{
-    grid-column: 1;
-    grid-row: 2;
-  }
-
-  & .menuToggler{
-    grid-column: 2;
-    grid-row: 2;
-  }
-}
-
-/* main grid template */
-
-main{
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(2, 1fr);
-  row-gap: 1rem;
-
-  & .eventList{
-    min-height: 20vh;
-    border: 1px solid black;
+    & header{
+      grid-column: 2/12;
+      grid-row: 1;
     }
-}
 
-.newEvent{
-  display: grid;
-  grid-template-columns: 1fr 15%;
-  grid-template-rows: 1fr 1fr;
+    & section{
+      grid-column: 2/12;
+      grid-row: 2;
+    }
 
-  & .inputTitle{
-    grid-column: 1/2;
-    grid-row: 1;
+    & main{
+      grid-column: 2/12;
+      grid-row: 3;
+    }
+
+    & footer{
+      grid-column: 2/12;
+      grid-row: 4;
+    }
+  }
+  /* header grid settings */
+
+  header{
+    display: grid;
+    grid-template-columns: 1fr 15%;
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+
+    & h1{
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    & .menuToggler{
+      grid-column: 2;
+      grid-row: 2;
+    }
   }
 
-  & .inputTime{
-    grid-column: 1/2;
-    grid-row: 2;
+  /* main grid template */
+
+  main{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    row-gap: 1rem;
+
+    & .eventList{
+      min-height: 20vh;
+      border: 2px solid rgb(150, 142, 142);
+      }
   }
 
-  & .addButton{
-    grid-column: 2;
-    grid-row: 2;
+  .newEvent{
+    display: grid;
+    grid-template-columns: 1fr 15%;
+    grid-template-rows: 1fr 1fr;
+
+    & .inputTitle{
+      grid-column: 1/2;
+      grid-row: 1;
+    }
+
+    & .inputTime{
+      grid-column: 1/2;
+      grid-row: 2;
+    }
+
+    & .addButton{
+      grid-column: 2;
+      grid-row: 2;
+    }
   }
-}
 
-/* main item settings */
+  /* main item settings */
 
-.eventList{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  justify-items: center;
-  align-items: center;
+  .eventList{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+    background-image: url(/private/imagesss/cool-black-background-cmyjabr7alpgs51d.jpg);
 
-  & .eventTitle{
-    grid-column: 1/4;
-    grid-row: 1;
-    font-size: 2rem;
+    & .eventTitle{
+      grid-column: 1/4;
+      grid-row: 1;
+      font-size: 2rem;
+      color: rgb(150, 142, 142);
+    }
+
+    & .eventDate{
+      grid-column: 1;
+      grid-row: 2;
+
+      background: none;
+      border: none;
+      color: var(--main-color);
+    }
+
+    & .eventTime{
+      grid-column: 2;
+      grid-row: 2;
+
+      background: none;
+      border: none;
+      color: var(--main-color);
+    }
+
+    & .deleteButton{
+      grid-column: 3;
+      grid-row: 2;
+
+      width: 100%;
+      height: 100%;
+      background: none;
+      border: none;
+      color: var(--main-color);
+    }
   }
 
-  & .eventDate{
-    grid-column: 1;
-    grid-row: 2;
+  /* footer grid settings */
 
-    background: none;
-    border: none;
+  footer{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+
+    & .navBtn{
+      grid-column: 1fr;
+      grid-row: 1fr;
+      border: 2px solid black;
+
+      background-color: rgb(150, 142, 142);
+      color: black;
+      height: 100%;
+    }
+  }
+
+  /* general css settings */
+
+  section{
+    height: 100%;
+
+    & .newEvent{
+      height: 100%;
+      border: 2px solid rgb(150, 142, 142);
+    }
+
+    & .inputTitle{
+      height: 100%;
+      width: 100%;
+      resize: none;
+    }
+
+    & .inputTime{
+      height: 100%;
+      width: 100%;
+      resize: none;
+    }
+
+    & .addButton{
+      width: 100%;
+      background-color: rgb(150, 142, 142);
+      color: black;
+    }
+  }
+
+  header h1{
     color: var(--main-color);
+    font-size: 3rem;
   }
 
-  & .eventTime{
-    grid-column: 2;
-    grid-row: 2;
-
-    background: none;
-    border: none;
-    color: var(--main-color);
-  }
-
-  & .deleteButton{
-    grid-column: 3;
-    grid-row: 2;
-
+  /* Styles for the custom alert */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    background: none;
-    border: none;
-    color: var(--main-color);
+    background-color: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
   }
-}
 
-/* footer grid settings */
-
-footer{
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
-
-  & .navBtn{
-    grid-column: 1fr;
-    grid-row: 1fr;
-
+  .modal-content {
     background-color: var(--main-color);
     color: white;
-    height: 100%;
+    padding: 20px;
+    border-radius: 5px;
   }
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
 }
 
-/* general css settings */
+@media(min-width: 425px){
+  /* grid templates */
 
-section{
-  height: 100%;
+  body{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 20% 10% 1fr 20%;
 
-  & .newEvent{
-    height: 100%;
-    border: 2px solid var(--main-color);
+    & header{
+      grid-column: 3/11;
+      grid-row: 1;
+    }
+
+    & section{
+      grid-column: 3/11;
+      grid-row: 2;
+    }
+
+    & main{
+      grid-column: 3/11;
+      grid-row: 3;
+    }
+
+    & footer{
+      grid-column: 3/11;
+      grid-row: 4;
+    }
+  }
+  /* header grid settings */
+
+  header{
+    display: grid;
+    grid-template-columns: 1fr 15%;
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+
+    & h1{
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    & .menuToggler{
+      grid-column: 2;
+      grid-row: 2;
+    }
   }
 
-  & .inputTitle{
-    height: 100%;
-    width: 100%;
-    resize: none;
+  /* main grid template */
+
+  main{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    row-gap: 1rem;
+
+    & .eventList{
+      min-height: 20vh;
+      border: 2px solid rgb(150, 142, 142);;
+      }
   }
 
-  & .inputTime{
-    height: 100%;
-    width: 100%;
-    resize: none;
+  .newEvent{
+    display: grid;
+    grid-template-columns: 1fr 15%;
+    grid-template-rows: 1fr 1fr;
+
+    & .inputTitle{
+      grid-column: 1/2;
+      grid-row: 1;
+    }
+
+    & .inputTime{
+      grid-column: 1/2;
+      grid-row: 2;
+    }
+
+    & .addButton{
+      grid-column: 2;
+      grid-row: 2;
+    }
   }
 
-  & .addButton{
+  /* main item settings */
+
+  .eventList{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+    background-image: url(/private/imagesss/cool-black-background-cmyjabr7alpgs51d.jpg);
+
+    & .eventTitle{
+      grid-column: 1/4;
+      grid-row: 1;
+      font-size: 2rem;
+      color: rgb(150, 142, 142);
+    }
+
+    & .eventDate{
+      grid-column: 1;
+      grid-row: 2;
+
+      background: none;
+      border: none;
+      color: var(--main-color);
+    }
+
+    & .eventTime{
+      grid-column: 2;
+      grid-row: 2;
+
+      background: none;
+      border: none;
+      color: var(--main-color);
+    }
+
+    & .deleteButton{
+      grid-column: 3;
+      grid-row: 2;
+
+      width: 100%;
+      height: 100%;
+      background: none;
+      border: none;
+      color: var(--main-color);
+    }
+  }
+
+  /* footer grid settings */
+
+  footer{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+
+    & .navBtn{
+      grid-column: 1fr;
+      grid-row: 1fr;
+      border: 2px solid black;
+
+      background-color: rgb(150, 142, 142);
+      color: black;
+      height: 100%;
+    }
+  }
+
+  /* general css settings */
+
+  section{
+    height: 100%;
+
+    & .newEvent{
+      height: 100%;
+      border: 2px solid rgb(150, 142, 142);
+    }
+
+    & .inputTitle{
+      height: 100%;
+      width: 100%;
+      resize: none;
+    }
+
+    & .inputTime{
+      height: 100%;
+      width: 100%;
+      resize: none;
+    }
+
+    & .addButton{
+      width: 100%;
+      background-color: rgb(150, 142, 142);
+      color: black;
+    }
+  }
+
+  header h1{
+    color: var(--main-color);
+    font-size: 3rem;
+  }
+
+  /* Styles for the custom alert */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+
+  .modal-content {
     background-color: var(--main-color);
     color: white;
+    padding: 20px;
+    border-radius: 5px;
   }
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
 }
 
-header h1{
-  color: var(--main-color);
-  font-size: 3rem;
-}
+@media(min-width: 768px){
+  /* grid templates */
 
-/* Styles for the custom alert */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.7);
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
-}
+  body{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 20% 10% 1fr 20%;
 
-.modal-content {
-  background-color: var(--main-color);
-  color: white;
-  padding: 20px;
-  border-radius: 5px;
-}
+    & header{
+      grid-column: 4/10;
+      grid-row: 1;
+    }
 
-.close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
-  cursor: pointer;
+    & section{
+      grid-column: 4/10;
+      grid-row: 2;
+    }
+
+    & main{
+      grid-column: 4/10;
+      grid-row: 3;
+    }
+
+    & footer{
+      grid-column: 4/10;
+      grid-row: 4;
+    }
+  }
+  /* header grid settings */
+
+  header{
+    display: grid;
+    grid-template-columns: 1fr 15%;
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+
+    & h1{
+      grid-column: 1/3;
+      grid-row: 2;
+    }
+
+    & .menuToggler{
+      grid-column: 2;
+      grid-row: 2;
+      display: none;
+    }
+  }
+
+  /* main grid template */
+
+  main{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    row-gap: 1rem;
+
+    & .eventList{
+      min-height: 20vh;
+      border: 1px solid rgb(150, 142, 142);
+      }
+  }
+
+  .newEvent{
+    display: grid;
+    grid-template-columns: 1fr 15%;
+    grid-template-rows: 1fr 1fr;
+
+    & .inputTitle{
+      grid-column: 1/2;
+      grid-row: 1;
+    }
+
+    & .inputTime{
+      grid-column: 1/2;
+      grid-row: 2;
+    }
+
+    & .addButton{
+      grid-column: 2;
+      grid-row: 2;
+    }
+  }
+
+  /* main item settings */
+
+  .eventList{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+    background-image: url(/private/imagesss/cool-black-background-cmyjabr7alpgs51d.jpg);
+
+    & .eventTitle{
+      grid-column: 1/4;
+      grid-row: 1;
+      font-size: 2rem;
+      color: rgb(150, 142, 142);
+    }
+
+    & .eventDate{
+      grid-column: 1;
+      grid-row: 2;
+
+      background: none;
+      border: none;
+      color: var(--main-color);
+    }
+
+    & .eventTime{
+      grid-column: 2;
+      grid-row: 2;
+
+      background: none;
+      border: none;
+      color: var(--main-color);
+    }
+
+    & .deleteButton{
+      grid-column: 3;
+      grid-row: 2;
+
+      width: 100%;
+      height: 100%;
+      background: none;
+      border: none;
+      color: var(--main-color);
+    }
+  }
+
+  /* footer grid settings */
+
+  footer{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+
+    & .navBtn{
+      grid-column: 1fr;
+      grid-row: 1fr;
+      border: 2px solid black;
+
+      background-color: rgb(150, 142, 142);
+      color: black;
+      height: 100%;
+    }
+  }
+
+  /* general css settings */
+
+  section{
+    height: 100%;
+
+    & .newEvent{
+      height: 100%;
+      border: 2px solid rgb(150, 142, 142);
+    }
+
+    & .inputTitle{
+      height: 100%;
+      width: 100%;
+      resize: none;
+    }
+
+    & .inputTime{
+      height: 100%;
+      width: 100%;
+      resize: none;
+    }
+
+    & .addButton{
+      width: 100%;
+      background-color: rgb(150, 142, 142);
+      color: black;
+    }
+  }
+
+  header h1{
+    color: var(--main-color);
+    font-size: 3rem;
+  }
+
+  /* Styles for the custom alert */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+
+  .modal-content {
+    background-color: var(--main-color);
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+  }
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+
 }

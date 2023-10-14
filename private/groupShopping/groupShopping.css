@@ -1,187 +1,552 @@
+@media(min-width: 0px) and (max-width: 425px){
+  /* grid mobile template */
 
+  body{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 20% 10% 1fr 20%;
 
-/* grid mobile template */
+    & header{
+      grid-column: 2/12;
+      grid-row: 1;
+    }
 
-body{
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: 20% 10% 1fr 20%;
+    & section{
+      grid-column: 2/12;
+      grid-row: 2;
+    }
 
-  & header{
-    grid-column: 2/12;
-    grid-row: 1;
+    & main{
+      grid-column: 2/12;
+      grid-row: 3;
+    }
+
+    & footer{
+      grid-column: 2/12;
+      grid-row: 4;
+    }
   }
 
-  & section{
-    grid-column: 2/12;
-    grid-row: 2;
+  /* header grid template */
+
+  header{
+    display: grid;
+    grid-template-columns: 15% 1fr 15%;
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+
+    & h1{
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    & .menuToggler{
+      grid-column: 3;
+      grid-row: 2;
+    }
+
+    & .addButton{
+      grid-column: 1;
+      grid-row: 2;
+    }
   }
 
-  & main{
-    grid-column: 2/12;
-    grid-row: 3;
+  /* main grid template */
+
+  main{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    row-gap: 1rem;
   }
 
-  & footer{
-    grid-column: 2/12;
-    grid-row: 4;
-  }
-}
-
-/* header grid template */
-
-header{
-  display: grid;
-  grid-template-columns: 15% 1fr 15%;
-  grid-template-rows: repeat(3, 1fr);
-  justify-items: center;
-  align-items: center;
-
-  & h1{
-    grid-column: 2;
-    grid-row: 2;
+  main .shoppingList{
+    min-height: 20vh;
+    border: 2px solid rgb(150, 142, 142);
+    background-color: black;
   }
 
-  & .menuToggler{
-    grid-column: 3;
-    grid-row: 2;
+  .newList{
+    display: grid;
+    grid-template-columns: 1fr 15%;
+    grid-template-rows: 1fr;
+
+    & .entryValue{
+      grid-column: 1/2;
+      grid-row: 1;
+    }
+
+    & .addButton{
+      grid-column: 2;
+      grid-row: 1;
+    }
   }
 
-  & .addButton{
-    grid-column: 1;
-    grid-row: 2;
-  }
-}
+  /* section settings */
 
-/* main grid template */
-
-main{
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(2, 1fr);
-  row-gap: 1rem;
-}
-
-main .shoppingList{
-  min-height: 20vh;
-  border: 1px solid black;
-}
-
-.newList{
-  display: grid;
-  grid-template-columns: 1fr 15%;
-  grid-template-rows: 1fr;
-
-  & .entryValue{
-    grid-column: 1/2;
-    grid-row: 1;
-  }
-
-  & .addButton{
-    grid-column: 2;
-    grid-row: 1;
-  }
-}
-
-/* section settings */
-
-section{
-  height: 100%;
-
-  & .newList{
-    border: 2px solid var(--main-color);
-    height: 80%;
-  }
-
-  & .listname{
-    width: 100%;
-  }
-
-  & .addButton{
-    width: 100%;
-    background-color: var(--main-color);
-    color: white;
-  }
-}
-
-/* main item settings */
-
-.shoppingList{
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  justify-items: center;
-  align-items: center;
-
-  & .listTitle{
-    grid-column: 1/4;
-    grid-row: 1;
-    font-size: 2rem;
-  }
-
-  & .openListButton{
-    grid-column: 1;
-    grid-row: 2;
-
-    width: 100%;
+  section{
     height: 100%;
-    background: none;
-    border: none;
+
+    & .newList{
+      border: 2px solid rgb(150, 142, 142);
+      height: 80%;
+    }
+
+    & .listname{
+      width: 100%;
+    }
+
+    & .addButton{
+      width: 100%;
+      height: 100%;
+      background-color: rgb(150, 142, 142);
+      color: black;
+    }
+  }
+
+  /* main item settings */
+
+  .shoppingList{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+
+    & .listTitle{
+      grid-column: 1/4;
+      grid-row: 1;
+      font-size: 2rem;
+      color: white;
+    }
+
+    & .openListButton{
+      grid-column: 1;
+      grid-row: 2;
+
+      width: 100%;
+      height: 100%;
+      background: none;
+      border: none;
+      color: var(--main-color);
+    }
+
+    /* & .entryValue {
+      grid-column: 1/3;
+      grid-row: 3;
+
+      width: 100%;
+      height: 100%;
+      border: none;
+      background-color: whitesmoke;
+    }*/
+
+    & .deleteButton{
+      grid-column: 3;
+      grid-row: 2;
+
+      width: 100%;
+      height: 100%;
+      background: none;
+      border: none;
+      color: var(--main-color);
+    }
+  }
+
+  /* footer grid template */
+
+  footer{
+    display: grid;
+    grid-template-columns: repeat(1fr);
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+
+  }
+
+  /* general css settings */
+
+  header{
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+  }
+
+  header h1{
     color: var(--main-color);
+    font-size: 3rem;
   }
 
-  /* & .entryValue {
-    grid-column: 1/3;
-    grid-row: 3;
+  footer{
 
-    width: 100%;
+  }
+}
+
+@media(min-width: 425px){
+  /* grid mobile template */
+
+  body{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 20% 10% 1fr 20%;
+
+    & header{
+      grid-column: 3/11;
+      grid-row: 1;
+    }
+
+    & section{
+      grid-column: 3/11;
+      grid-row: 2;
+    }
+
+    & main{
+      grid-column: 3/11;
+      grid-row: 3;
+    }
+
+    & footer{
+      grid-column: 3/11;
+      grid-row: 4;
+    }
+  }
+
+  /* header grid template */
+
+  header{
+    display: grid;
+    grid-template-columns: 15% 1fr 15%;
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+
+    & h1{
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    & .menuToggler{
+      grid-column: 3;
+      grid-row: 2;
+    }
+
+    & .addButton{
+      grid-column: 1;
+      grid-row: 2;
+    }
+  }
+
+  /* main grid template */
+
+  main{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    row-gap: 1rem;
+  }
+
+  main .shoppingList{
+    min-height: 20vh;
+    border: 2px solid rgb(150, 142, 142);
+    background-color: black;
+  }
+
+  .newList{
+    display: grid;
+    grid-template-columns: 1fr 15%;
+    grid-template-rows: 1fr;
+
+    & .entryValue{
+      grid-column: 1/2;
+      grid-row: 1;
+    }
+
+    & .addButton{
+      grid-column: 2;
+      grid-row: 1;
+    }
+  }
+
+  /* section settings */
+
+  section{
     height: 100%;
-    border: none;
-    background-color: whitesmoke;
-  }*/
 
-  & .deleteButton{
-    grid-column: 3;
-    grid-row: 2;
+    & .newList{
+      border: 2px solid rgb(150, 142, 142);
+      height: 80%;
+    }
 
-    width: 100%;
+    & .listname{
+      width: 100%;
+    }
+
+    & .addButton{
+      width: 100%;
+      height: 100%;
+      background-color: rgb(150, 142, 142);
+      color: black;
+    }
+  }
+
+  /* main item settings */
+
+  .shoppingList{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+
+    & .listTitle{
+      grid-column: 1/4;
+      grid-row: 1;
+      font-size: 2rem;
+      color: white;
+    }
+
+    & .openListButton{
+      grid-column: 1;
+      grid-row: 2;
+
+      width: 100%;
+      height: 100%;
+      background: none;
+      border: none;
+      color: var(--main-color);
+    }
+
+    /* & .entryValue {
+      grid-column: 1/3;
+      grid-row: 3;
+
+      width: 100%;
+      height: 100%;
+      border: none;
+      background-color: whitesmoke;
+    }*/
+
+    & .deleteButton{
+      grid-column: 3;
+      grid-row: 2;
+
+      width: 100%;
+      height: 100%;
+      background: none;
+      border: none;
+      color: var(--main-color);
+    }
+  }
+
+  /* footer grid template */
+
+  footer{
+    display: grid;
+    grid-template-columns: repeat(1fr);
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+
+  }
+
+  /* general css settings */
+
+  header{
     height: 100%;
-    background: none;
-    border: none;
+    width: 100%;
+    justify-content: center;
+  }
+
+  header h1{
     color: var(--main-color);
+    font-size: 3rem;
+  }
+
+  footer{
+
   }
 }
 
-/* footer grid template */
+@media(min-width: 800px){
+  /* grid mobile template */
 
-footer{
-  display: grid;
-  grid-template-columns: repeat(1fr);
-  grid-template-rows: repeat(3, 1fr);
-  justify-items: center;
+  body{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 20% 10% 1fr 20%;
 
-}
+    & header{
+      grid-column: 4/10;
+      grid-row: 1;
+    }
 
-/* general css settings */
+    & section{
+      grid-column: 4/10;
+      grid-row: 2;
+    }
 
-header .addButton{
-  width: 100%;
-  height: 90%;
-  background-color: var(--main-color);
-  color: white;
-}
+    & main{
+      grid-column: 4/10;
+      grid-row: 3;
+    }
 
-header{
-  height: 100%;
-  width: 100%;
-  justify-content: center;
-}
+    & footer{
+      grid-column: 4/10;
+      grid-row: 4;
+    }
+  }
 
-header h1{
-  color: var(--main-color);
-  font-size: 3rem;
-}
+  /* header grid template */
 
-footer{
+  header{
+    display: grid;
+    grid-template-columns: 15% 1fr 15%;
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
 
+    & h1{
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    & .menuToggler{
+      grid-column: 3;
+      grid-row: 2;
+      display: none;
+    }
+
+    & .addButton{
+      grid-column: 1;
+      grid-row: 2;
+    }
+  }
+
+  /* main grid template */
+
+  main{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    row-gap: 1rem;
+  }
+
+  main .shoppingList{
+    min-height: 20vh;
+    border: 2px solid rgb(150, 142, 142);
+    background-color: black;
+  }
+
+  .newList{
+    display: grid;
+    grid-template-columns: 1fr 15%;
+    grid-template-rows: 1fr;
+
+    & .entryValue{
+      grid-column: 1/2;
+      grid-row: 1;
+    }
+
+    & .addButton{
+      grid-column: 2;
+      grid-row: 1;
+    }
+  }
+
+  /* section settings */
+
+  section{
+    height: 100%;
+
+    & .newList{
+      border: 2px solid rgb(150, 142, 142);
+      height: 80%;
+    }
+
+    & .listname{
+      width: 100%;
+    }
+
+    & .addButton{
+      width: 100%;
+      height: 100%;
+      background-color: rgb(150, 142, 142);
+      color: black;
+    }
+  }
+
+  /* main item settings */
+
+  .shoppingList{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    justify-items: center;
+    align-items: center;
+
+    & .listTitle{
+      grid-column: 1/4;
+      grid-row: 1;
+      font-size: 2rem;
+      color: white;
+    }
+
+    & .openListButton{
+      grid-column: 1;
+      grid-row: 2;
+
+      width: 100%;
+      height: 100%;
+      background: none;
+      border: none;
+      color: var(--main-color);
+    }
+
+    /* & .entryValue {
+      grid-column: 1/3;
+      grid-row: 3;
+
+      width: 100%;
+      height: 100%;
+      border: none;
+      background-color: whitesmoke;
+    }*/
+
+    & .deleteButton{
+      grid-column: 3;
+      grid-row: 2;
+
+      width: 100%;
+      height: 100%;
+      background: none;
+      border: none;
+      color: var(--main-color);
+    }
+  }
+
+  /* footer grid template */
+
+  footer{
+    display: grid;
+    grid-template-columns: repeat(1fr);
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+
+  }
+
+  /* general css settings */
+
+  header{
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+  }
+
+  header h1{
+    color: var(--main-color);
+    font-size: 3rem;
+  }
+
+  footer{
+
+  }
 }

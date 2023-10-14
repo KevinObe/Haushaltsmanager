@@ -1,220 +1,945 @@
+@media(min-width: 0px) and (max-width: 425px) {
 /* grid templates */
 
-body{
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: 20% 10% 1fr 20%;
+  body{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 20% 10% 1fr 20%;
 
-  & header{
-    grid-column: 2/12;
-    grid-row: 1;
+    & header{
+      grid-column: 2/12;
+      grid-row: 1;
+    }
+
+    & section{
+      grid-column: 2/12;
+      grid-row: 2;
+    }
+
+    & main{
+      grid-column: 2/12;
+      grid-row: 3;
+    }
+
+    & footer{
+      grid-column: 2/12;
+      grid-row: 4;
+    }
   }
 
-  & section{
-    grid-column: 2/12;
-    grid-row: 2;
+  /* header grid settings */
+
+  header{
+    display: grid;
+    grid-template-columns: 15% 1fr 15%;
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+
+    & h1{
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    & .menuToggler{
+      grid-column: 3;
+      grid-row: 2;
+    }
+
+    & .addButton{
+      grid-column: 1;
+      grid-row: 2;
+    }
   }
 
-  & main{
-    grid-column: 2/12;
-    grid-row: 3;
+  /* main area grid */
+
+  section{
+    height: 100%;
+
+    & .newNote{
+      border: 2px solid var(--main-color);
+      height: 80%;
+    }
   }
 
-  & footer{
-    grid-column: 2/12;
-    grid-row: 4;
-  }
-}
+  main{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 12% 1fr;
 
-/* header grid settings */
+    & ul {
+      grid-column: 1;
+    }
 
-header{
-  display: grid;
-  grid-template-columns: 15% 1fr 15%;
-  grid-template-rows: repeat(3, 1fr);
-  justify-items: center;
-  align-items: center;
-
-  & h1{
-    grid-column: 2;
-    grid-row: 2;
   }
 
-  & .menuToggler{
-    grid-column: 3;
-    grid-row: 2;
+  .newNote{
+    display: grid;
+    grid-template-columns: 1fr 15%;
+    grid-template-rows: 100%;
+    max-height: 50px;
+
+    & .entryValue{
+      grid-column: 1/2;
+      grid-row: 1;
+    }
+
+    & .addButton{
+      grid-column: 2;
+      grid-row: 1;
+    }
   }
 
-  & .addButton{
-    grid-column: 1;
-    grid-row: 2;
-  }
-}
+  .note{
+    display: grid;
+    grid-template-columns: 10% 1fr 15%;
+    grid-template-rows: 1fr;
+    row-gap: 20%;
 
-/* main area grid */
+    & .checkbox{
+      grid-column: 1;
+      grid-row: 1;
+    }
 
-section{
-  height: 100%;
+    & .noteValue{
+      grid-column: 2;
+      grid-row: 1;
+    }
 
-  & .newNote{
-    border: 2px solid var(--main-color);
-    height: 80%;
-  }
-}
-
-main{
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 12% 1fr;
-
-  & ul {
-    grid-column: 1;
+    & .deleteButton{
+      grid-column: 3;
+      grid-row: 1;
+    }
   }
 
-}
+  /* footer grid settings */
 
-.newNote{
-  display: grid;
-  grid-template-columns: 1fr 15%;
-  grid-template-rows: 100%;
-  max-height: 50px;
+  footer{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
 
-  & .entryValue{
-    grid-column: 1/2;
-    grid-row: 1;
   }
 
-  & .addButton{
-    grid-column: 2;
-    grid-row: 1;
-  }
-}
+  /* mobile css settings */
 
-.note{
-  display: grid;
-  grid-template-columns:10% 1fr 15%;
-  grid-template-rows: 1fr;
-  row-gap: 20%;
-
-  & .checkbox{
-    grid-column: 1;
-    grid-row: 1;
-  }
-
-  & .noteValue{
-    grid-column: 2;
-    grid-row: 1;
-  }
-
-  & .deleteButton{
-    grid-column: 3;
-    grid-row: 1;
-  }
-}
-
-/* footer grid settings */
-
-footer{
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: 1fr;
-
-}
-
-/* mobile css settings */
-
-h1{
-  color: var(--main-color);
-  font-size: 3.5rem;
-  height: 100%;
-}
-
-/* mobile css main */
-
-header .addButton{
-  width: 100%;
-  height: 90%;
-  background-color: var(--main-color);
-  color: white;
-}
-
-main{
-  height: 100%;
-
-  & .checkbox{
-    width: 100%;
+  h1{
+    color: var(--main-color);
+    font-size: 3.5rem;
     height: 100%;
   }
 
-  & .noteValue{
-    height: 150%;
-    width: 100%;
-    resize: none;
-  }
+  /* mobile css main */
 
-  & .deleteButton{
+  header .addButton{
     width: 100%;
-    height: 150%;
+    height: 90%;
     background-color: var(--main-color);
     color: white;
   }
 
-  & li {
-    padding: 1rem;
-    align-items: center;
+  main{
+    height: 100%;
 
-    &:has(:checked) {
-      text-decoration: line-through;
-      text-decoration-style: wavy;
-      text-decoration-color: green;
-      color: darkolivegreen;
+    & ul{
+      margin: 0;
+      padding: 0;
     }
-  }
 
-  & input[type="checkbox"] {
-    appearance: none;
-    width: 2rem;
-    height: 2rem;
+    & .checkbox{
+      width: 100%;
+      height: 100%;
+    }
 
-    &::before {
-      content: "\2717";
-      position: absolute;
+    & .noteValue{
+      height: 100%;
+      width: 100%;
       font-size: 2rem;
-      font-weight: bolder;
-      color: red;
+      color: white;
     }
 
-    &:checked::before{
-      content: "\2713";
+    & .deleteButton{
+      width: 100%;
+      max-height: 100%;
+      background-color: rgb(150, 142, 142);
       font-size: 2rem;
-      position: absolute;
-      font-weight: bolder;
-      color: green;
+      color: black;
+      border: 1px solid black;
+      border-radius: 10%;
     }
 
+    & li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: black;
+      padding: 3%;
+      border-bottom: 1px solid  rgb(150, 142, 142);
 
-    &:active {
-      border-color: black;
+      &:has(:checked) {
+        text-decoration: line-through;
+        text-decoration-style: solid;
+        text-decoration-color: var(--main-color);
+        text-decoration-thickness: 4px;
+        color: darkolivegreen;
+      }
+    }
 
-      &:checked::before {
-        background: black;
+    & input[type="checkbox"] {
+      appearance: none;
+      width: 2rem;
+      height: 2rem;
+
+      &::before {
+        content: "\2717";
+        position: absolute;
+        font-size: 2rem;
+        font-weight: bolder;
+        color: red;
+      }
+
+      &:checked::before{
+        content: "\2713";
+        font-size: 2rem;
+        position: absolute;
+        font-weight: bolder;
+        color: green;
+      }
+
+      &:active {
+        border-color: black;
+
+        &:checked::before {
+          background: black;
+        }
       }
     }
   }
+  section{
+    & .newNote{
+      border: 2px solid black;
+    }
+
+    & .entryValue{
+      width: 100%;
+      resize: none;
+    }
+
+    & .addButton{
+      width: 100%;
+      background-color: rgb(150, 142, 142);
+      color: black;
+    }
+  }
+
 }
-section{
-  & .newNote{
-    border: 2px solid var(--main-color);
+
+@media(min-width: 425px){
+/* grid templates */
+
+  body{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 20% 10% 1fr 20%;
+
+    & header{
+      grid-column: 3/11;
+      grid-row: 1;
+    }
+
+    & section{
+      grid-column: 3/11;
+      grid-row: 2;
+    }
+
+    & main{
+      grid-column: 3/11;
+      grid-row: 3;
+    }
+
+    & footer{
+      grid-column: 3/11;
+      grid-row: 4;
+    }
   }
 
-  & .entryValue{
-    width: 100%;
-    resize: none;
+  /* header grid settings */
+
+  header{
+    display: grid;
+    grid-template-columns: 15% 1fr 15%;
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+
+    & h1{
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    & .menuToggler{
+      grid-column: 3;
+      grid-row: 2;
+    }
+
+    & .addButton{
+      grid-column: 1;
+      grid-row: 2;
+    }
   }
 
-  & .addButton{
+  /* main area grid */
+
+  section{
+    height: 100%;
+
+    & .newNote{
+      border: 2px solid var(--main-color);
+      height: 80%;
+    }
+  }
+
+  main{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 12% 1fr;
+
+    & ul {
+      grid-column: 1;
+    }
+
+  }
+
+  .newNote{
+    display: grid;
+    grid-template-columns: 1fr 15%;
+    grid-template-rows: 100%;
+    max-height: 50px;
+
+    & .entryValue{
+      grid-column: 1/2;
+      grid-row: 1;
+    }
+
+    & .addButton{
+      grid-column: 2;
+      grid-row: 1;
+    }
+  }
+
+  .note{
+    display: grid;
+    grid-template-columns: 10% 1fr 15%;
+    grid-template-rows: 1fr;
+    row-gap: 20%;
+
+    & .checkbox{
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    & .noteValue{
+      grid-column: 2;
+      grid-row: 1;
+    }
+
+    & .deleteButton{
+      grid-column: 3;
+      grid-row: 1;
+    }
+  }
+
+  /* footer grid settings */
+
+  footer{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+
+  }
+
+  /* mobile css settings */
+
+  h1{
+    color: var(--main-color);
+    font-size: 3.5rem;
+    height: 100%;
+  }
+
+  /* mobile css main */
+
+  header .addButton{
     width: 100%;
+    height: 90%;
     background-color: var(--main-color);
     color: white;
   }
+
+  main{
+    height: 100%;
+
+    & ul{
+      margin: 0;
+      padding: 0;
+    }
+
+    & .checkbox{
+      width: 100%;
+      height: 100%;
+    }
+
+    & .noteValue{
+      height: 100%;
+      width: 100%;
+      font-size: 2rem;
+      color: white;
+    }
+
+    & .deleteButton{
+      width: 100%;
+      max-height: 100%;
+      background-color: rgb(150, 142, 142);
+      font-size: 2rem;
+      color: black;
+      border: 1px solid black;
+      border-radius: 10%;
+    }
+
+    & li {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: black;
+      padding: 3%;
+      border-bottom: 1px solid  rgb(150, 142, 142);
+
+      &:has(:checked) {
+        text-decoration: line-through;
+        text-decoration-style: solid;
+        text-decoration-color: var(--main-color);
+        text-decoration-thickness: 4px;
+        color: darkolivegreen;
+      }
+    }
+
+    & input[type="checkbox"] {
+      appearance: none;
+      width: 2rem;
+      height: 2rem;
+
+      &::before {
+        content: "\2717";
+        position: absolute;
+        font-size: 2rem;
+        font-weight: bolder;
+        color: red;
+      }
+
+      &:checked::before{
+        content: "\2713";
+        font-size: 2rem;
+        position: absolute;
+        font-weight: bolder;
+        color: green;
+      }
+
+      &:active {
+        border-color: black;
+
+        &:checked::before {
+          background: black;
+        }
+      }
+    }
+  }
+  section{
+    & .newNote{
+      border: 2px solid black;
+    }
+
+    & .entryValue{
+      width: 100%;
+      resize: none;
+    }
+
+    & .addButton{
+      width: 100%;
+      background-color: rgb(150, 142, 142);
+      color: black;
+    }
+  }
 }
+
+@media(min-width: 600px){
+  /* grid templates */
+
+    body{
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 20% 10% 1fr 20%;
+
+      & header{
+        grid-column: 4/10;
+        grid-row: 1;
+      }
+
+      & section{
+        grid-column: 4/10;
+        grid-row: 2;
+      }
+
+      & main{
+        grid-column: 4/10;
+        grid-row: 3;
+      }
+
+      & footer{
+        grid-column: 4/10;
+        grid-row: 4;
+      }
+    }
+
+    /* header grid settings */
+
+    header{
+      display: grid;
+      grid-template-columns: 15% 1fr 15%;
+      grid-template-rows: repeat(3, 1fr);
+      justify-items: center;
+      align-items: center;
+
+      & h1{
+        grid-column: 2;
+        grid-row: 2;
+      }
+
+      & .menuToggler{
+        grid-column: 3;
+        grid-row: 2;
+      }
+
+      & .addButton{
+        grid-column: 1;
+        grid-row: 2;
+      }
+    }
+
+    /* main area grid */
+
+    section{
+      height: 100%;
+
+      & .newNote{
+        border: 2px solid var(--main-color);
+        height: 80%;
+      }
+    }
+
+    main{
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 12% 1fr;
+
+      & ul {
+        grid-column: 1;
+      }
+
+    }
+
+    .newNote{
+      display: grid;
+      grid-template-columns: 1fr 15%;
+      grid-template-rows: 100%;
+      max-height: 50px;
+
+      & .entryValue{
+        grid-column: 1/2;
+        grid-row: 1;
+      }
+
+      & .addButton{
+        grid-column: 2;
+        grid-row: 1;
+      }
+    }
+
+    .note{
+      display: grid;
+      grid-template-columns: 10% 1fr 15%;
+      grid-template-rows: 1fr;
+      row-gap: 20%;
+
+      & .checkbox{
+        grid-column: 1;
+        grid-row: 1;
+      }
+
+      & .noteValue{
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      & .deleteButton{
+        grid-column: 3;
+        grid-row: 1;
+      }
+    }
+
+    /* footer grid settings */
+
+    footer{
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+
+    }
+
+    /* mobile css settings */
+
+    h1{
+      color: var(--main-color);
+      font-size: 3.5rem;
+      height: 100%;
+    }
+
+    /* mobile css main */
+
+    header .addButton{
+      width: 100%;
+      height: 90%;
+      background-color: var(--main-color);
+      color: white;
+    }
+
+    main{
+      height: 100%;
+
+      & ul{
+        margin: 0;
+        padding: 0;
+      }
+
+      & .checkbox{
+        width: 100%;
+        height: 100%;
+      }
+
+      & .noteValue{
+        height: 100%;
+        width: 100%;
+        font-size: 2rem;
+        color: white;
+      }
+
+      & .deleteButton{
+        width: 100%;
+        max-height: 100%;
+        background-color: rgb(150, 142, 142);
+        font-size: 2rem;
+        color: black;
+        border: 1px solid black;
+        border-radius: 10%;
+      }
+
+      & li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+        padding: 3%;
+        border-bottom: 1px solid  rgb(150, 142, 142);
+
+        &:has(:checked) {
+          text-decoration: line-through;
+          text-decoration-style: solid;
+          text-decoration-color: var(--main-color);
+          text-decoration-thickness: 3px;
+          color: darkolivegreen;
+        }
+      }
+
+      & input[type="checkbox"] {
+        appearance: none;
+        width: 2rem;
+        height: 2rem;
+
+        &::before {
+          content: "\2717";
+          position: absolute;
+          font-size: 2rem;
+          font-weight: bolder;
+          color: red;
+        }
+
+        &:checked::before{
+          content: "\2713";
+          font-size: 2rem;
+          position: absolute;
+          font-weight: bolder;
+          color: green;
+        }
+
+        &:active {
+          border-color: black;
+
+          &:checked::before {
+            background: black;
+          }
+        }
+      }
+    }
+    section{
+      & .newNote{
+        border: 2px solid black;
+      }
+
+      & .entryValue{
+        width: 100%;
+        resize: none;
+      }
+
+      & .addButton{
+        width: 100%;
+        background-color: rgb(150, 142, 142);
+        color: black;
+      }
+    }
+  }
+
+  @media(min-width: 800px){
+  /* grid templates */
+
+    body{
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 20% 10% 1fr 20%;
+
+      & header{
+        grid-column: 4/10;
+        grid-row: 1;
+      }
+
+      & section{
+        grid-column: 4/10;
+        grid-row: 2;
+      }
+
+      & main{
+        grid-column: 4/10;
+        grid-row: 3;
+      }
+
+      & footer{
+        grid-column: 4/10;
+        grid-row: 4;
+      }
+    }
+
+    /* header grid settings */
+
+    header{
+      display: grid;
+      grid-template-columns: 15% 1fr 15%;
+      grid-template-rows: repeat(3, 1fr);
+      justify-items: center;
+      align-items: center;
+
+      & h1{
+        grid-column: 2;
+        grid-row: 2;
+      }
+
+      & .menuToggler{
+        grid-column: 3;
+        grid-row: 2;
+        display: none;
+      }
+
+      & .addButton{
+        grid-column: 1;
+        grid-row: 2;
+      }
+    }
+
+    /* main area grid */
+
+    section{
+      height: 100%;
+
+      & .newNote{
+        border: 2px solid var(--main-color);
+        height: 80%;
+      }
+    }
+
+    main{
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 12% 1fr;
+
+      & ul {
+        grid-column: 1;
+      }
+
+    }
+
+    .newNote{
+      display: grid;
+      grid-template-columns: 1fr 15%;
+      grid-template-rows: 100%;
+      max-height: 50px;
+
+      & .entryValue{
+        grid-column: 1/2;
+        grid-row: 1;
+      }
+
+      & .addButton{
+        grid-column: 2;
+        grid-row: 1;
+      }
+    }
+
+    .note{
+      display: grid;
+      grid-template-columns: 10% 1fr 15%;
+      grid-template-rows: 1fr;
+      row-gap: 20%;
+
+      & .checkbox{
+        grid-column: 1;
+        grid-row: 1;
+      }
+
+      & .noteValue{
+        grid-column: 2;
+        grid-row: 1;
+      }
+
+      & .deleteButton{
+        grid-column: 3;
+        grid-row: 1;
+      }
+    }
+
+    /* footer grid settings */
+
+    footer{
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+
+    }
+
+    /* mobile css settings */
+
+    h1{
+      color: var(--main-color);
+      font-size: 3.5rem;
+      height: 100%;
+    }
+
+    /* mobile css main */
+
+    header .addButton{
+      width: 100%;
+      height: 90%;
+      background-color: var(--main-color);
+      color: white;
+    }
+
+    main{
+      height: 100%;
+
+      & ul{
+        margin: 0;
+        padding: 0;
+      }
+
+      & .checkbox{
+        width: 100%;
+        height: 100%;
+      }
+
+      & .noteValue{
+        height: 100%;
+        width: 100%;
+        font-size: 2rem;
+        color: white;
+      }
+
+      & .deleteButton{
+        max-width: 70%;
+        max-height: 100%;
+        background-color: rgb(150, 142, 142);
+        font-size: 2rem;
+        color: black;
+        border: 1px solid black;
+        border-radius: 10%;
+      }
+
+      & li {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: black;
+        padding: 3%;
+        border-bottom: 1px solid  rgb(150, 142, 142);
+
+        &:has(:checked) {
+          text-decoration: line-through;
+          text-decoration-style: solid;
+          text-decoration-color: var(--main-color);
+          text-decoration-thickness: 3px;
+          color: darkolivegreen;
+        }
+      }
+
+      & input[type="checkbox"] {
+        appearance: none;
+        width: 2rem;
+        height: 2rem;
+
+        &::before {
+          content: "\2717";
+          position: absolute;
+          font-size: 2rem;
+          font-weight: bolder;
+          color: red;
+        }
+
+        &:checked::before{
+          content: "\2713";
+          font-size: 2rem;
+          position: absolute;
+          font-weight: bolder;
+          color: green;
+        }
+
+        &:active {
+          border-color: black;
+
+          &:checked::before {
+            background: black;
+          }
+        }
+      }
+    }
+    section{
+      & .newNote{
+        border: 2px solid black;
+      }
+
+      & .entryValue{
+        width: 100%;
+        resize: none;
+      }
+
+      & .addButton{
+        width: 100%;
+        background-color: rgb(150, 142, 142);
+        color: black;
+      }
+    }
+  }

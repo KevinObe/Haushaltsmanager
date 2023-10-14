@@ -1,163 +1,500 @@
-/*grid templates */
+@media(min-width: 0px) and (max-width: 425px){
+  /*grid templates */
 
-body{
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: 20% 1fr 15%;
+  body{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 20% 1fr 15%;
 
-  height: 100%;
-  width: 100%;
+    height: 100%;
+    width: 100%;
 
-  & header{
-    grid-column: 2/12;
-    grid-row: 1;
+    & header{
+      grid-column: 2/12;
+      grid-row: 1;
+    }
+
+    & main{
+      grid-column: 2/12;
+      grid-row: 2;
+    }
+
+    & footer{
+      grid-column: 2/12;
+      grid-row: 3;
+    }
   }
 
-  & main{
-    grid-column: 2/12;
-    grid-row: 2;
+  /* header grid settings */
+
+  header{
+    display: grid;
+    grid-template-columns: 1fr 15%;
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+
+    & h1{
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    & .menuToggler{
+      grid-column: 2;
+      grid-row: 2;
+    }
   }
 
-  & footer{
-    grid-column: 2/12;
-    grid-row: 3;
-  }
-}
+  /* main grid settings */
 
-/* header grid settings */
+  main{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    height: 100%;
+    gap: 10%;
 
-header{
-  display: grid;
-  grid-template-columns: 1fr 15%;
-  grid-template-rows: repeat(3, 1fr);
-  justify-items: center;
-  align-items: center;
+    & p{
+      grid-column: 1;
+      grid-row: 1;
+    }
 
-  & h1{
-    grid-column: 1;
-    grid-row: 2;
-  }
+    & .leaveGroup{
+      grid-column: 1;
+      grid-row: 4;
+    }
 
-  & .menuToggler{
-    grid-column: 2;
-    grid-row: 2;
-  }
-}
+    & .loginArea{
+      grid-column: 1;
+      grid-row: 2;
+    }
 
-/* main grid settings */
-
-main{
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(4, 1fr);
-  height: 100%;
-  gap: 10%;
-
-  & p{
-    grid-column: 1;
-    grid-row: 1;
+    & .registerArea{
+      grid-column: 1;
+      grid-row: 3;
+    }
   }
 
-  & .leaveGroup{
-    grid-column: 1;
-    grid-row: 4;
+  /* mobile footer */
+
+  footer{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+
+    & .item-1{
+      grid-column: 1/13;
+      grid-row: 1;
+    }
+
+    & .item-2{
+      grid-column: 1/13;
+      grid-row: 2;
+    }
+
   }
 
-  & .loginArea{
-    grid-column: 1;
-    grid-row: 2;
+  /* css style settings */
+
+  header {
+    & h1{
+      color: var(--main-color);
+      font-size: 2.5rem;
+      height: 100%;
+    }
   }
 
-  & .registerArea{
-    grid-column: 1;
-    grid-row: 3;
-  }
-}
-
-/* mobile footer */
-
-footer{
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-
-  & .item-1{
-    grid-column: 1/13;
-    grid-row: 1;
-  }
-
-  & .item-2{
-    grid-column: 1/13;
-    grid-row: 2;
-  }
-
-}
-
-/* css style settings */
-
-header {
-  & h1{
-    color: var(--main-color);
-    font-size: 2.5rem;
+  main div{
     height: 100%;
   }
+
+  main div p{
+    height: 50%;
+  }
+
+  main div button{
+    background-color: rgb(150, 142, 142);
+    color: black;
+    height: 70%;
+    width: 100%;
+  }
+
+  a{
+    text-decoration: none;
+    color: var(--main-color);
+    width: 100%;
+    font-size: 2rem;
+  }
+
+  #link{
+    color: white;
+  }
+
+  p{
+    font-size: 1.8rem;
+    color: var(--main-color);
+  }
+
+  /* Styles for the custom alert */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+
+  .modal-content {
+    background-color: var(--main-color);
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+  }
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
 }
 
-main div{
-  height: 100%;
+@media(min-width: 425px) {
+  /*grid templates */
+
+  body{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 20% 1fr 15%;
+
+    height: 100%;
+    width: 100%;
+
+    & header{
+      grid-column: 3/11;
+      grid-row: 1;
+    }
+
+    & main{
+      grid-column: 3/11;
+      grid-row: 2;
+    }
+
+    & footer{
+      grid-column: 3/11;
+      grid-row: 3;
+    }
+  }
+
+  /* header grid settings */
+
+  header{
+    display: grid;
+    grid-template-columns: 1fr 15%;
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+
+    & h1{
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    & .menuToggler{
+      grid-column: 2;
+      grid-row: 2;
+    }
+  }
+
+  /* main grid settings */
+
+  main{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    height: 100%;
+    gap: 10%;
+
+    & p{
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    & .leaveGroup{
+      grid-column: 1;
+      grid-row: 4;
+    }
+
+    & .loginArea{
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    & .registerArea{
+      grid-column: 1;
+      grid-row: 3;
+    }
+  }
+
+  /* mobile footer */
+
+  footer{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+
+    & .item-1{
+      grid-column: 1/13;
+      grid-row: 1;
+    }
+
+    & .item-2{
+      grid-column: 1/13;
+      grid-row: 2;
+    }
+
+  }
+
+  /* css style settings */
+
+  header {
+    & h1{
+      color: var(--main-color);
+      font-size: 2.5rem;
+      height: 100%;
+    }
+  }
+
+  main div{
+    height: 100%;
+  }
+
+  main div p{
+    height: 50%;
+  }
+
+  main div button{
+    background-color: rgb(150, 142, 142);;
+    color: white;
+    height: 70%;
+    width: 100%;
+  }
+
+  a{
+    text-decoration: none;
+    color: var(--main-color);
+    width: 100%;
+    font-size: 2rem;
+  }
+
+  #link{
+    color: white;
+  }
+
+  p{
+    font-size: 1.8rem;
+    color: var(--main-color);
+  }
+
+  /* Styles for the custom alert */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+
+  .modal-content {
+    background-color: var(--main-color);
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+  }
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
 }
 
-main div p{
-  height: 50%;
-}
+@media(min-width: 768px) {
+  /*grid templates */
 
-main div button{
-  background-color: var(--main-color);
-  color: white;
-  height: 70%;
-  width: 100%;
-}
+  body{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 20% 1fr 15%;
 
-a{
-  text-decoration: none;
-  color: var(--main-color);
-  width: 100%;
-  font-size: 2rem;
-}
+    height: 100%;
+    width: 100%;
 
-#link{
-  color: white;
-}
+    & header{
+      grid-column: 4/10;
+      grid-row: 1;
+    }
 
-p{
-  font-size: 1.8rem;
-}
+    & main{
+      grid-column: 4/10;
+      grid-row: 2;
+    }
 
-/* Styles for the custom alert */
-.modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.7);
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
-}
+    & footer{
+      grid-column: 4/10;
+      grid-row: 3;
+    }
+  }
 
-.modal-content {
-  background-color: var(--main-color);
-  color: white;
-  padding: 20px;
-  border-radius: 5px;
-}
+  /* header grid settings */
 
-.close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
-  cursor: pointer;
+  header{
+    display: grid;
+    grid-template-columns: 1fr 15%;
+    grid-template-rows: repeat(3, 1fr);
+    justify-items: center;
+    align-items: center;
+
+    & h1{
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    & .menuToggler{
+      grid-column: 2;
+      grid-row: 2;
+    }
+  }
+
+  /* main grid settings */
+
+  main{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, 1fr);
+    height: 100%;
+    gap: 10%;
+
+    & p{
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    & .leaveGroup{
+      grid-column: 1;
+      grid-row: 4;
+    }
+
+    & .loginArea{
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    & .registerArea{
+      grid-column: 1;
+      grid-row: 3;
+    }
+  }
+
+  /* mobile footer */
+
+  footer{
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+
+    & .item-1{
+      grid-column: 1/13;
+      grid-row: 1;
+    }
+
+    & .item-2{
+      grid-column: 1/13;
+      grid-row: 2;
+    }
+
+  }
+
+  /* css style settings */
+
+  header {
+    & h1{
+      color: var(--main-color);
+      font-size: 2.5rem;
+      height: 100%;
+    }
+  }
+
+  main div{
+    height: 100%;
+  }
+
+  main div p{
+    height: 50%;
+  }
+
+  main div button{
+    background-color: rgb(150, 142, 142);;
+    color: white;
+    height: 70%;
+    width: 100%;
+  }
+
+  a{
+    text-decoration: none;
+    color: var(--main-color);
+    width: 100%;
+    font-size: 2rem;
+  }
+
+  #link{
+    color: white;
+  }
+
+  p{
+    font-size: 1.8rem;
+    color: var(--main-color);
+  }
+
+  /* Styles for the custom alert */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+  }
+
+  .modal-content {
+    background-color: var(--main-color);
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+  }
+
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+  }
 }
