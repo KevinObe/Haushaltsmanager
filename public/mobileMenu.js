@@ -34,7 +34,7 @@ function logoutUser() {
   request.send();
 
   request.addEventListener('load', () => {
-    window.location.href = '../logout/logout.html';
+    window.location.href = '../../logout/logout.html';
   })
 }
 
