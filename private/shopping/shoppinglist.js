@@ -137,9 +137,9 @@ function createNewEntry(entry){
   const $listItem = document.createElement('li');
   $listItem.className = 'listItem';
 
-  const $textarea = document.createElement('textarea');
+  const $textarea = document.createElement('p');
   $textarea.className = 'itemValue';
-  $textarea.value = entry.text;
+  $textarea.textContent = entry.text;
 
   const $deleteButton = document.createElement('button');
   $deleteButton.className = 'deleteButton';
