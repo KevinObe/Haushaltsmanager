@@ -19,6 +19,7 @@ const $groupShopping = document.querySelector('.groupShopping');
 const $groupNotes = document.querySelector('.groupNotes');
 const $shopP = document.querySelector('.groupShopping p');
 const $notesP = document.querySelector('.groupNotes p');
+const logout = document.querySelector('#logout');
 
 let joinedGroup;
 /**************************************************************************************************/
@@ -61,6 +62,16 @@ async function renderGroup() {
   };
 };
 
+function logoutUser() {
+  const request = new XMLHttpRequest();
+  request.open('GET', '/logout.html');
+  request.send();
+
+  request.addEventListener('load', () => {
+    window.location.href = '../logout/logout.html';
+  })
+}
+
 /**************************************************************************************************/
 /** EVENTS                                                                                       **/
 /** Combine the Elements from above with the declared Functions in this section.                 **/
@@ -94,6 +105,9 @@ $groupNotes.addEventListener('click', async () => {
       window.location.href = 'groups/groups.html';
   };
 });
+
+logout.addEventListener('click', logoutUser);
+
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/
