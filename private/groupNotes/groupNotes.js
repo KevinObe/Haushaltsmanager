@@ -123,11 +123,9 @@ function createNewNote(note){
     saveNote(note);
   });
 
-  const $textarea = document.createElement('input');
+  const $textarea = document.createElement('p');
   $textarea.className = 'noteValue';
-  $textarea.max = 512;
-  $textarea.value = note.text;
-  $textarea.readOnly = true;
+  $textarea.textContent = note.text;
 
   $textarea.addEventListener('input', function(){
     note.text = $textarea.value;
