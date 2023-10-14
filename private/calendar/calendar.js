@@ -100,8 +100,6 @@ function updateCalendarData() {
       calendarDays.push(calendarDay);
       if(day.className === 'active'){
         $contentSpace.textContent = `Für Heute den ${day.textContent} ${$currentDate.textContent} stehen keine Ereignisse bevor.`;
-        $contentSpace.addEventListener('click', () => {
-          window.location.href = 'events.html'});
       };
     });
 
