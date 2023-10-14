@@ -27,7 +27,6 @@ const $loginBtn = document.querySelector('#loginBtn');
 /**************************************************************************************************/
 
 
-
 /**************************************************************************************************/
 /** EVENTS                                                                                       **/
 /** Combine the Elements from above with the declared Functions in this section.                 **/
