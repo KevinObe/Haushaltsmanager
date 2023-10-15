@@ -281,7 +281,7 @@
 
   main div button{
     background-color: rgb(150, 142, 142);;
-    color: white;
+    color: black;
     height: 70%;
     width: 100%;
   }
@@ -448,7 +448,7 @@
 
   main div button{
     background-color: rgb(150, 142, 142);;
-    color: white;
+    color: black;
     height: 70%;
     width: 100%;
   }
@@ -469,32 +469,20 @@
     color: var(--main-color);
   }
 
-  /* Styles for the custom alert */
-  .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.7);
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-  }
+  footer{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
 
-  .modal-content {
-    background-color: var(--main-color);
-    color: white;
-    padding: 20px;
-    border-radius: 5px;
-  }
+    & .navBtn{
+      display: block;
+      grid-column: 1fr;
+      grid-row: 1fr;
+      justify-self:  center;
 
-  .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
+      background-color: rgb(150, 142, 142);
+      color: black;
+      padding: 2%;
+    }
   }
 }

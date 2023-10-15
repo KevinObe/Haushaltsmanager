@@ -52,7 +52,6 @@
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(3, 1fr);
 
-    gap: 3%;
 
     & .item-1{
       width: 100%;
@@ -70,6 +69,7 @@
       width: 100%;
       grid-column: 1;
       grid-row: 3;
+      margin-top: 3%;
     }
   }
 
@@ -78,7 +78,6 @@
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: 1fr, 10%, 10%;
-    gap: 5%;
 
     & form{
       width: 100%;
@@ -106,14 +105,15 @@
     font-size: 4rem;
   }
 
-  form{
-    height: 100%;
-  }
-
   main button{
     background-color: rgb(150, 142, 142);
     color: black;
-    height: 80%;
+    height: 60%;
+    border: solid 1px black;
+  }
+
+  form{
+    height: 100%;
   }
 
   a{
@@ -193,8 +193,6 @@
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(3, 1fr);
 
-    gap: 3%;
-
     & .item-1{
       width: 100%;
       grid-column: 1;
@@ -211,6 +209,7 @@
       width: 100%;
       grid-column: 1;
       grid-row: 3;
+      margin-top: 3%;
     }
   }
 
@@ -219,7 +218,6 @@
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: 1fr, 10%, 10%;
-    gap: 5%;
 
     & form{
       width: 100%;
@@ -247,16 +245,15 @@
     font-size: 4rem;
   }
 
-  form{
-    height: 100%;
-  }
-
   main button{
     background-color: rgb(150, 142, 142);
     color: black;
-    height: 80%;
+    height: 60%;
   }
 
+  form{
+    height: 100%;
+  }
   a{
     text-decoration: none;
     color: var(--main-color);
@@ -334,7 +331,6 @@
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(3, 1fr);
 
-    gap: 3%;
 
     & .item-1{
       width: 100%;
@@ -352,6 +348,7 @@
       width: 100%;
       grid-column: 1;
       grid-row: 3;
+      margin-top: 2%;
     }
   }
 
@@ -360,7 +357,6 @@
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: 1fr, 10%, 10%;
-    gap: 5%;
 
     & form{
       width: 100%;
@@ -388,13 +384,14 @@
     font-size: 4rem;
   }
 
-  form{
-    height: 100%;
-  }
-
   main button{
     background-color: rgb(150, 142, 142);
     color: black;
+    height: 60%;
+  }
+
+  form{
+    height: 100%;
   }
 
   a{

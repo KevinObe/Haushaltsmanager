@@ -13,6 +13,7 @@
 /**************************************************************************************************/
 const $addButton = document.querySelector('.addButton');
 const $listName = document.querySelector('.listname');
+const $navBtn = document.querySelector('.navBtn');
 const $entries = [];
 let shoppingLists = [];
 
@@ -35,18 +36,20 @@ function loadLists(){
   request.send();
 
   request.addEventListener('load', () => {
-    if(request.response){
+    if(request.status === 200){
       shoppingLists = JSON.parse(request.response);
 
-        for(const shoppingList of shoppingLists){
-          shoppingList.save = saveList;
-          shoppingList.delete = deleteList;
+      for(const shoppingList of shoppingLists){
+        shoppingList.save = saveList;
+        shoppingList.delete = deleteList;
 
-          createNewList(shoppingList);
-        }
-        return;
+        createNewList(shoppingList);
       }
-    console.log(request.response);
+      return;
+    } else {
+      $alertText.textContent = `Fehler beim Laden der Listen.`;
+      customAlert();
+    }
   });
 }
 
@@ -61,7 +64,8 @@ function saveList(){
 
   request.addEventListener('load', () => {
     if(request.status !== 204){
-      alert(`Fehler: ${response.status}`);
+      $alertText.textContent = `Fehler beim Speichern der Liste.`;
+      customAlert();
     }
   });
 }
@@ -77,7 +81,8 @@ function deleteList(){
 
   request.addEventListener('load', () => {
     if(request.status !== 200){
-      alert(`Fehler: ${request.status}`);
+      $alertText.textContent = `Fehler beim Löschen der Liste.`;
+      customAlert();
     }
   });
 }
@@ -152,18 +157,18 @@ function openList(shoppingList){
     if(request.readyState === 4 && request.status === 200){
       shoppingList = request.response;
       window.location.href = '/private/groupShopping/groupList.html';
-      console.log(shoppingList)
+    } else {
+      $alertText.textContent = `Fehler beim Öffnen der Liste.`;
+      customAlert();
     }
   })
 };
-
-
 /**************************************************************************************************/
 /** EVENTS                                                                                       **/
 /** Combine the Elements from above with the declared Functions in this section.                 **/
 /**************************************************************************************************/
 $addButton.addEventListener('click', addNewList);
-
+$navBtn.addEventListener('click', () => window.location.href = '../home.html');
 
 /**************************************************************************************************/
 /** SETUP                                                                                        **/

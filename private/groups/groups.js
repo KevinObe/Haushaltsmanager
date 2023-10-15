@@ -15,14 +15,10 @@ const $joinBtn = document.querySelector('#loginBtn');
 const $createBtn = document.querySelector('#registerBtn');
 const $leaveBtn = document.querySelector('#leaveBtn');
 const groupInfo = document.querySelector('#groupInfo');
+const $navBtn = document.querySelector('.navBtn');
+
 
 let joinedGroup;
-
-// Get references to the custom alert elements
-const customAlertButton = document.getElementById("customAlertButton");
-const customAlert = document.getElementById("customAlert");
-const closeBtn = document.querySelector(".close");
-const $alertText = document.querySelector('#alertText');
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -40,7 +36,7 @@ async function checkGroup() {
     joinedGroup = await response.json();
     console.log(joinedGroup, response.status);
     if(response.status === 200){
-      groupInfo.textContent = `Du bist Mitglied der Gruppe ${joinedGroup.groupname}. Du kannst in der Übersicht Inhalte teilen.`
+      groupInfo.textContent = `Du bist Mitglied der Gruppe ${joinedGroup.groupname.substring(0,20)}. Du kannst in der Übersicht Inhalte teilen.`
     };
   } catch(error){
     console.log(error);
@@ -58,10 +54,9 @@ function leaveGroup() {
     });
   } else {
     $alertText.textContent = `Du bist noch kein Mitglied in einer Gruppe!`;
-    customAlert.style.display = "block";
+    customAlert();
   };
 };
-
 
 /**************************************************************************************************/
 /** EVENTS                                                                                       **/
@@ -69,8 +64,8 @@ function leaveGroup() {
 /**************************************************************************************************/
 $joinBtn.addEventListener('click', function () {
   if(joinedGroup){
-    $alertText.textContent = `Du bist bereits Mitglied in der Gruppe ${joinedGroup.groupname}!`;
-    customAlert.style.display = "block";
+    $alertText.textContent = `Du bist bereits Mitglied in der Gruppe ${joinedGroup.groupname.substring(0,20)}!`;
+    customAlert();
   } else {
     window.location.href = 'join.html';
   };
@@ -78,19 +73,15 @@ $joinBtn.addEventListener('click', function () {
 
 $createBtn.addEventListener('click', function () {
   if(joinedGroup){
-    $alertText.textContent = `Du bist bereits Mitglied in der Gruppe ${joinedGroup.groupname}!`;
-    customAlert.style.display = "block";
+    $alertText.textContent = `Du bist bereits Mitglied in der Gruppe ${joinedGroup.groupname.substring(0,20)}!`;
+    customAlert();
   } else {
     window.location.href = 'create.html';
   };
 });
 
 $leaveBtn.addEventListener('click', leaveGroup);
-
-// Close the custom alert when the close button is clicked
-closeBtn.addEventListener("click", () => {
-  customAlert.style.display = "none";
-});
+$navBtn.addEventListener('click', () => window.location.href = '../home.html');
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/

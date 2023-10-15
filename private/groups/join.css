@@ -80,6 +80,7 @@
   main button{
     background-color: rgb(150, 142, 142);
     color: black;
+    height: 50%;
   }
 
   input{
@@ -90,6 +91,10 @@
   p{
     font-size: 2rem;
     color: var(--main-color);
+  }
+
+  footer{
+    display: none;
   }
 }
 
@@ -175,6 +180,7 @@
   main button{
     background-color: rgb(150, 142, 142);;
     color: black;
+    height: 50%;
   }
 
   input{
@@ -186,6 +192,10 @@
     font-size: 2.5rem;
     color: var(--main-color);
   }
+}
+
+footer{
+  display: none;
 }
 
 @media(min-width: 768px){
@@ -281,5 +291,23 @@
   p{
     font-size: 2.5rem;
     color: var(--main-color);
+  }
+
+  footer{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+
+    & .navBtn{
+      display: block;
+      grid-column: 1fr;
+      grid-row: 1fr;
+      justify-self:  center;
+
+      background-color: rgb(150, 142, 142);
+      color: black;
+      padding: 2%;
+      text-decoration: none;
+    }
   }
 }

@@ -14,6 +14,7 @@ console.log('hallo')
 const $submitBtn = document.querySelector('.item-3');
 const $groupname = document.querySelector('.groupname');
 const $password = document.querySelector('.password');
+const $navBtn = document.querySelector('.navBtn');
 
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
@@ -46,10 +47,13 @@ $submitBtn.addEventListener('click', async () => {
   console.log(`${response.status} ${response.statusText}`);
   if(response.status === 204 || response.status === 200){
     window.location.href = 'joined.html';
-  };
+  } else {
+    $alertText.textContent = `Fehler beim erstellen der Gruppe. Keine Leer oder Sonderzeichen erlaubt.`;
+    customAlert();
+  }
 })();
 
-
+$navBtn.addEventListener('click', () => window.location.href = '../home.html');
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/

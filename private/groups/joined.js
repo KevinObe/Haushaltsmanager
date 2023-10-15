@@ -30,7 +30,7 @@ async function renderGroup() {
     const response = await fetch('/api/v1/checkGroup');
     const joinedGroup = await response.json();
     if(response.status === 200){
-      $groupInfo.textContent = `Du bist nun Mitglied der Gruppe ${joinedGroup.groupname}!`
+      $groupInfo.textContent = `Du bist nun Mitglied der Gruppe ${joinedGroup.groupname.substring(0,20)}!`
     }
   }catch(error){
     console.log(error);

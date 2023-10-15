@@ -54,9 +54,9 @@ function loadEntries(){
         createNewEntry(entry);
       }
         return;
-    }
-    if(response.status !== 200) {
-      alert(`Fehler: ${response.status}`);
+    } else{
+      $alertText.textContent = `Fehler beim Laden der Einträge.`;
+      customAlert();
     }
   });
 }
@@ -76,7 +76,8 @@ function saveEntry() {
 
   request.addEventListener('load', () => {
     if(request.status !== 204){
-      alert(`Fehler: ${request.status}`);
+      $alertText.textContent = `Fehler beim Speichern des Eintrages.`;
+      customAlert();
     }
   });
 }
@@ -92,7 +93,8 @@ function deleteEntry(){
 
   request.addEventListener('load', () => {
     if(request.status !== 200){
-      alert(`Fehler: ${request.status}`);
+      $alertText.textContent = `Fehler beim Löschen des Eintrages.`;
+      customAlert();
     }
   });
 }

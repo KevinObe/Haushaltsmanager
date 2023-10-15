@@ -14,6 +14,7 @@
 const $addButton = document.querySelector('.addButton');
 const $input = document.querySelector('.entryValue');
 const $notes = document.querySelector('.notes');
+const $navBtn = document.querySelector('.navBtn');
 let notes = [];
 
 /**************************************************************************************************/
@@ -50,7 +51,8 @@ function loadNotes(){
       return;
     }
 
-    alert(`Fehler: ${response.status}`);
+    $alertText.textContent = `Fehler beim Laden der Notizen.`;
+    customAlert();
   });
 }
 
@@ -66,7 +68,8 @@ function saveNote(note) {
 
   request.addEventListener('load', () => {
     if(request.status !== 200){
-      alert(`Fehler: ${request.status}`);
+      $alertText.textContent = `Fehler beim Speicher der Notiz.`;
+      customAlert();
     }
   });
 }
@@ -82,7 +85,8 @@ function deleteNote(){
 
   request.addEventListener('load', () => {
     if(request.status !== 200){
-      alert(`Fehler: ${request.status}`);
+      $alertText.textContent = `Fehler beim Löschen der Notiz.`;
+      customAlert();
     }
   });
 }
@@ -157,6 +161,7 @@ function createNewNote(note){
 /** Combine the Elements from above with the declared Functions in this section.                 **/
 /**************************************************************************************************/
 $addButton.addEventListener('click', addNote);
+$navBtn.addEventListener('click', () => window.location.href = '../home.html');
 
 
 /**************************************************************************************************/

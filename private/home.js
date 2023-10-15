@@ -53,10 +53,10 @@ async function renderGroup() {
   try{
     const response = await fetch('/api/v1/checkGroup');
     joinedGroup = await response.json();
-    if(response.status === 200){
-      $shopP.textContent = `Einkaufen - ${joinedGroup.groupname}`;
-      $notesP.textContent = `To-Do - ${joinedGroup.groupname}`;
-    };
+    // if(response.status === 200){
+    //   $shopP.textContent = `Einkaufen - ${joinedGroup.groupname}`;
+    //   $notesP.textContent = `To-Do - ${joinedGroup.groupname}`;
+    // };
   }catch(error){
     console.log(error);
   };

@@ -116,7 +116,7 @@
   /* footer grid settings */
 
   footer{
-    display: grid;
+    display: none;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
 
@@ -353,7 +353,7 @@
   /* footer grid settings */
 
   footer{
-    display: grid;
+    display: none;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
 
@@ -589,7 +589,7 @@
     /* footer grid settings */
 
     footer{
-      display: grid;
+      display: none;
       grid-template-columns: 1fr;
       grid-template-rows: 1fr;
 
@@ -940,6 +940,23 @@
         width: 100%;
         background-color: rgb(150, 142, 142);
         color: black;
+      }
+    }
+
+    footer{
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+
+      & .navBtn{
+        display: block;
+        grid-column: 1fr;
+        grid-row: 1fr;
+        justify-self:  center;
+
+        background-color: rgb(150, 142, 142);
+        color: black;
+        padding: 2%;
       }
     }
   }

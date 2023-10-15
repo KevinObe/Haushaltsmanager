@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../../common.css">
   <link rel="stylesheet" href="create.css">
+  <link rel="stylesheet" href="../../alert.css">
   <script src="create.js" defer></script>
   <script src="../../mobileMenu.js" defer></script>
+  <script src="../../alert.js" defer></script>
   <title>Mein-Haushalt Gruppe erstellen</title>
 </head>
 
@@ -14,6 +16,14 @@
   <div id="background">
     <img id="backgroundImage1" src="/imagesss/coffee-concept-with-differents-types-coffee-coffee-beans-milk-cinnamon-sticks-grey-background-flat-lay.jpg" onload="this.style.opacity = 1">
   </div>
+
+    <div id="customAlert" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <p id="alertText"></p>
+      </div>
+    </div>
+
   <header>
     <h1>Gruppe erstellen</h1>
     <div class="menuToggler">
@@ -45,7 +55,7 @@
   </main>
 
   <footer>
-
+    <a class="navBtn" href="../home.html">zurück zur Übersicht</a>
   </footer>
 
 </body>

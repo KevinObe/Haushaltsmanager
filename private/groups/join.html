@@ -4,13 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../../common.css">
+  <link rel="stylesheet" href="../../alert.css">
   <link rel="stylesheet" href="join.css">
   <script src="join.js" defer></script>
   <script src="../../mobileMenu.js" defer></script>
+  <script src="../../alert.js" defer></script>
   <title>Mein-Haushalt Gruppe beitreten</title>
 </head>
 
 <body>
+  <div id="customAlert" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p id="alertText"></p>
+    </div>
+  </div>
+
   <div id="background">
     <img id="backgroundImage1" src="/imagesss/coffee-concept-with-differents-types-coffee-coffee-beans-milk-cinnamon-sticks-grey-background-flat-lay.jpg" onload="this.style.opacity = 1">
 </div>
@@ -45,7 +54,7 @@
   </main>
 
   <footer>
-
+    <a class="navBtn" href="../home.html">zurück zur Übersicht</a>
   </footer>
 
 </body>
