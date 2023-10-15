@@ -178,7 +178,19 @@
   }
 
   footer{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
 
+    & .navBtn{
+      display: none;
+      grid-column: 1fr;
+      grid-row: 1fr;
+
+      background-color: rgb(150, 142, 142);
+      color: black;
+      height: 100%;
+    }
   }
 }
 
@@ -362,7 +374,19 @@
   }
 
   footer{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
 
+    & .navBtn{
+      display: none;
+      grid-column: 1fr;
+      grid-row: 1fr;
+
+      background-color: rgb(150, 142, 142);
+      color: black;
+      height: 100%;
+    }
   }
 }
 
@@ -547,6 +571,19 @@
   }
 
   footer{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
 
+    & .navBtn{
+      display: flex;
+      grid-column: 1fr;
+      grid-row: 1fr;
+
+      background-color: rgb(150, 142, 142);
+      color: black;
+      height: 100%;
+      padding: 2%;
+    }
   }
 }

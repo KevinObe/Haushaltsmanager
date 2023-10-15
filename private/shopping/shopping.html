@@ -5,14 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../../common.css">
   <link rel="stylesheet" href="shopping.css">
+  <link rel="stylesheet" href="../../alert.css">
   <script src="../../mobileMenu.js" defer></script>
   <script src="shopping.js" defer></script>
+  <script src="../../alert.js" defer></script>
   <title>Mein Haushalt - Einkaufen</title>
 </head>
 <body>
   <div id="background">
-    <img id="backgroundImage1" src="/imagesss/coffee-concept-with-differents-types-coffee-coffee-beans-milk-cinnamon-sticks-grey-background-flat-lay.jpg" onload="this.style.opacity = 1">
-</div>
+      <img id="backgroundImage1" src="/imagesss/coffee-concept-with-differents-types-coffee-coffee-beans-milk-cinnamon-sticks-grey-background-flat-lay.jpg" onload="this.style.opacity = 1">
+  </div>
+  <div id="customAlert" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p id="alertText"></p>
+    </div>
+  </div>
   <header>
       <h1>Einkaufen</h1>
       <div class="menuToggler">
@@ -41,17 +49,10 @@
   </section>
 
   <main>
-    <!--
-    <div class="shoppingList">
-      <h2 class="listTitle">Meine Einkaufsliste</h2>
-      <button class="openListButton">Anzeigen</button>
-      <button class="deleteButton">Löschen</button>
-    </div>
-    -->
   </main>
 
   <footer>
-
+    <button class="navBtn">zurück zur Übersicht</button>
   </footer>
 </body>
 </html>

@@ -32,23 +32,6 @@ let entry = {};
 /** FUNCTIONS                                                                                    **/
 /** Put the main logic of the application in functions and declare them in this section.         **/
 /**************************************************************************************************/
-/*
-function loadLists(){
-  const request = new XMLHttpRequest();
-  request.open('GET', '/api/v1/shoppingLists');
-  request.send();
-
-  request.addEventListener('load', function () {
-    if(request.readyState === 4 && request.status === 200){
-      shoppingLists = JSON.parse(request.response);
-      console.log(shoppingLists);
-
-      loadEntries();
-    }
-    return;
-  })
-}
-*/
 function loadEntries(){
   const request = new XMLHttpRequest();
 
@@ -73,7 +56,8 @@ function loadEntries(){
         return;
     }
     if(response.status !== 200) {
-      alert(`Fehler: ${response.status}`);
+      $alertText.textContent = `Fehler beim Laden der Einträge.`;
+      customAlert();
     }
   });
 }
@@ -93,7 +77,8 @@ function saveEntry() {
 
   request.addEventListener('load', () => {
     if(request.status !== 204){
-      alert(`Fehler: ${request.status}`);
+      $alertText.textContent = `Fehler beim Speichern des Eintrages.`;
+      customAlert();
     }
   });
 }
@@ -109,7 +94,8 @@ function deleteEntry(){
 
   request.addEventListener('load', () => {
     if(request.status !== 200){
-      alert(`Fehler: ${request.status}`);
+      $alertText.textContent = `Fehler beim Löschen des Eintrages.`;
+      customAlert();
     }
   });
 }

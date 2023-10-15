@@ -13,6 +13,7 @@
 /**************************************************************************************************/
 const $addButton = document.querySelector('.addButton');
 const $listName = document.querySelector('.listname');
+const $navBtn = document.querySelector('.navBtn');
 const $entries = [];
 
 let shoppingLists = [];
@@ -49,8 +50,8 @@ function loadLists(){
       }
       return;
     }
-
-    alert(`Fehler: ${response.status}`);
+    $alertText.textContent = `Fehler beim laden der Listen.`;
+    customAlert();
   });
 }
 
@@ -65,7 +66,8 @@ function saveList(){
 
   request.addEventListener('load', () => {
     if(request.status !== 200){
-      alert(`Fehler: ${request.status}`);
+      $alertText.textContent = `Fehler beim speichern der Liste.`;
+      customAlert();
     }
   });
 }
@@ -81,7 +83,8 @@ function deleteList(){
 
   request.addEventListener('load', () => {
     if(request.status !== 200){
-      alert(`Fehler: ${request.status}`);
+      $alertText.textContent = `Fehler beim löschen der Liste.`;
+      customAlert();
     }
   });
 }
@@ -167,7 +170,7 @@ function openList(shoppingList){
 /** Combine the Elements from above with the declared Functions in this section.                 **/
 /**************************************************************************************************/
 $addButton.addEventListener('click', addNewList);
-
+$navBtn.addEventListener('click', () => window.location.href = '../home.html');
 
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
