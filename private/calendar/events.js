@@ -20,11 +20,6 @@ let calendarEvent = {};
 let calendarEvents = [];
 let clickedDay = {};
 
-// Get references to the custom alert elements
-const customAlertButton = document.getElementById("customAlertButton");
-const customAlert = document.getElementById("customAlert");
-const closeBtn = document.querySelector(".close");
-const $alertText = document.querySelector('#alertText');
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -42,8 +37,13 @@ function loadClickedDate() {
   request.send();
 
   request.addEventListener('load', function () {
-    clickedDay = JSON.parse(request.response)
-    console.log(clickedDay);
+    if(request.status === 200) {
+      clickedDay = JSON.parse(request.response)
+      console.log(clickedDay);
+    } else {
+      $alertText.textContent = `Fehler beim Laden der Events.`;
+      customAlert();
+    }
   });
 ;}
 
@@ -54,17 +54,22 @@ function loadEvents(){
   request.send();
 
   request.addEventListener('load', function () {
-    let savedEvents = JSON.parse(request.response);
-    for(let i = 0; i < savedEvents.length; i++){
-      if(clickedDay.date === savedEvents[i].eventDate){
-        calendarEvents.push(savedEvents[i]);
-        calendarEvent = savedEvents[i];
-        calendarEvent.save = saveEvent;
-        calendarEvent.delete = deleteEvent;
-        console.log(calendarEvent)
-        createNewEvent(calendarEvent);
+    if(request.status === 200) {
+      let savedEvents = JSON.parse(request.response);
+      for(let i = 0; i < savedEvents.length; i++){
+        if(clickedDay.date === savedEvents[i].eventDate){
+          calendarEvents.push(savedEvents[i]);
+          calendarEvent = savedEvents[i];
+          calendarEvent.save = saveEvent;
+          calendarEvent.delete = deleteEvent;
+          console.log(calendarEvent)
+          createNewEvent(calendarEvent);
+        };
       };
-    };
+    } else {
+      $alertText.textContent = `Fehler beim Speichern des Events.`;
+      customAlert();
+    }
   });
 };
 
@@ -73,7 +78,12 @@ function saveEvent(){
   request.open('POST', `/api/v1/calendarEvents/${calendarEvent.id}`);
   request.send(JSON.stringify(calendarEvent));
 
-  console.log(request.response)
+  request.addEventListener('load', () => {
+    if(request.status !== 200) {
+      $alertText.textContent = `Fehler beim Speichern des Events.`;
+      customAlert();
+    }
+  });
 }
 
 function deleteEvent(calendarEvent){
@@ -83,7 +93,10 @@ function deleteEvent(calendarEvent){
   request.send();
 
   request.addEventListener('load', () => {
-    console.log(request.status, request.response);
+    if(request.status !== 200) {
+      $alertText.textContent = `Fehler beim Löschen des Events.`;
+      customAlert();
+    }
   })
 }
 
@@ -126,8 +139,8 @@ function addNewEvent() {
     createNewEvent(calendarEvent);
 
   } catch (error) {
-    $alertText.textContent = ` ${error} Gib die Uhrzeit in HHMM an`;
-    customAlert.style.display = "block";
+    $alertText.textContent = `Uhrzeit im Format HHMM angeben.`;
+    customAlert();
   };
 };
 
@@ -173,9 +186,6 @@ function createNewEvent(calendarEvent) {
 $addButton.addEventListener('click', addNewEvent);
 $navBtn.addEventListener('click', () => window.location.href = 'calendar.html');
 
-closeBtn.addEventListener("click", () => {
-  customAlert.style.display = "none";
-});
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/

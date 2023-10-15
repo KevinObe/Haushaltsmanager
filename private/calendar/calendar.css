@@ -231,6 +231,10 @@
     border-bottom: 3px solid var(--main-color);
   }
   /* footer */
+
+  footer{
+    display: none;
+  }
 }
 
 @media(min-width: 425px){
@@ -465,6 +469,10 @@
     border-bottom: 3px solid var(--main-color);
   }
   /* footer */
+
+  footer{
+    display: none;
+  }
 }
 
 @media(min-width: 768px) {
@@ -700,4 +708,21 @@
     border-bottom: 3px solid var(--main-color);
   }
   /* footer */
+
+  footer{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+
+    & .navBtn{
+      display: block;
+      grid-column: 1fr;
+      grid-row: 1fr;
+      justify-self:  center;
+
+      background-color: rgb(150, 142, 142);
+      color: black;
+      padding: 2%;
+    }
+  }
 }

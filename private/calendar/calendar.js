@@ -20,6 +20,8 @@ const $days = document.querySelector('.days');
 const $previousIcon = document.querySelector('.previous');
 const $nextIcon = document.querySelector('.next');
 const $contentSpace = document.querySelector('.contentSpace');
+const $navBtn = document.querySelector('.navBtn');
+
 
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
@@ -183,6 +185,7 @@ $nextIcon.addEventListener('click', () => {
 
 window.addEventListener('pageshow', updateCalendarData);
 
+$navBtn.addEventListener('click', () => window.location.href = '../home.html');
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/

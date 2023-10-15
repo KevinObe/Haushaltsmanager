@@ -89,7 +89,8 @@
     grid-template-rows: repeat(2, 1fr);
     justify-items: center;
     align-items: center;
-    background-image: url(/private/imagesss/cool-black-background-cmyjabr7alpgs51d.jpg);
+    background-color: black;
+    opacity: 0.8;
 
     & .eventTitle{
       grid-column: 1/4;
@@ -302,7 +303,8 @@
     grid-template-rows: repeat(2, 1fr);
     justify-items: center;
     align-items: center;
-    background-image: url(/private/imagesss/cool-black-background-cmyjabr7alpgs51d.jpg);
+    background-color: black;
+    opacity: 0.8;
 
     & .eventTitle{
       grid-column: 1/4;
@@ -516,7 +518,6 @@
     grid-template-rows: repeat(2, 1fr);
     justify-items: center;
     align-items: center;
-    background-image: url(/private/imagesss/cool-black-background-cmyjabr7alpgs51d.jpg);
 
     & .eventTitle{
       grid-column: 1/4;

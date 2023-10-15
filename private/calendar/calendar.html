@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../../common.css">
   <link rel="stylesheet" href="calendar.css">
+  <link rel="stylesheet" href="../../alert.css">
+  <script src="../../alert.js" defer></script>
   <script src="calendar.js" type="module"></script>
   <script src="../../mobileMenu.js" defer></script>
   <title>Mein Haushalt - Kalender</title>
@@ -12,6 +14,12 @@
 <body>
   <div id="background">
     <img id="backgroundImage1" src="/imagesss/coffee-concept-with-differents-types-coffee-coffee-beans-milk-cinnamon-sticks-grey-background-flat-lay.jpg" onload="this.style.opacity = 1">
+  </div>
+  <div id="customAlert" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p id="alertText"></p>
+    </div>
   </div>
   <header>
     <h1>Kalender</h1>
@@ -33,11 +41,6 @@
   </header>
 
   <section class="contentSpace">
-    <!-- <div class="eventList">
-      <h2 class="eventTitle">Titel</h2>
-      <div class="eventDate">Datum</div>
-      <div class="eventTime">Zeit</div>
-    </div> -->
   </section>
 
   <main class="calendar">
@@ -62,7 +65,7 @@
   </main>
 
   <footer>
-
+    <button class="navBtn">zurück zur Übersicht</button>
   </footer>
 
 </body>
