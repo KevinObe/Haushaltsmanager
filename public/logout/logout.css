@@ -5,7 +5,7 @@
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-rows: 10% 1fr 20%;
-    gap: 1.8%;
+    gap: 5%;
     height: 100%;
     width: 100%;
 
@@ -50,23 +50,18 @@
   main{
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     height: 100%;
-    gap: 10%;
+    gap: 20%;
 
     & p{
       grid-column: 1;
       grid-row: 1;
     }
 
-    & .contentArea{
-      grid-column: 1;
-      grid-row: 2;
-    }
-
     & .loginArea{
       grid-column: 1;
-      grid-row: 3;
+      grid-row: 2;
     }
   }
   /* mobile footer */
@@ -109,7 +104,7 @@
   main div button{
     background-color: rgb(150, 142, 142);
     color: black;
-    height: 70%;
+    height: 40%;
     width: 100%;
   }
 
@@ -126,6 +121,7 @@
 
   p{
     font-size: 2rem;
+    font-weight: bold;
     color: var(--main-color);
   }
 }
@@ -182,7 +178,7 @@
   main{
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     height: 100%;
     gap: 10%;
 
@@ -191,14 +187,9 @@
       grid-row: 1;
     }
 
-    & .contentArea{
-      grid-column: 1;
-      grid-row: 2;
-    }
-
     & .loginArea{
       grid-column: 1;
-      grid-row: 3;
+      grid-row: 2;
     }
   }
   /* mobile footer */
@@ -241,7 +232,7 @@
   main div button{
     background-color: rgb(150, 142, 142);
     color: black;
-    height: 70%;
+    height: 40%;
     width: 100%;
   }
 
@@ -258,6 +249,7 @@
 
   p{
     font-size: 2rem;
+    font-weight: bold;
     color: var(--main-color);
   }
 }
@@ -315,7 +307,7 @@
   main{
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     height: 100%;
     gap: 10%;
 
@@ -324,14 +316,9 @@
       grid-row: 1;
     }
 
-    & .contentArea{
-      grid-column: 1;
-      grid-row: 2;
-    }
-
     & .loginArea{
       grid-column: 1;
-      grid-row: 3;
+      grid-row: 2;
     }
   }
   /* mobile footer */
@@ -374,7 +361,7 @@
   main div button{
     background-color: rgb(150, 142, 142);
     color: black;
-    height: 70%;
+    height: 40%;
     width: 100%;
   }
 
@@ -391,6 +378,7 @@
 
   p{
     font-size: 2.5rem;
+    font-weight: bold;
     color: var(--main-color);
   }
 }
