@@ -57,6 +57,9 @@ async function renderGroup() {
     //   $shopP.textContent = `Einkaufen - ${joinedGroup.groupname}`;
     //   $notesP.textContent = `To-Do - ${joinedGroup.groupname}`;
     // };
+    if(response.status === 200){
+      await fetch(`/api/v1/live/${joinedGroup.id}`);
+    }
   }catch(error){
     console.log(error);
   };
@@ -113,3 +116,55 @@ logout.addEventListener('click', logoutUser);
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/
 /**************************************************************************************************/
 renderGroup();
+
+
+// sse events for testing
+
+const sse = new EventSource('/api/v1/live');
+
+function receiveMessage({ data }) {
+  // parse the received json message from the server
+  console.log('aufgerufen')
+  const message = JSON.parse(data);
+
+  if(message.type === 'online' && message.group.id === joinedGroup.id){
+    console.log(message.group.id)
+    const online = message.info;
+    $alertText.textContent = `${online}`;
+    console.log(message)
+    customAlert();
+    return;
+  }
+
+  if(message.type === 'online' && message.group.id === false){
+    console.log(message)
+    const online = message.info;
+    $alertText.textContent = `${online}`;
+    console.log(message)
+    customAlert();
+    return;
+  }
+
+  if(message.type === 'ToDo' && message.group.id === joinedGroup.id){
+      $alertText.textContent = `${message.info}`;
+      customAlert();
+      return;
+  }
+
+  if(message.type === 'shoppingList' && message.group.id === joinedGroup.id){
+    $alertText.textContent = `${message.info}`;
+    customAlert();
+    return;
+  }
+}
+
+sse.addEventListener('message', receiveMessage);
+
+const test = document.querySelector('h1');
+
+test.addEventListener('click', () => {
+  console.log('post request ...')
+  fetch('/api/v1/live', {
+    method: 'POST'
+  });
+});
