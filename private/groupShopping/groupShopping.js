@@ -17,6 +17,7 @@ const $navBtn = document.querySelector('.navBtn');
 const $entries = [];
 let shoppingLists = [];
 
+let joinedGroup = {};
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -28,6 +29,65 @@ let shoppingLists = [];
 /** FUNCTIONS                                                                                    **/
 /** Put the main logic of the application in functions and declare them in this section.         **/
 /**************************************************************************************************/
+//check group for server send events
+async function checkGroup() {
+  try{
+    const response = await fetch('/api/v1/checkGroup');
+    joinedGroup = await response.json();
+    // if(response.status === 200){
+    // };
+    if(response.status === 200){
+      await fetch(`/api/v1/live/${joinedGroup.id}`);
+    }
+  }catch(error){
+    console.log(error);
+  };
+};
+const sse = new EventSource('/api/v1/live');
+
+function receiveMessage({ data }) {
+  console.log('aufgerufen')
+  const message = JSON.parse(data);
+
+  if(message.type === 'online' && message.group.id === joinedGroup.id){
+    console.log(message.group.id)
+    const online = message.info;
+    $alertText.textContent = `${online}`;
+    console.log(message)
+    customAlert();
+    return;
+  }
+
+  if(message.type === 'online' && message.group.id === false){
+    console.log(message)
+    const online = message.info;
+    $alertText.textContent = `${online}`;
+    console.log(message)
+    customAlert();
+    return;
+  }
+
+  if(message.type === 'shoppingList' && message.group.id === joinedGroup.id){
+    const shoppingList = message.content;
+    let index = shoppingLists.findIndex((list) => list.id === shoppingList.id);
+    if(index === -1){
+      $alertText.textContent = `${message.info}`;
+      customAlert();
+      createNewList(shoppingList);
+      return;
+    } else {
+      return;
+    }
+  }
+
+  //info messages todo
+  if(message.type === 'ToDo' && message.group.id === joinedGroup.id){
+    $alertText.textContent = `${message.info}`;
+    customAlert();
+    return;
+  }
+}
+
 function loadLists(){
   const request = new XMLHttpRequest();
 
@@ -66,7 +126,12 @@ function saveList(){
     if(request.status !== 204){
       $alertText.textContent = `Fehler beim Speichern der Liste.`;
       customAlert();
-    }
+    } else {
+      fetch(`/api/v1/liveShopping/${joinedGroup.id}`, {
+        method: 'POST',
+        body: JSON.stringify(shoppingList),
+      });
+    };
   });
 }
 
@@ -83,7 +148,7 @@ function deleteList(){
     if(request.status !== 200){
       $alertText.textContent = `Fehler beim Löschen der Liste.`;
       customAlert();
-    }
+    };
   });
 }
 
@@ -169,9 +234,10 @@ function openList(shoppingList){
 /**************************************************************************************************/
 $addButton.addEventListener('click', addNewList);
 $navBtn.addEventListener('click', () => window.location.href = '../home.html');
-
+sse.addEventListener('message', receiveMessage);
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/
 /**************************************************************************************************/
 loadLists();
+checkGroup();
