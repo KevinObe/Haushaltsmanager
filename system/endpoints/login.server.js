@@ -192,6 +192,7 @@ endpoints.add('/login{.html}?', (request, response, session) => {
 endpoints.add('/logout{.html}?', (request, response, session) => {
   // remove the profile from the session indicating that the session owner is no longer logged in
   delete session.profile;
+  delete session.onlineCounter;
   session.save();
   console.log('abgemeldet')
   // forward the user back to the public homepage
