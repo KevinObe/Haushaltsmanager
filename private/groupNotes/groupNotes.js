@@ -14,8 +14,10 @@
 const $addButton = document.querySelector('.addButton');
 const $input = document.querySelector('.entryValue');
 const $notes = document.querySelector('.notes');
-let notes = [];
+const $navBtn = document.querySelector('.navBtn');
 
+let notes = [];
+let joinedGroup = {};
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -27,6 +29,67 @@ let notes = [];
 /** FUNCTIONS                                                                                    **/
 /** Put the main logic of the application in functions and declare them in this section.         **/
 /**************************************************************************************************/
+
+/*checking the group and include server send events*/
+async function checkGroup() {
+  try{
+    const response = await fetch('/api/v1/checkGroup');
+    joinedGroup = await response.json();
+    // if(response.status === 200){
+    // };
+    if(response.status === 200){
+      await fetch(`/api/v1/live/${joinedGroup.id}`);
+    }
+  }catch(error){
+    console.log(error);
+  };
+};
+const sse = new EventSource('/api/v1/live');
+
+function receiveMessage({ data }) {
+  // parse the received json message from the server
+  console.log('aufgerufen')
+  const message = JSON.parse(data);
+
+  if(message.type === 'online' && message.group.id === joinedGroup.id){
+    console.log(message.group.id)
+    const online = message.info;
+    $alertText.textContent = `${online}`;
+    console.log(message)
+    customAlert();
+    return;
+  }
+
+  if(message.type === 'online' && message.group.id === false){
+    console.log(message)
+    const online = message.info;
+    $alertText.textContent = `${online}`;
+    console.log(message)
+    customAlert();
+    return;
+  }
+
+  if(message.type === 'ToDo' && message.group.id === joinedGroup.id){
+    const note = message.content;
+    let index = notes.findIndex((newNote) => newNote.id === note.id);
+    if(index === -1){
+      $alertText.textContent = `${message.info}`;
+      customAlert();
+      createNewNote(note);
+      return;
+    } else {
+      return;
+    }
+  }
+
+  //info messages shopping
+  if(message.type === 'shoppingList' && message.group.id === joinedGroup.id){
+    $alertText.textContent = `${message.info}`;
+    customAlert();
+    return;
+  }
+}
+
 
 function loadNotes(){
   const request = new XMLHttpRequest();
@@ -49,8 +112,8 @@ function loadNotes(){
       }
       return;
     }
-
-    alert(`Fehler: ${response.status}`);
+    $alertText.textContent = `Fehler beim Laden der Notizen.`;
+    customAlert();
   });
 }
 
@@ -66,8 +129,14 @@ function saveNote(note) {
 
   request.addEventListener('load', () => {
     if(request.status !== 200){
-      alert(`Fehler: ${request.status}`);
-    }
+      $alertText.textContent = `Fehler beim Speichern der Notiz.`;
+      customAlert();
+    } else {
+      fetch(`/api/v1/liveToDo/${joinedGroup.id}`, {
+        method: 'POST',
+        body: JSON.stringify(note),
+      });
+    };
   });
 }
 
@@ -82,7 +151,8 @@ function deleteNote(){
 
   request.addEventListener('load', () => {
     if(request.status !== 200){
-      alert(`Fehler: ${request.status}`);
+      $alertText.textContent = `Fehler beim Löschen der Notiz.`;
+      customAlert();
     }
   });
 }
@@ -157,9 +227,11 @@ function createNewNote(note){
 /** Combine the Elements from above with the declared Functions in this section.                 **/
 /**************************************************************************************************/
 $addButton.addEventListener('click', addNote);
-
+$navBtn.addEventListener('click', () => window.location.href = '../home.html');
+sse.addEventListener('message', receiveMessage);
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/
 /**************************************************************************************************/
 loadNotes();
+checkGroup();

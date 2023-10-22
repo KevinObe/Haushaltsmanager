@@ -5,13 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../../common.css">
   <link rel="stylesheet" href="groupNotes.css">
+  <link rel="stylesheet" href="../../alert.css">
+  <script src="../../alert.js" defer></script>
   <script src="../../mobileMenu.js" defer></script>
   <script src="groupNotes.js" defer></script>
-  <title>Gruppe - Notizen</title>
+  <title>To Do - Liste</title>
 </head>
 <body>
   <div id="background">
     <img id="backgroundImage1" src="/imagesss/coffee-concept-with-differents-types-coffee-coffee-beans-milk-cinnamon-sticks-grey-background-flat-lay.jpg" onload="this.style.opacity = 1">
+  </div>
+  <div id="customAlert" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p id="alertText"></p>
+    </div>
   </div>
   <header>
     <div class="menuToggler">
@@ -30,7 +38,7 @@
       <li class="menu-item"><div id="closeButton">X</div></li>
     </ul>
 
-    <h1>Gruppe - Notizen</h1>
+    <h1>ToDo</h1>
 
     <!--<button class="addButton"> + </button>-->
   </header>
@@ -47,7 +55,7 @@
   </main>
 
   <footer>
-
+    <button class="navBtn">zurück zur Übersicht</button>
   </footer>
 
 </body>

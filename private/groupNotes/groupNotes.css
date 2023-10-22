@@ -233,6 +233,10 @@
     }
   }
 
+  footer{
+    display: none;
+  }
+
 }
 
 @media(min-width: 425px){
@@ -469,6 +473,11 @@
       color: black;
     }
   }
+
+  footer{
+    display: none;
+  }
+
 }
 
 @media(min-width: 600px){
@@ -705,6 +714,10 @@
         color: black;
       }
     }
+
+    footer{
+      display: none;
+    }
   }
 
   @media(min-width: 800px){
@@ -940,6 +953,23 @@
         width: 100%;
         background-color: rgb(150, 142, 142);
         color: black;
+      }
+    }
+
+    footer{
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr;
+
+      & .navBtn{
+        display: block;
+        grid-column: 1fr;
+        grid-row: 1fr;
+        justify-self:  center;
+
+        background-color: rgb(150, 142, 142);
+        color: black;
+        padding: 2%;
       }
     }
   }
