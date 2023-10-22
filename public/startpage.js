@@ -1,5 +1,3 @@
-'use strict';
-
 /**************************************************************************************************/
 /** SETTINGS                                                                                     **/
 /** Declare basic settings of the application in this section.                                   **/
@@ -13,7 +11,7 @@
 /**************************************************************************************************/
 const $loginBtn = document.querySelector('#loginBtn');
 const $registerBtn = document.querySelector('#registerBtn');
-// const $body = document.querySelector('body');
+const $background = document.querySelector('#background');
 
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
@@ -37,6 +35,19 @@ const $registerBtn = document.querySelector('#registerBtn');
 //   };
 // };
 
+async function loadImg() {
+  const response = await fetch('/api/v1/cachedImg', {
+    responseType: 'blob'
+  });
+  const image = await response.blob();
+  const imageUrl = URL.createObjectURL(image);
+  console.log('Blob URL:', imageUrl);
+  const img = document.createElement("img");
+  img.src = imageUrl;
+  img.className = 'backgroundImage';
+  $background.append(img);
+}
+loadImg();
 /**************************************************************************************************/
 /** EVENTS                                                                                       **/
 /** Combine the Elements from above with the declared Functions in this section.                 **/
