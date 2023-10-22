@@ -10,7 +10,6 @@ let currentMonth = date.getMonth(); //returns 0 to 11!
 
 const months = ['Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'Novenber', 'Dezember'];
 
-
 /**************************************************************************************************/
 /** ELEMENTS                                                                                     **/
 /** Get access to all relevant elements of the DOM in this section.                              **/
@@ -22,7 +21,7 @@ const $nextIcon = document.querySelector('.next');
 const $contentSpace = document.querySelector('.contentSpace');
 const $navBtn = document.querySelector('.navBtn');
 
-
+let joinedGroup = {};
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -34,6 +33,59 @@ updateCalendarData();
 /** FUNCTIONS                                                                                    **/
 /** Put the main logic of the application in functions and declare them in this section.         **/
 /**************************************************************************************************/
+//check group for server send events
+async function checkGroup() {
+  try{
+    const response = await fetch('/api/v1/checkGroup');
+    joinedGroup = await response.json();
+    // if(response.status === 200){
+    // };
+    if(response.status === 200){
+      await fetch(`/api/v1/live/${joinedGroup.id}`);
+    }
+  }catch(error){
+    console.log(error);
+  };
+};
+
+const sse = new EventSource('/api/v1/live');
+
+function receiveMessage({ data }) {
+  const message = JSON.parse(data);
+
+  if(message.type === 'online' && message.group.id === joinedGroup.id){
+    console.log(message.group.id)
+    const online = message.info;
+    $alertText.textContent = `${online}`;
+    console.log(message)
+    customAlert();
+    return;
+  }
+
+  if(message.type === 'online' && message.group.id === false){
+    console.log(message)
+    const online = message.info;
+    $alertText.textContent = `${online}`;
+    console.log(message)
+    customAlert();
+    return;
+  }
+
+  //info messages todo
+  if(message.type === 'ToDo' && message.group.id === joinedGroup.id){
+    $alertText.textContent = `${message.info}`;
+    customAlert();
+    return;
+  }
+
+  //info messages shopping
+  if(message.type === 'shoppingList' && message.group.id === joinedGroup.id){
+    $alertText.textContent = `${message.info}`;
+    customAlert();
+    return;
+  }
+};
+
 function updateCalendarData() {
   let firstDay = new Date(currentYear, currentMonth, 1).getDay(); // getDay() returns the day of the week (0 - 6), parameter 1 is getting the first day of the current month's day of the week;
   let lastDateCurrMonth = new Date(currentYear, currentMonth + 1, 0).getDate(); // month + 1 is next month, parameter 0 means 1 day less, which is the last day in the current month => getDate method gives back the day;
@@ -184,9 +236,10 @@ $nextIcon.addEventListener('click', () => {
 });
 
 window.addEventListener('pageshow', updateCalendarData);
-
+sse.addEventListener('message', receiveMessage);
 $navBtn.addEventListener('click', () => window.location.href = '../home.html');
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/
 /**************************************************************************************************/
+checkGroup();
