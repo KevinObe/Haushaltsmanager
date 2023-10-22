@@ -78,7 +78,7 @@
   /* mobile footer */
 
   footer{
-    display: grid;
+    display: none;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(2, 1fr);
 
@@ -133,35 +133,6 @@
   p{
     font-size: 1.8rem;
     color: var(--main-color);
-  }
-
-  /* Styles for the custom alert */
-  .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.7);
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-  }
-
-  .modal-content {
-    background-color: var(--main-color);
-    color: white;
-    padding: 20px;
-    border-radius: 5px;
-  }
-
-  .close {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 20px;
-    cursor: pointer;
   }
 }
 
@@ -245,7 +216,7 @@
   /* mobile footer */
 
   footer{
-    display: grid;
+    display: none;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(2, 1fr);
 

@@ -31,7 +31,6 @@ const $navBtn = document.querySelector('.navBtn');
 /**************************************************************************************************/
 
 
-
 /**************************************************************************************************/
 /** EVENTS                                                                                       **/
 /** Combine the Elements from above with the declared Functions in this section.                 **/
