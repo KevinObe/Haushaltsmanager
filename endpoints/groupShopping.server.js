@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('node:fs/promises');
+const liveClients = require('../library/SSE');
 
 let file = '';
 let group = {};
@@ -178,6 +179,14 @@ endpoints.add(`/api/v1/groupShoppingLists/:id`, async (request, response, sessio
     console.log(error);
     return 500;
   }
+
+  liveClients.send({
+    type: 'shoppingList',
+    info: `${session.profile.username} hat die Liste ${shoppingList.title} erstellt.`,
+    content: shoppingList,
+    group: joinedGroup,
+  });
+
   response.statusCode = 204;
   response.end();
 });

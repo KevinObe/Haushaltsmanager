@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('node:fs/promises');
+const liveClients = require('../library/SSE');
 
 let notes = [];
 let savedGroups;
@@ -151,8 +152,20 @@ endpoints.add(`/api/v1/groupNotes/:id`, async (request, response, session) => {
 
     if(index === -1){
       notes.push(note);
+      liveClients.send({
+        type: 'ToDo',
+        info: `${session.profile.username} hat eine ToDo erstellt.`,
+        content: note,
+        group: group,
+      });
     } else {
       notes[index] = note;
+      liveClients.send({
+        type: 'done',
+        info: `${session.profile.username} hat eine ToDo erledigt.`,
+        content: note,
+        group: group,
+      })
     }
 
     try{
@@ -161,7 +174,9 @@ endpoints.add(`/api/v1/groupNotes/:id`, async (request, response, session) => {
       console.log(error);
       return 500;
     }
-    response.end();
-  }
 
+    response.statusCode = 204;
+    response.end();
+    return;
+  }
 })

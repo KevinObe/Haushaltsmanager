@@ -1,6 +1,7 @@
 'use strict';
 
 const fs = require('node:fs/promises');
+const liveClients = require('../library/SSE');
 
 endpoints.add(`/api/v1/groupShoppinglist/:id`, async (request, response, session) => {
   if(!['GET', 'HEAD'].includes(request.method)){
@@ -83,12 +84,15 @@ endpoints.add(`/api/v1/groupShoppinglist`, async (request, response, session) =>
   }
 
   for(const list of shoppingLists){
-    if(list.id === clickedList.id){
-      console.log('ID is a match.');
-      response.end(JSON.stringify(clickedList));
-      console.log('halloooooo')
-      return;
-    };
+    try{
+      if(list.id === clickedList.id){
+        response.end(JSON.stringify(clickedList));
+        return;
+      };
+    } catch(error){
+      console.log(error);
+      return 500;
+    }
   };
   return 200;
 });
@@ -182,7 +186,6 @@ endpoints.add(`/api/v1/groupShoppingList/:id`, async (request, response, session
       entries = shoppingList.entries;
       console.log('its a match')
       entries.push(entry);
-      console.log(1)
     }
   }
 
@@ -190,7 +193,6 @@ endpoints.add(`/api/v1/groupShoppingList/:id`, async (request, response, session
 
     if (index === -1) {
       shoppingLists.push(shoppingList);
-      console.log(2)
     };
 
     try{
@@ -199,6 +201,14 @@ endpoints.add(`/api/v1/groupShoppingList/:id`, async (request, response, session
       console.log('Fehler beim speichern');
       return 500;
     }
+
+    liveClients.send({
+      type: 'entry',
+      info: `Neuer Eintrag von ${session.profile.username}.`,
+      content: entry,
+      group: joinedGroup,
+    });
+
   response.statusCode = 204;
   response.end();
 });

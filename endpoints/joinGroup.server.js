@@ -2,6 +2,7 @@
 
 const crypto = require('node:crypto');
 const fs = require('node:fs/promises');
+const liveClients = require('../library/SSE');
 
 let groupname, password;
 
@@ -95,6 +96,13 @@ endpoints.add('/api/v1/joinGroup', async (request, response, session) => {
       response.end('500, internal server error.');
       return 500;
     }
+
+    liveClients.send({
+      type: 'online',
+      info: `${session.profile.username} ist der Gruppe beigetreten.`,
+      group: joinedGroup,
+    });
+
     response.statusCode = 204;
     response.end();
     return;

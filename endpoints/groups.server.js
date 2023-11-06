@@ -1,13 +1,21 @@
 'use strict';
 
 const fs = require('node:fs/promises');
+const liveClients = require('../library/SSE');
 
 endpoints.add('/api/v1/checkGroup', async (request, response, session) => {
+  if(!['GET'].includes(request.method)) {
+    return 405;
+  }
+
+  if(!session.profile){
+    return 403;
+  }
+
   if(session.profile.groups.length === 1){
     response.end(JSON.stringify(session.profile.groups[0]));
     return 200;
   }
-  console.log('nope');
   response.end();
   return 500;
 });
