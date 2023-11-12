@@ -109,7 +109,6 @@ endpoints.add('/api/v1/notes/:id', async (request, response, session, match) => 
     if (note.text === undefined) throw 'missing text key';
     if (typeof note.text !== 'string') throw 'invalid text key';
     if (note.text.length > 512) throw 'text key is too long';
-
     if (Object.keys(note).length !== 3) throw 'too many keys';
   }
   catch(error){

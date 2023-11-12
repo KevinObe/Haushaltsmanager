@@ -13,6 +13,7 @@ endpoints.add('/api/v1/checkGroup', async (request, response, session) => {
   }
 
   if(session.profile.groups.length === 1){
+    session.profile.groups[0].username = session.profile.username;
     response.end(JSON.stringify(session.profile.groups[0]));
     return 200;
   }
@@ -30,7 +31,7 @@ endpoints.add('/api/v1/leaveGroup', async (request, response, session) => {
   };
 
   const size = parseInt(request.headers['content-length']);
-  if (request.method === 'DELETE' && isNaN(size) || size > 1000) {
+  if (isNaN(size) || size > 1000) {
     return 413;
   };
 
@@ -52,7 +53,10 @@ endpoints.add('/api/v1/leaveGroup', async (request, response, session) => {
         reject(error);
       });
     });
-
+    if(!joinedGroup.id.match(/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/)) throw 'No valid group ID!';
+    if(joinedGroup.groupname === '' || undefined) throw 'No valid groupname!';
+    if(typeof joinedGroup !== 'object') throw 'No valid group data!';
+    if(Object.keys(joinedGroup).length !== 3) throw 'too many keys!';
   } catch (error) {
     console.log(error);
     return 500;

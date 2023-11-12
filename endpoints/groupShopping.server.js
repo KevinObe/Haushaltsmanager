@@ -29,7 +29,6 @@ endpoints.add('/api/v1/groupShoppingLists', async (request, response, session) =
     console.log('Fehler beim parsen der Datei.');
     return 500;
   };
-  console.log(group)
 
   if(joinedGroup.groupname === group.groupname &&  joinedGroup.id === group.id){
 
@@ -52,10 +51,8 @@ endpoints.add('/api/v1/groupShoppingLists', async (request, response, session) =
     let data;
     try{
       data = await fs.readFile(file, 'utf8');
-      console.log(data)
     } catch(error) {
       await fs.writeFile(file, JSON.stringify(errorFile, null, 2));
-      console.log('Datei erstellt.');
       response.end(JSON.stringify(
       [
         {
@@ -118,6 +115,13 @@ endpoints.add(`/api/v1/groupShoppingLists/:id`, async (request, response, sessio
     if(index === -1){
       return 404;
     }
+
+    liveClients.send({
+      type: 'deleteList',
+      info: `${session.profile.username} hat die Liste ${shoppingLists[index].title} gelöscht.`,
+      user: joinedGroup.username,
+      group: joinedGroup,
+    });
 
     shoppingLists.splice(index, 1);
 

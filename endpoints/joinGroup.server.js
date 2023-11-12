@@ -15,6 +15,11 @@ endpoints.add('/api/v1/joinGroup', async (request, response, session) => {
     return 403;
   }
 
+  const size = parseInt(request.headers['content-length']);
+  if (isNaN(size) || size > 1000) {
+    return 413;
+  };
+
   if(session.profile.groups.length === 1){
     console.log(`${session.profile.username} ist bereits in einer Gruppe`);
     response.end('409 Conflict');
@@ -35,6 +40,10 @@ endpoints.add('/api/v1/joinGroup', async (request, response, session) => {
         reject(error);
       });
     });
+    if(group.groupname === '' || group.password === undefined) throw 'No valid groupname!';
+    if(group.password === '' || group.password === undefined) throw 'No valid password!';
+    if(typeof group !== 'object') throw 'No valid group data!';
+    if(Object.keys(group).length !== 2) throw 'too many keys!';
   } catch(error) {
     console.log('Fehler beim beitreten', error);
     return 500;

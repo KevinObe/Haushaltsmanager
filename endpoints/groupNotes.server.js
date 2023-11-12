@@ -108,6 +108,14 @@ endpoints.add(`/api/v1/groupNotes/:id`, async (request, response, session) => {
         return 404;
       }
 
+      liveClients.send({
+        type: 'deleteTodo',
+        info: `${session.profile.username} hat eine ToDo gelöscht.`,
+        content: notes[index],
+        user: session.profile.username,
+        group: group,
+      });
+
       notes.splice(index, 1);
       try{
         await fs.writeFile(file, JSON.stringify(notes, null, 2));
@@ -160,12 +168,24 @@ endpoints.add(`/api/v1/groupNotes/:id`, async (request, response, session) => {
       });
     } else {
       notes[index] = note;
-      liveClients.send({
-        type: 'done',
-        info: `${session.profile.username} hat eine ToDo erledigt.`,
-        content: note,
-        group: group,
-      })
+      if(note.done){
+        liveClients.send({
+          type: 'checked',
+          info: `${session.profile.username} hat eine ToDo erledigt.`,
+          user: session.profile.username,
+          content: note,
+          group: group,
+        });
+      }
+       if(!note.done){
+        liveClients.send({
+          type: 'checked',
+          info: `${session.profile.username} hat eine ToDo erstellt.`,
+          user: session.profile.username,
+          content: note,
+          group: group,
+        });
+       }
     }
 
     try{

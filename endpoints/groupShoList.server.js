@@ -137,11 +137,14 @@ endpoints.add(`/api/v1/groupShoppingList/:id`, async (request, response, session
     for(let shoppingList of shoppingLists){
       for(let i = 0; i < shoppingList.entries.length; i++){
         if(shoppingList.entries[i].id === entryId){
-          console.log(shoppingList.entries[i].id)
-          console.log(entryId)
           index = i;
-          console.log(index)
-
+          liveClients.send({
+            type: 'deleteEntry',
+            info: `Ein Eintrag wurde von ${session.profile.username} gelöscht.`,
+            group: joinedGroup,
+            content: shoppingList.entries[index],
+            user: session.profile.username,
+          });
           shoppingList.entries.splice(index, 1);
         }
       }
