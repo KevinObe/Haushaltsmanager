@@ -4,18 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../common.css">
-  <link rel="stylesheet" href="register/registered.css">
-  <link rel="stylesheet" href="../preload/preload.mobile.css">
-  <script src="register/registered.js" defer></script>
+  <link rel="stylesheet" href="impressum.css">
   <script src="../mobileMenu.js" defer></script>
-  <title>Mein Haushalt</title>
+  <title>Mein Haushalt - Impressum</title>
 </head>
 <body>
   <div id="background">
     <img id="backgroundImage1" src="/public/image.background.jpg">
   </div>
+  <p class="arrow"></p>
   <header>
-    <h1>Mein Haushalt</h1>
+    <h1>Impressum</h1>
     <div class="menuToggler">
       <span class="toggleBar"></span>
       <span class="toggleBar"></span>
@@ -24,26 +23,35 @@
 
   <ul id="mobile-menu" class="inactive">
     <li class="menu-item"><a href="../login.html">Login</a></li>
-    <li class="menu-item"><a href="#">Impressum</a></li>
+    <li class="menu-item"><a href="../register/register.html">Registrieren</a></li>
+    <li class="menu-item"><a href="../startpage.html">Startseite</a></li>
     <li class="menu-item"><a href="#">Datenschutz</a></li>
     <li class="menu-item"><div id="closeButton">X</div></li>
   </ul>
   </header>
 
   <main>
-      <p>Willkommen bei Mein Haushalt!<br> Du bist nun Registriert und kannst dich mit deinem Benutzernamen anmelden.</p>
-    <div class="contentArea">
-
+    <div id="address">
+      <h2>Dienstanbieter:</h2>
+      <p>Kevin Oberluggauer</p>
+      <p>Egger-Lienz-Straße 116</p>
+      <p>6020 Innsbruck</p>
+      <p>Österreich</p>
     </div>
-    <div class="loginArea">
-      <p>Hier gehts zum Login:</p>
-      <button id="loginBtn">zum Login</button>
+    <div id="contact">
+      <h2>Kontakt:</h2>
+      <p>mein-haushalt@outlook.de</p>
     </div>
   </main>
 
     <footer>
-      <div><a class="item-1" href="#">Impressum</a></div>
-      <div><a class="item-2" href="#">Datenschutz</a></div>
     </footer>
+
 </body>
+<script>
+    const arrow = document.querySelector('.arrow');
+    arrow.addEventListener('click', () => {
+      window.location.href = '../startpage.html';
+    });
+</script>
 </html>

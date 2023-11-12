@@ -11,8 +11,8 @@
 /**************************************************************************************************/
 const $loginBtn = document.querySelector('#loginBtn');
 const $registerBtn = document.querySelector('#registerBtn');
-const $background = document.querySelector('#background');
-
+//const $background = document.querySelector('#background');
+//const $image = document.querySelector('#backgroundImage1');
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -35,19 +35,19 @@ const $background = document.querySelector('#background');
 //   };
 // };
 
-async function loadImg() {
-  const response = await fetch('/api/v1/cachedImg', {
-    responseType: 'blob'
-  });
-  const image = await response.blob();
-  const imageUrl = URL.createObjectURL(image);
-  console.log('Blob URL:', imageUrl);
-  const img = document.createElement("img");
-  img.src = imageUrl;
-  img.className = 'backgroundImage';
-  $background.append(img);
-}
-loadImg();
+// async function loadImg() {
+//   const response = await fetch('/api/v1/cachedImg', {
+//     responseType: 'blob'
+//   });
+//   console.log(response)
+//   const blob = await response.blob();
+//   const url = URL.createObjectURL(blob);
+
+//   // Assuming $img is your image element
+//   console.log(url);
+//   $image.src = url;
+// }
+// loadImg();
 /**************************************************************************************************/
 /** EVENTS                                                                                       **/
 /** Combine the Elements from above with the declared Functions in this section.                 **/
