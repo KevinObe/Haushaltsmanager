@@ -174,7 +174,7 @@
 
   header h1{
     color: var(--main-color);
-    font-size: 3rem;
+    font-size: 2.5rem;
   }
 
   main button{
@@ -192,11 +192,13 @@
     font-size: 2.5rem;
     color: var(--main-color);
   }
+
+  footer{
+    display: none;
+  }
 }
 
-footer{
-  display: none;
-}
+
 
 @media(min-width: 768px){
   /* body grid template settings */
@@ -223,6 +225,21 @@ footer{
       grid-column: 5/9;
       grid-row: 3;
     }
+  }
+
+
+  /* back to previous page arrow style settings */
+
+  .arrow::before{
+    content: "\2190";
+    font-size: 8rem;
+    color: red;
+    margin-left: 300%;
+    z-index: 1;
+  }
+
+  .arrow:hover{
+    cursor: pointer;
   }
 
   /* header grid settings */
@@ -275,7 +292,7 @@ footer{
 
   header h1{
     color: var(--main-color);
-    font-size: 3.5rem;
+    font-size: 2.5rem;
   }
 
   main button{
@@ -297,17 +314,5 @@ footer{
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
-
-    & .navBtn{
-      display: block;
-      grid-column: 1fr;
-      grid-row: 1fr;
-      justify-self:  center;
-
-      background-color: rgb(150, 142, 142);
-      color: black;
-      padding: 2%;
-      text-decoration: none;
-    }
   }
 }

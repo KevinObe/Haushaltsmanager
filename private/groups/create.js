@@ -5,7 +5,6 @@
 /** Declare basic settings of the application in this section.                                   **/
 /**************************************************************************************************/
 
-console.log('hallo')
 
 /**************************************************************************************************/
 /** ELEMENTS                                                                                     **/
@@ -14,7 +13,7 @@ console.log('hallo')
 const $submitBtn = document.querySelector('.item-3');
 const $groupname = document.querySelector('.groupname');
 const $password = document.querySelector('.password');
-const $navBtn = document.querySelector('.navBtn');
+const $backArrow = document.querySelector('.arrow');
 
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
@@ -44,16 +43,18 @@ $submitBtn.addEventListener('click', async () => {
     method: 'POST',
     body: JSON.stringify(group),
   });
-  console.log(`${response.status} ${response.statusText}`);
   if(response.status === 204 || response.status === 200){
     window.location.href = 'joined.html';
   } else {
     $alertText.textContent = `Fehler beim erstellen der Gruppe. Keine Leer oder Sonderzeichen erlaubt.`;
     customAlert();
   }
-})();
+});
 
-$navBtn.addEventListener('click', () => window.location.href = '../home.html');
+$backArrow.addEventListener('click', () => {
+  console.log('click')
+  window.location.href = 'groups.html';
+});
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/

@@ -289,6 +289,21 @@
     }
   }
 
+
+  /* back to previous page arrow style settings */
+
+  .arrow::before{
+    content: "\2190";
+    font-size: 8rem;
+    color: red;
+    margin-left: 300%;
+    z-index: 1;
+  }
+
+  .arrow:hover{
+    cursor: pointer;
+  }
+
   /* header grid settings */
 
   header{
@@ -299,11 +314,12 @@
     align-items: center;
 
     & h1{
-      grid-column: 1;
+      grid-column: 1/3;
       grid-row: 2;
     }
 
     & .menuToggler{
+      display: none;
       grid-column: 2;
       grid-row: 2;
     }

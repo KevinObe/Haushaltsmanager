@@ -15,6 +15,7 @@ const $submitBtn = document.querySelector('.item-3');
 const $groupname = document.querySelector('.groupname');
 const $password = document.querySelector('.password');
 const $navBtn = document.querySelector('.navBtn');
+const $backArrow = document.querySelector('.arrow');
 
 
 
@@ -53,9 +54,13 @@ $submitBtn.addEventListener('click', async() => {
       $alertText.textContent = `Fehler beim Beitreten. Prüfe deine Eingaben.`;
       customAlert();
     }
-  })();
+  });
 
-  $navBtn.addEventListener('click', () => window.location.href = '../home.html');
+$navBtn.addEventListener('click', () => window.location.href = '../home.html');
+
+$backArrow.addEventListener('click', () => {
+  window.location.href = 'groups.html';
+})
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/

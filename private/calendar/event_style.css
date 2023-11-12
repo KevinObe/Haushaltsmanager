@@ -97,6 +97,8 @@
       grid-row: 1;
       font-size: 2rem;
       color: rgb(150, 142, 142);
+      max-width: 80%;
+      overflow: hidden;
     }
 
     & .eventDate{
@@ -311,6 +313,8 @@
       grid-row: 1;
       font-size: 2rem;
       color: rgb(150, 142, 142);
+      max-width: 80%;
+      overflow: hidden;
     }
 
     & .eventDate{
@@ -454,6 +458,21 @@
       grid-row: 4;
     }
   }
+
+  /* back to previous page arrow style settings */
+
+  .arrow::before{
+    content: "\2190";
+    font-size: 8rem;
+    color: red;
+    margin-left: 300%;
+    z-index: 1;
+  }
+
+  .arrow:hover{
+    cursor: pointer;
+  }
+
   /* header grid settings */
 
   header{
@@ -562,16 +581,6 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
-
-    & .navBtn{
-      grid-column: 1fr;
-      grid-row: 1fr;
-      border: 2px solid black;
-
-      background-color: rgb(150, 142, 142);
-      color: black;
-      height: 100%;
-    }
   }
 
   /* general css settings */

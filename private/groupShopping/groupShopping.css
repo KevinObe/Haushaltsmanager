@@ -397,6 +397,21 @@
     }
   }
 
+
+  /* back to previous page arrow style settings */
+
+  .arrow::before{
+    content: "\2190";
+    font-size: 8rem;
+    color: red;
+    margin-left: 300%;
+    z-index: 1;
+  }
+
+  .arrow:hover{
+    cursor: pointer;
+  }
+
   /* header grid template */
 
   header{
@@ -552,16 +567,5 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
-
-    & .navBtn{
-      display: flex;
-      grid-column: 1fr;
-      grid-row: 1fr;
-
-      background-color: rgb(150, 142, 142);
-      color: black;
-      height: 100%;
-      padding: 2%;
-    }
   }
 }

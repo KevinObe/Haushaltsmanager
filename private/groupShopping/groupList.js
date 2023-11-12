@@ -14,7 +14,7 @@
 const $addButton = document.querySelector('.addButton');
 const $input = document.querySelector('.entryValue');
 const $list = document.querySelector('.list');
-const $navBtn = document.querySelector('.navBtn');
+const $backArrow = document.querySelector('.arrow');
 
 let entries = [];
 let shoppingLists = [];
@@ -37,12 +37,9 @@ let joinedGroup = {};
 async function checkGroup() {
   try{
     const response = await fetch('/api/v1/checkGroup');
-    joinedGroup = await response.json();
-    // if(response.status === 200){
-    // };
     if(response.status === 200){
-      await fetch(`/api/v1/live/${joinedGroup.id}`);
-    }
+      joinedGroup = await response.json();
+    };
   }catch(error){
     console.log(error);
   };
@@ -51,24 +48,6 @@ const sse = new EventSource('/api/v1/live');
 
 function receiveMessage({ data }) {
   const message = JSON.parse(data);
-
-  if(message.type === 'online' && message.group.id === joinedGroup.id){
-    console.log(message.group.id)
-    const online = message.info;
-    $alertText.textContent = `${online}`;
-    console.log(message)
-    customAlert();
-    return;
-  }
-
-  if(message.type === 'online' && message.group.id === false){
-    console.log(message)
-    const online = message.info;
-    $alertText.textContent = `${online}`;
-    console.log(message)
-    customAlert();
-    return;
-  }
 
   if(message.type === 'entry' && message.group.id === joinedGroup.id){
     const entry = message.content;
@@ -87,6 +66,21 @@ function receiveMessage({ data }) {
     }
   }
 
+  if(message.type === 'deleteEntry' && message.group.id === joinedGroup.id){
+    if(message.user === joinedGroup.username) {return};
+    let entry = message.content;
+    if(entry.listId === clickedList.id){
+      const $entries = document.querySelectorAll('.listItem');
+      $entries.forEach((li) => {
+        li.remove();
+      });
+      loadEntries();
+      $alertText.textContent = `${message.info}`;
+      customAlert();
+      return;
+    }
+  }
+
   //info messages todo
   if(message.type === 'ToDo' && message.group.id === joinedGroup.id){
     $alertText.textContent = `${message.info}`;
@@ -94,8 +88,26 @@ function receiveMessage({ data }) {
     return;
   }
 
+  if(message.type === 'checked' && message.group.id === joinedGroup.id){
+    $alertText.textContent = `${message.info}`;
+    customAlert();
+    return;
+  }
+
+  if(message.type === 'deleteTodo' && message.group.id === joinedGroup.id){
+    $alertText.textContent = `${message.info}`;
+    customAlert();
+    return;
+  }
+
   //info messages shopping
   if(message.type === 'shoppingList' && message.group.id === joinedGroup.id){
+    $alertText.textContent = `${message.info}`;
+    customAlert();
+    return;
+  }
+
+  if(message.type === 'deleteList' && message.group.id === joinedGroup.id){
     $alertText.textContent = `${message.info}`;
     customAlert();
     return;
@@ -112,14 +124,12 @@ function loadEntries(){
   request.addEventListener('load', function () {
     if(request.readyState === 4 && request.status === 200){
       clickedList = request.response;
-      console.log(clickedList)
 
       let savedEntries = clickedList.entries;
       for(let savedEntry of savedEntries){
         entry = savedEntry;
         entry.save = saveEntry;
         entry.delete = deleteEntry;
-        console.log(entry)
 
         createNewEntry(entry);
       }
@@ -137,7 +147,6 @@ function saveEntry() {
   if(clickedList.id){
     entry.listId = clickedList.id;
   };
-  console.log(entry);
   const request = new XMLHttpRequest();
 
   request.open('POST', `/api/v1/groupShoppingList/${entry.id}`);
@@ -148,11 +157,6 @@ function saveEntry() {
     if(request.status !== 204){
       $alertText.textContent = `Fehler beim Speichern des Eintrages.`;
       customAlert();
-    } else {
-      fetch(`/api/v1/liveShoppingList/${joinedGroup.id}`, {
-        method: 'POST',
-        body: JSON.stringify(entry),
-      });
     };
   });
 }
@@ -189,7 +193,6 @@ function addEntry() {
   entries.push(entry);
   entry.save();
   $input.value = '';
-  console.log(entry)
   createNewEntry(entry);
 };
 
@@ -225,7 +228,9 @@ function createNewEntry(entry){
 /** Combine the Elements from above with the declared Functions in this section.                 **/
 /**************************************************************************************************/
 $addButton.addEventListener('click', addEntry);
-$navBtn.addEventListener('click', () => window.location.href = 'groupShopping.html');
+$backArrow.addEventListener('click', () => {
+  window.location.href = 'groupShopping.html';
+});
 sse.addEventListener('message', receiveMessage);
 /**************************************************************************************************/
 /** SETUP                                                                                        **/

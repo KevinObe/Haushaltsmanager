@@ -134,6 +134,8 @@
     & .itemValue{
       width: 100%;
       color: white;
+      max-width: 100%;
+      overflow: hidden;
     }
 
     & .deleteButton{
@@ -314,6 +316,8 @@
     & .itemValue{
       width: 100%;
       color: white;
+      max-width: 100%;
+      overflow: hidden;
     }
 
     & .deleteButton{
@@ -385,6 +389,21 @@
       grid-row: 4;
     }
   }
+
+  /* back to previous page arrow style settings */
+
+  .arrow::before{
+    content: "\2190";
+    font-size: 8rem;
+    color: red;
+    margin-left: 300%;
+    z-index: 1;
+  }
+
+  .arrow:hover{
+    cursor: pointer;
+  }
+
   /* header grid settings */
 
   header{

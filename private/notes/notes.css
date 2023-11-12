@@ -157,6 +157,8 @@
       width: 100%;
       font-size: 2rem;
       color: white;
+      max-width: 100%;
+      overflow: hidden;
     }
 
     & .deleteButton{
@@ -394,6 +396,8 @@
       width: 100%;
       font-size: 2rem;
       color: white;
+      max-width: 100%;
+      overflow: hidden;
     }
 
     & .deleteButton{
@@ -630,6 +634,8 @@
         width: 100%;
         font-size: 2rem;
         color: white;
+        max-width: 100%;
+        overflow: hidden;
       }
 
       & .deleteButton{
@@ -710,31 +716,45 @@
   @media(min-width: 800px){
   /* grid templates */
 
-    body{
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      grid-template-rows: 20% 10% 1fr 20%;
+  body{
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: 20% 10% 1fr 20%;
 
-      & header{
-        grid-column: 4/10;
-        grid-row: 1;
-      }
-
-      & section{
-        grid-column: 4/10;
-        grid-row: 2;
-      }
-
-      & main{
-        grid-column: 4/10;
-        grid-row: 3;
-      }
-
-      & footer{
-        grid-column: 4/10;
-        grid-row: 4;
-      }
+    & header{
+      grid-column: 4/10;
+      grid-row: 1;
     }
+
+    & section{
+      grid-column: 4/10;
+      grid-row: 2;
+    }
+
+    & main{
+      grid-column: 4/10;
+      grid-row: 3;
+    }
+
+    & footer{
+      grid-column: 4/10;
+      grid-row: 4;
+    }
+  }
+
+  /* back to previous page arrow style settings */
+
+  .arrow::before{
+    content: "\2190";
+    font-size: 8rem;
+    color: red;
+    margin-left: 300%;
+    z-index: 1;
+  }
+
+  .arrow:hover{
+    cursor: pointer;
+  }
 
     /* header grid settings */
 
@@ -867,6 +887,8 @@
         width: 100%;
         font-size: 2rem;
         color: white;
+        max-width: 100%;
+        overflow: hidden;
       }
 
       & .deleteButton{
@@ -892,7 +914,6 @@
           text-decoration-style: solid;
           text-decoration-color: var(--main-color);
           text-decoration-thickness: 3px;
-          color: darkolivegreen;
         }
       }
 
@@ -926,6 +947,7 @@
         }
       }
     }
+
     section{
       & .newNote{
         border: 2px solid black;
@@ -947,16 +969,5 @@
       display: grid;
       grid-template-columns: 1fr;
       grid-template-rows: 1fr;
-
-      & .navBtn{
-        display: block;
-        grid-column: 1fr;
-        grid-row: 1fr;
-        justify-self:  center;
-
-        background-color: rgb(150, 142, 142);
-        color: black;
-        padding: 2%;
-      }
     }
   }

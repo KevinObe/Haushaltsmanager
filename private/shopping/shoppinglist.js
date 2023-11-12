@@ -14,7 +14,7 @@
 const $addButton = document.querySelector('.addButton');
 const $input = document.querySelector('.entryValue');
 const $list = document.querySelector('.list');
-const $navBtn = document.querySelector('.navBtn');
+const $backArrow = document.querySelector('.arrow');
 
 let entries = [];
 let shoppingLists = [];
@@ -37,12 +37,9 @@ let joinedGroup = {};
 async function checkGroup() {
   try{
     const response = await fetch('/api/v1/checkGroup');
-    joinedGroup = await response.json();
-    // if(response.status === 200){
-    // };
     if(response.status === 200){
-      await fetch(`/api/v1/live/${joinedGroup.id}`);
-    }
+      joinedGroup = await response.json();
+    };
   }catch(error){
     console.log(error);
   };
@@ -51,37 +48,37 @@ async function checkGroup() {
 function receiveMessage({ data }) {
   const message = JSON.parse(data);
 
-  if(message.type === 'online' && message.group.id === joinedGroup.id){
-    console.log(message.group.id)
-    const online = message.info;
-    $alertText.textContent = `${online}`;
-    console.log(message)
+  //info messages todo
+  if(message.type === 'ToDo' && message.group.id === joinedGroup.id){
+    $alertText.textContent = `${message.info}`;
     customAlert();
     return;
   }
 
-  if(message.type === 'online' && message.group.id === false){
-    console.log(message)
-    const online = message.info;
-    $alertText.textContent = `${online}`;
-    console.log(message)
+  if(message.type === 'checked' && message.group.id === joinedGroup.id){
+    $alertText.textContent = `${message.info}`;
     customAlert();
     return;
   }
 
-//info messages todo
-if(message.type === 'ToDo' && message.group.id === joinedGroup.id){
+  if(message.type === 'deleteTodo' && message.group.id === joinedGroup.id){
+    $alertText.textContent = `${message.info}`;
+    customAlert();
+    return;
+  }
+
+  //info messages shopping
+  if(message.type === 'shoppingList' && message.group.id === joinedGroup.id){
   $alertText.textContent = `${message.info}`;
   customAlert();
   return;
-}
+  }
 
-//info messages shopping
-if(message.type === 'shoppingList' && message.group.id === joinedGroup.id){
-$alertText.textContent = `${message.info}`;
-customAlert();
-return;
-}
+  if(message.type === 'deleteList' && message.group.id === joinedGroup.id){
+    $alertText.textContent = `${message.info}`;
+    customAlert();
+    return;
+  }
 }
 const sse = new EventSource('/api/v1/live');
 
@@ -95,15 +92,12 @@ function loadEntries(){
   request.addEventListener('load', function () {
     if(request.readyState === 4 && request.status === 200){
       clickedList = request.response;
-      console.log(clickedList)
 
       let savedEntries = clickedList.entries;
       for(let savedEntry of savedEntries){
         entry = savedEntry;
         entry.save = saveEntry;
         entry.delete = deleteEntry;
-        console.log(entry)
-
         createNewEntry(entry);
       }
         return;
@@ -121,7 +115,6 @@ function saveEntry() {
   if(clickedList.id){
     entry.listId = clickedList.id;
   };
-  console.log(entry);
   const request = new XMLHttpRequest();
 
   request.open('POST', `/api/v1/shoppingList/${entry.id}`)
@@ -140,9 +133,7 @@ function deleteEntry(){
   const entry = this;
 
   const request = new XMLHttpRequest();
-
   request.open('DELETE', `/api/v1/shoppingList/${entry.id}`);
-
   request.send();
 
   request.addEventListener('load', () => {
@@ -168,7 +159,6 @@ function addEntry() {
   entries.push(entry);
   entry.save();
   $input.value = '';
-  console.log(entry)
   createNewEntry(entry);
 };
 
@@ -204,8 +194,10 @@ function createNewEntry(entry){
 /** Combine the Elements from above with the declared Functions in this section.                 **/
 /**************************************************************************************************/
 $addButton.addEventListener('click', addEntry);
-$navBtn.addEventListener('click', () => window.location.href = 'shopping.html');
 sse.addEventListener('message', receiveMessage);
+$backArrow.addEventListener('click', () => {
+  window.location.href = 'shopping.html';
+})
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/

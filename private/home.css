@@ -21,6 +21,7 @@
     }
 
     & footer{
+      display: none;
       grid-column: 2/12;
       grid-row: 3;
     }
@@ -120,8 +121,8 @@
   }
 
   main section img{
-    max-height: 90%;
-    max-width: 90%;
+    max-height: 80%;
+    max-width: 80%;
   }
 
   main section p{
@@ -169,6 +170,7 @@
     }
 
     & footer{
+      display: none;
       grid-column: 2/12;
       grid-row: 3;
     }
@@ -250,6 +252,7 @@
     width: 100%;
     justify-items: center;
   }
+
   header h1{
     color: var(--main-color);
     font-size: 3.5rem;
@@ -268,8 +271,8 @@
   }
 
   main section img{
-    max-height: 80%;
-    max-width: 80%;
+    max-height: 70%;
+    max-width: 90%;
   }
 
   main section p{
@@ -316,6 +319,7 @@
     }
 
     & footer{
+      display: none;
       grid-column: 3/11;
       grid-row: 4;
     }
@@ -365,15 +369,18 @@
       color: var(--main-color);
     }
 
+    & li:hover{
+      cursor: pointer;
+    }
+
     & a{
       text-decoration: none;
     }
   }
 
-
   main section{
     width: 100%;
-    height: 60%;
+    height: 70%;
     color: var(--main-color);
     padding: 5%;
     text-align: center;
@@ -383,13 +390,17 @@
     border-radius: 10%;
   }
 
+  main section:hover{
+    cursor: pointer;
+  }
+
   main section img{
     max-width: 90%;
-    max-height: 60%;
+    max-height: 80%;
   }
 
   main section p{
-    display: inline-block;
+    display: block;
     font-size: 2rem;
   }
 
@@ -399,7 +410,7 @@
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: repeat(2, 1fr);
     justify-content: center;
-    max-height: 80%;
+    max-height: 70%;
 
     & .notes{
       grid-column: 1;
@@ -470,6 +481,7 @@
     }
 
     & footer{
+      display: none;
       grid-column: 3/11;
       grid-row: 4;
     }
@@ -510,7 +522,7 @@
 
     & li{
       list-style: none;
-      padding: 2%;
+      padding: 10%;
       font-size: 2rem;
       font-weight: bold;
       color: var(--main-color);
@@ -521,10 +533,9 @@
     }
   }
 
-
   main section{
-    width: 100%;
-    height: 100%;
+    width: 85%;
+    height: 85%;
     color: var(--main-color);
     text-align: center;
     border: solid 2px red;
@@ -532,14 +543,18 @@
     opacity: 0.8;
   }
 
+  main section:hover{
+    cursor: pointer;
+  }
+
   main section img{
-    max-width: 80%;
+    max-width: 90%;
     max-height: 80%;
   }
 
   main section p{
-    display: inline-block;
-    font-size: 2.5rem;
+    display: block;
+    font-size: 2rem;
   }
 
 
@@ -547,8 +562,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: repeat(2, 1fr);
-    height: 100%;
-    gap: 3%;
+    height: 80%;
+    gap: 5%;
 
     & .notes{
       grid-column: 1;

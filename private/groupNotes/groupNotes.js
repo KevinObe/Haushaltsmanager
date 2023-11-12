@@ -14,7 +14,7 @@
 const $addButton = document.querySelector('.addButton');
 const $input = document.querySelector('.entryValue');
 const $notes = document.querySelector('.notes');
-const $navBtn = document.querySelector('.navBtn');
+const $backArrow = document.querySelector('.arrow');
 
 let notes = [];
 let joinedGroup = {};
@@ -34,12 +34,9 @@ let joinedGroup = {};
 async function checkGroup() {
   try{
     const response = await fetch('/api/v1/checkGroup');
-    joinedGroup = await response.json();
-    // if(response.status === 200){
-    // };
     if(response.status === 200){
-      await fetch(`/api/v1/live/${joinedGroup.id}`);
-    }
+      joinedGroup = await response.json();
+    };
   }catch(error){
     console.log(error);
   };
@@ -48,30 +45,11 @@ const sse = new EventSource('/api/v1/live');
 
 function receiveMessage({ data }) {
   // parse the received json message from the server
-  console.log('aufgerufen')
   const message = JSON.parse(data);
-
-  if(message.type === 'online' && message.group.id === joinedGroup.id){
-    console.log(message.group.id)
-    const online = message.info;
-    $alertText.textContent = `${online}`;
-    console.log(message)
-    customAlert();
-    return;
-  }
-
-  if(message.type === 'online' && message.group.id === false){
-    console.log(message)
-    const online = message.info;
-    $alertText.textContent = `${online}`;
-    console.log(message)
-    customAlert();
-    return;
-  }
 
   if(message.type === 'ToDo' && message.group.id === joinedGroup.id){
     const note = message.content;
-    let index = notes.findIndex((newNote) => newNote.id === note.id);
+    let index = notes.findIndex((todo) => todo.id === note.id);
     if(index === -1){
       $alertText.textContent = `${message.info}`;
       customAlert();
@@ -82,14 +60,47 @@ function receiveMessage({ data }) {
     }
   }
 
+  if(message.type === 'checked' && message.group.id === joinedGroup.id){
+    if(message.user === joinedGroup.username) {return};
+    const note = message.content;
+    let index = notes.findIndex((todo) => todo.id === note.id);
+    if(notes[index] !== -1){
+      const $li = document.querySelectorAll('.note');
+      $li.forEach((li) => {
+        li.remove();
+      });
+      loadNotes();
+      $alertText.textContent = `${message.info}`;
+      customAlert();
+    };
+    return;
+  }
+
+  if(message.type === 'deleteTodo' && message.group.id === joinedGroup.id){
+    if(message.user === joinedGroup.username) {return};
+    const $li = document.querySelectorAll('.note');
+    $li.forEach((li) => {
+      li.remove();
+    });
+    loadNotes();
+    $alertText.textContent = `${message.info}`;
+    customAlert();
+    return;
+  }
+
   //info messages shopping
   if(message.type === 'shoppingList' && message.group.id === joinedGroup.id){
     $alertText.textContent = `${message.info}`;
     customAlert();
     return;
   }
-}
 
+  if(message.type === 'deleteList' && message.group.id === joinedGroup.id){
+    $alertText.textContent = `${message.info}`;
+    customAlert();
+    return;
+  }
+}
 
 function loadNotes(){
   const request = new XMLHttpRequest();
@@ -103,11 +114,9 @@ function loadNotes(){
   request.addEventListener('load', () => {
     if(request.status === 200){
       notes = request.response;
-      console.log(request.response)
       for(const note of notes) {
         note.save = saveNote;
         note.delete = deleteNote;
-
         createNewNote(note);
       }
       return;
@@ -128,14 +137,9 @@ function saveNote(note) {
   request.send(JSON.stringify(note));
 
   request.addEventListener('load', () => {
-    if(request.status !== 200){
+    if(request.status !== 204){
       $alertText.textContent = `Fehler beim Speichern der Notiz.`;
       customAlert();
-    } else {
-      fetch(`/api/v1/liveToDo/${joinedGroup.id}`, {
-        method: 'POST',
-        body: JSON.stringify(note),
-      });
     };
   });
 }
@@ -227,7 +231,9 @@ function createNewNote(note){
 /** Combine the Elements from above with the declared Functions in this section.                 **/
 /**************************************************************************************************/
 $addButton.addEventListener('click', addNote);
-$navBtn.addEventListener('click', () => window.location.href = '../home.html');
+$backArrow.addEventListener('click', () => {
+  window.location.href = '../home.html';
+})
 sse.addEventListener('message', receiveMessage);
 /**************************************************************************************************/
 /** SETUP                                                                                        **/

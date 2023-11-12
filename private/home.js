@@ -52,13 +52,8 @@ function openGroupSettings(){
 async function renderGroup() {
   try{
     const response = await fetch('/api/v1/checkGroup');
-    joinedGroup = await response.json();
-    // if(response.status === 200){
-    //   $shopP.textContent = `Einkaufen - ${joinedGroup.groupname}`;
-    //   $notesP.textContent = `To-Do - ${joinedGroup.groupname}`;
-    // };
     if(response.status === 200){
-      await fetch(`/api/v1/live/${joinedGroup.id}`);
+      joinedGroup = await response.json();
     }
   }catch(error){
     console.log(error);
@@ -87,7 +82,7 @@ $shopping.addEventListener('click', openShopping);
 $groupShopping.addEventListener('click', async () => {
   try{
     const response = await fetch('/api/v1/checkGroup');
-    const joinedGroup = await response.json();
+    joinedGroup = await response.json();
     if(response.status === 200){
       window.location.href = 'groupShopping/groupShopping.html';
     };
@@ -100,7 +95,7 @@ $groupShopping.addEventListener('click', async () => {
 $groupNotes.addEventListener('click', async () => {
   try{
     const response = await fetch('/api/v1/checkGroup');
-    const joinedGroup = await response.json();
+    joinedGroup = await response.json();
     if(response.status === 200){
       window.location.href = 'groupNotes/groupNotes.html';
     };
@@ -124,26 +119,7 @@ const sse = new EventSource('/api/v1/live');
 
 function receiveMessage({ data }) {
   // parse the received json message from the server
-  console.log('aufgerufen')
   const message = JSON.parse(data);
-
-  if(message.type === 'online' && message.group.id === joinedGroup.id){
-    console.log(message.group.id)
-    const online = message.info;
-    $alertText.textContent = `${online}`;
-    console.log(message)
-    customAlert();
-    return;
-  }
-
-  if(message.type === 'online' && message.group.id === false){
-    console.log(message)
-    const online = message.info;
-    $alertText.textContent = `${online}`;
-    console.log(message)
-    customAlert();
-    return;
-  }
 
   if(message.type === 'ToDo' && message.group.id === joinedGroup.id){
       $alertText.textContent = `${message.info}`;
@@ -151,7 +127,25 @@ function receiveMessage({ data }) {
       return;
   }
 
+  if(message.type === 'deleteTodo' && message.group.id === joinedGroup.id){
+    $alertText.textContent = `${message.info}`;
+    customAlert();
+    return;
+  }
+
   if(message.type === 'shoppingList' && message.group.id === joinedGroup.id){
+    $alertText.textContent = `${message.info}`;
+    customAlert();
+    return;
+  }
+
+  if(message.type === 'deleteList' && message.group.id === joinedGroup.id){
+    $alertText.textContent = `${message.info}`;
+    customAlert();
+    return;
+  }
+
+  if(message.type === 'checked' && message.group.id === joinedGroup.id){
     $alertText.textContent = `${message.info}`;
     customAlert();
     return;
@@ -159,12 +153,3 @@ function receiveMessage({ data }) {
 }
 
 sse.addEventListener('message', receiveMessage);
-
-const test = document.querySelector('h1');
-
-test.addEventListener('click', () => {
-  console.log('post request ...')
-  fetch('/api/v1/live', {
-    method: 'POST'
-  });
-});

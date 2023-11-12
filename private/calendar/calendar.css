@@ -151,6 +151,8 @@
       grid-row: 1;
       font-size: 2rem;
       color: rgb(150, 142, 142);
+      max-width: 80%;
+      overflow: hidden;
     }
 
     & .eventDate{
@@ -390,6 +392,8 @@
       grid-row: 1;
       font-size: 2rem;
       color: rgb(150, 142, 142);
+      max-width: 80%;
+      overflow: hidden;
     }
 
     & .eventDate{
@@ -503,6 +507,21 @@
       grid-row: 4;
     }
   }
+
+  /* back to previous page arrow style settings */
+
+  .arrow::before{
+    content: "\2190";
+    font-size: 8rem;
+    color: red;
+    margin-left: 300%;
+    z-index: 1;
+  }
+
+  .arrow:hover{
+    cursor: pointer;
+  }
+
   /* header grid templates */
 
   header{
@@ -693,6 +712,10 @@
     border-radius: 20%;
   }
 
+  .days li:hover{
+    cursor: pointer;
+  }
+
   .days li.inactive{
     color: grey;
   }
@@ -713,16 +736,5 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
-
-    & .navBtn{
-      display: block;
-      grid-column: 1fr;
-      grid-row: 1fr;
-      justify-self:  center;
-
-      background-color: rgb(150, 142, 142);
-      color: black;
-      padding: 2%;
-    }
   }
 }

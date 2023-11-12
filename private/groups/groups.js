@@ -15,8 +15,7 @@ const $joinBtn = document.querySelector('#loginBtn');
 const $createBtn = document.querySelector('#registerBtn');
 const $leaveBtn = document.querySelector('#leaveBtn');
 const groupInfo = document.querySelector('#groupInfo');
-const $navBtn = document.querySelector('.navBtn');
-
+const $backArrow = document.querySelector('.arrow');
 
 let joinedGroup;
 /**************************************************************************************************/
@@ -34,11 +33,9 @@ async function checkGroup() {
   try{
     const response = await fetch('/api/v1/checkGroup');
     joinedGroup = await response.json();
-    console.log(joinedGroup, response.status);
     if(response.status === 200){
       groupInfo.textContent = `Du bist Mitglied der Gruppe ${joinedGroup.groupname.substring(0,20)}. Du kannst in der Übersicht Inhalte teilen.`
       $leaveBtn.disabled = false;
-      await fetch(`/api/v1/live/${joinedGroup.id}`);
     };
   } catch(error){
     console.log(error);
@@ -49,23 +46,18 @@ const sse = new EventSource('/api/v1/live');
 
 function receiveMessage({ data }) {
   // parse the received json message from the server
-  console.log('aufgerufen')
   const message = JSON.parse(data);
 
   if(message.type === 'online' && message.group.id === joinedGroup.id){
-    console.log(message.group.id)
     const online = message.info;
     $alertText.textContent = `${online}`;
-    console.log(message)
     customAlert();
     return;
   }
 
   if(message.type === 'online' && message.group.id === false){
-    console.log(message)
     const online = message.info;
     $alertText.textContent = `${online}`;
-    console.log(message)
     customAlert();
     return;
   }
@@ -77,8 +69,26 @@ function receiveMessage({ data }) {
     return;
   }
 
+  if(message.type === 'checked' && message.group.id === joinedGroup.id){
+    $alertText.textContent = `${message.info}`;
+    customAlert();
+    return;
+  }
+
+  if(message.type === 'deleteTodo' && message.group.id === joinedGroup.id){
+    $alertText.textContent = `${message.info}`;
+    customAlert();
+    return;
+  }
+
   //info messages shopping
   if(message.type === 'shoppingList' && message.group.id === joinedGroup.id){
+    $alertText.textContent = `${message.info}`;
+    customAlert();
+    return;
+  }
+
+  if(message.type === 'deleteList' && message.group.id === joinedGroup.id){
     $alertText.textContent = `${message.info}`;
     customAlert();
     return;
@@ -123,8 +133,11 @@ $createBtn.addEventListener('click', function () {
 });
 
 $leaveBtn.addEventListener('click', leaveGroup);
-$navBtn.addEventListener('click', () => window.location.href = '../home.html');
 sse.addEventListener('message', receiveMessage);
+
+$backArrow.addEventListener('click', () => {
+  window.location.href = '../home.html';
+})
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/
