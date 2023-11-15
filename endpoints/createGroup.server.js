@@ -66,13 +66,13 @@ endpoints.add('/api/v1/createGroup', async (request, response, session) => {
   file = `config/groups/${groupname}/${groupname}.json`;
 
   try{
-    await fs.access(file);
-    if(!error){
-      console.log('group allready exists!')
+    let existingGroup = await fs.readFile(file, 'utf8');
+    if(existingGroup){
+      console.log('group allready exists!');
       return 409;
     }
   } catch(error){
-    console.log(error);
+    console.log('groupname is available.');
   };
 
   group = {

@@ -63,7 +63,7 @@ endpoints.add('/api/v1/joinGroup', async (request, response, session) => {
   try{
     savedGroup = JSON.parse(savedGroup);
   } catch (error) {
-    console.log('Fehlere beim parsen der Gruppen.');
+    console.log('Fehler beim parsen der Gruppen.');
     return 500;
   }
 
