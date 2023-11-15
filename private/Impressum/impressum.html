@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../common.css">
+  <link rel="stylesheet" href="../../common.css">
   <link rel="stylesheet" href="impressum.css">
-  <script src="../mobileMenu.js" defer></script>
+  <script src="../../mobileMenu.js" defer></script>
   <title>Mein Haushalt - Impressum</title>
 </head>
 <body>
@@ -22,10 +22,9 @@
     </div>
 
   <ul id="mobile-menu" class="inactive">
-    <li class="menu-item"><a href="../login.html">Login</a></li>
-    <li class="menu-item"><a href="../register/register.html">Registrieren</a></li>
-    <li class="menu-item"><a href="../startpage.html">Startseite</a></li>
+    <li class="menu-item"><a href="../home.html">Übersicht</a></li>
     <li class="menu-item"><a href="datenschutz.html">Datenschutz</a></li>
+    <li id="logoutBtn" class="menu-item">Logout</li>
     <li class="menu-item"><div id="closeButton">X</div></li>
   </ul>
   </header>
@@ -44,7 +43,7 @@
 <script>
     const arrow = document.querySelector('.arrow');
     arrow.addEventListener('click', () => {
-      window.location.href = '../startpage.html';
+      window.location.href = '../home.html';
     });
 </script>
 </html>

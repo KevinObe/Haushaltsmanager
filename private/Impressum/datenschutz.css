@@ -57,6 +57,12 @@
     background-color: black;
   }
 
+
+  .list{
+    color: rgb(160, 0, 0);
+    list-style: none;
+  }
+
   /* mobile footer */
 
   footer{
@@ -156,6 +162,11 @@
     justify-items: center;
 
     background-color: black;
+  }
+
+  .list{
+    color: rgb(160, 0, 0);
+    list-style: none;
   }
 
   /* mobile footer */
@@ -273,6 +284,13 @@
     justify-items: center;
 
     background-color: black;
+
+    color: rgb(160, 0, 0);
+  }
+
+  .list{
+    color: rgb(160, 0, 0);
+    list-style: none;
   }
 
   /* mobile footer */
