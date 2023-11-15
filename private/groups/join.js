@@ -43,20 +43,20 @@ $submitBtn.addEventListener('click', async() => {
     password: $password.value,
   }
 
-    const response = await fetch('/api/v1/joinGroup', {
-      method: 'POST',
-      body: JSON.stringify(group),
-    });
-    console.log(`${response.status} ${response.statusText}`);
-    if(response.status === 204){
-      window.location.href = 'joined.html';
-    } else{
-      $alertText.textContent = `Fehler beim Beitreten. Prüfe deine Eingaben.`;
-      customAlert();
-    }
+  const response = await fetch('/api/v1/joinGroup', {
+    method: 'POST',
+    body: JSON.stringify(group),
   });
 
-$navBtn.addEventListener('click', () => window.location.href = '../home.html');
+  if(response.status === 204){
+    window.location.href = 'joined.html';
+  } else{
+    $alertText.textContent = `Fehler beim Beitreten. Prüfe deine Eingaben.`;
+    customAlert();
+  }
+});
+
+$backArrow.addEventListener('click', () => window.location.href = '../home.html');
 
 $backArrow.addEventListener('click', () => {
   window.location.href = 'groups.html';

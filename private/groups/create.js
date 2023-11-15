@@ -46,7 +46,7 @@ $submitBtn.addEventListener('click', async () => {
   if(response.status === 204 || response.status === 200){
     window.location.href = 'joined.html';
   } else {
-    $alertText.textContent = `Fehler beim erstellen der Gruppe. Keine Leer oder Sonderzeichen erlaubt.`;
+    $alertText.textContent = `Fehler beim erstellen der Gruppe.`;
     customAlert();
   }
 });
