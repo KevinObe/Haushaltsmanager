@@ -16,13 +16,7 @@ endpoints.add('/api/v1/live', async (request, response, session) => {
     return 500;
   }
 
-  //response.userId = session.profile.id;
-  //let group = session.profile.groups[0];
-
-  //const index = liveClients.findIndex((response) => response.userId === session.profile.id);
-
     liveClients.push(response);
-    console.log(liveClients.length, 'push')
     response.setHeader('Content-Type', 'text/event-stream');
     response.setHeader('Connection', 'keep-alive');
     response.setHeader('Access-Control-Allow-Origin', '*');
