@@ -5,19 +5,22 @@ const $closeBtn = document.querySelector(".close");
 const $alertText = document.querySelector('#alertText');
 
 function customAlert() {
+  $customAlert.style.visibility = 'visible';
   $customAlert.style.display = "block";
   $customAlert.classList.add('show');
-  setTimeout(hideAlert, 2000);
+  setTimeout(hideAlert, 3000);
 }
 
 function hideAlert() {
   $customAlert.classList.remove('show');
-  $customAlert.style.display = "none";
+  $customAlert.style.visibility = "hidden";
+  // $customAlert.style.display = "none";
 };
 
 $closeBtn.addEventListener("click", () => {
   $customAlert.classList.remove('show');
-  $customAlert.style.display = "none";
+  // $customAlert.style.display = "none";
+  $customAlert.style.visibility = "hidden";
 });
 
 /*
