@@ -1,17 +1,142 @@
-# Mein Projekt
-
-Mein Haushalt - Haushaltsmanager.
+# Mein Haushalt - Haushaltsmanager.
 
 Mein Haushalt ist eine Anwendung, die ihre Benutzer auf eine übersichtliche und benutzerfreundliche Art und Weise bei alltäglichen Erledigungen in kommunikativer und organisatorischer Hinsicht unterstützt. 
 Die App bietet nützliche Funktionen wie zun Beispiel einen Kalender in dem Events gespeichert werden können, die Möglichkeit Einkaufslisten zu erstellen sowie das Anlegen von To-Dos.
 Des Weiteren können individuelle Gruppen erstellt werden um Einkaufslisten mit Einträgen und To-Dos zu Teilen und somit immer up-to-Date mit seinen Gruppenmitgliedern zu bleiben. 
 Die Anwendung unterstützt ein Feature, dass eine Echtzeit aktualisierung von Inhalten gewährleistet. Somit werden die geteilten Inhalte unverzüglich auch bei Gruppenmitgliedern verfügbar.  
 
-## Anforderungen 
+## Techstack
 
-- Die aktuelle Version von Node.js ist erforderlich um den Webserver starten zu können.
+- HTML
+- CSS
+- JavaScript
+- JSON
+- Node.js
 
-## Auslieferung
+## Anforderungen
+
+- Die aktuelle Version von Node.js ist erforderlich.
+
+## Ausführung und Nutzung des Haushaltsmanagers
+
+Zum Ausführen der Anwendung nutze die folgende Anleitung:
+
+- Clone oder Downloade das gesamte Repository auf deinen Desktop oder in ein Verzeichnis nach Wahl.
+- Öffne die Kommandozeile,
+- Navigiere mit cd Desktop (oder Verzeichnis nach Wahl) in den geünschten Zielordner,
+- Füge den kopierten Link ein und führe den Befehl aus: git clone https://git.wifi.messner.top/Projekte/Projekt-KevinObe.git
+- Installiere Node.js auf deinem Gerät, du findest den Download unter: https://nodejs.org/en
+- Navigiere nun in den richtigen Ordner mit dem CMD Befehl: cd Projekt-KevinObe
+- Führe nun die server.js Datei aus um den Webserver zu starten mit: node server.js
+- Öffne in einem Browser deiner Wahl die Seite http://localhost/ und du bist Startklar
+
+## Testdaten für die Ausführung:
+
+Navigiere zur Loginseite und melde dich mit folgenden Daten an:
+
+User 1:
+- username: user
+- password: user123
+
+User 2:
+- username: member
+- password: member123
+
+User 3:
+- username: ghost
+- password: ghost123
+
+Testgruppe:
+- groupname: test
+- password: test
+
+Der username "user" befindet sich bereits in der angelegten Gruppe "test".
+Um die Gruppenfunktionen zu nutzen, melde dich mit dem Userprofil "member" an und trete der Gruppe "test" bei. 
+Die Beiden Profile können nun jeweils die geteilten Inhalte einsehen und Bearbeiten.
+Die vorbereiteten Inhalte können nach belieben bearbeitet oder gelöscht werden. 
+Das Erstellen neuer Gruppen ist jederzeit möglich.
+
+Achtung: Beim verlassen einer Gruppe durch alle Mitglieder, werden die Gruppendaten vom Server gelöscht. Dies kann aktuell nicht mehr Rückgängig gemacht werden. 
+Zu Testzwecken wurde hierfür ein dritter User "ghost" angelegt, welcher lediglich einen Lückenfüller darstellt! Dieser kann aber natürlich auch aus der Gruppe entfernt werden. 
+
+# Verwendung und Dokumentation
+
+## Login und Registrierung
+
+Besucher können sich in der Anwendung Registrieren und sich danach Anmelden um die ganzen Features zu nutzen.
+Hierzu gibt es eine Login- und eine Registrierungsseite imm Verzeichnis public.
+Die Speicherung und Überprüfung der Daten erfolgt Serverseitig. Die dazugehörigen Dateien befinden sich im system Verzeichnis imm Ordner endpoints. 
+
+## Übersicht
+
+Die Übersichtsseite dient komplett zu Navigation innerhalb der Anwendung, von hier aus gelangt ein User in die verschiedenen Gruppenseiten sowie alle Kernfunktionen der App.
+Die Seite startet beim rendern eine Abfrage an den Server um die Gruppe des users zu ermitteln. 
+Dadurch wird gewährleistet, dass Server Send Events sowie alle Gruppen features richtig funktionieren.
+Wenn er nicht Mitglied einer Gruppe ist wird er beim Versuch auf Gruppenseiten zuzugreifen zu den Gruppeneinstellungen umgeleitet. 
+Die Features wie Kalender, Einkaufen und To-Dos sind dagegen immer zugänglich, unabhängig vom Gruppenstatus.
+Die Dateien dazu befinden sich im private Verzeichnis. 
+Server Seitige Dateien dazu im Verzeichnis endpoints. 
+
+![screenshot of the homepage for logged in users](home1.png)
+
+## Kalender
+
+Die Kalender Dateien befinden sich im private Verzeichnis der Anwendung. 
+Hier wird die Kalender Seite mit dem aktuellen Datum und den Notwendigen Daten mittels einer Server abgfrage gerendert.
+Dem User werden die gespeicherten Ereignisse und das aktuelle Datum angezeigt.
+Beim Auswählen eines Tages, wird auf die Seite events.html weitergeleitet und dort die Möglichkeit geboten, Ereignisse zu erstellen. 
+
+![screenshot of the calendar function for logged in users](calend.png)
+
+## To-Do
+
+Innerhalb der To-Do Funktion wird eine Abfrage gestartet welche die gespeicherten Einträge lädt und rendert. 
+Die Gruppen-ToDos und die privaten To-Dos unterscheiden sich im Wesentlichen nur dadurch, dass die Inhalte in der Gruppenseite geteilt werden. Durch Server Send Events werden die User dabei am laufenden gehalten ob ein Gruppenmitglied die gespeicherten Daten verändert. 
+To-Dos können erstellt, erledigt, gespeichert und gelöscht werden. Diese Veränderungen werden in der Gruppen-ToDo Seite vom Server erkannt und in Echtzeit geupdatet bei anderen Gruppenmitgliedern. 
+Die Dateien befinden sich im private Verzeichnis unter groupNotes und notes, Serverseitige Features befinden sich im endpoints Verzeichnis unter den jeweiligen Namen. 
+
+![screenshot of the todo function for logged in users](todos.png)
+
+## Einkaufen
+
+Die Einkaufslisten werden beim Aufrufen der Seite vom Server geladen und beim User gerendert. Hier unterscheiden sich die Gruppe-Einkaufen Seite und die private Einkaufen Seite nur durch ihre geteilten Inhalte. 
+Die Listen die innerhalb der Gruppenseite erstellt werden, werden in Echtzeit für alle Gruppenmitglieder verfügbar. 
+Änderungen in diesen werden ebenfalls erkannt und geteilt. 
+Die Liste lässt sich nach dem Erstellen öffnen und darin können Einträge gespeichert werden. 
+Die zugehörigen Dateien befinden sich im private Verzeichnis in den Ordnern groupShopping sowie shopping. Serverseitige Dateien befinden sich im endpoints Verzeichnis. 
+
+![screenshot of the shopping function for logged in users](einkauf.png)
+
+# Bekannte Fehler (Work in Progress)
+
+Hier werden zukünftige Fehler und Bugs sowie sich in Entwicklung befindliche Features aufgelistet. 
+
+- Roadmap für das Jahr 2024
+
+# Für Entwickler
+
+Zur Weiterentwicklung führe folgende Schritte aus:
+
+- Clone oder Downloade das gesamte Repository auf deinen Desktop oder Verzeichnis nach Wahl.
+- Zum Clonen öffne die Kommandozeile,
+- Navigiere mit cd Desktop (oder Verzeichnis nach Wahl) in den geünschten Zielordner,
+- Führe den Befehl aus: git clone https://git.wifi.messner.top/Projekte/Projekt-KevinObe.git
+- Installiere Node.js auf deinem Gerät, du findest den Download unter: https://nodejs.org/en
+- Öffne einen Code Editor wie zum Beispiel Visual Studio Code,
+- Nutze die Kommandozeile in VS-Code und gib folgenden Befehl ein: node server.js
+- Öffne in einem Browser deiner Wahl die Seite http://localhost/ und du bist Startklar
+
+# Weiterentwicklung / Vorschläge / Verbesserungen
+
+Für weitere Verbesserungen und Vorschläge clone das Projekt wie oben beschrieben und erstelle einen eigenen Branch mit den Dazugehörigen Features und Vorschlägen. 
+- Wechsle ins geclonte Projekt-Verzeichnis auf der Kommandozeile mittels: cd
+- Erstelle den Branch: (git checkout -b feature/AmazingFeature)
+- Commite deine Änderungen (git commit -m 'Add some AmazingFeature')
+- Pushe deine Änderungen oder Vorschläge (git push origin feature/AmazingFeature)
+
+# Auslieferung
+
+## Hier befindet sich eine Übersicht über das ausgelieferte Projekt und all seinen Dateien für Entwickler:
 
 - Die Notwendigen Verzeichnisse werden beim Serverstart automatisch erstellt.
 - config: 
@@ -87,15 +212,3 @@ Die Anwendung unterstützt ein Feature, dass eine Echtzeit aktualisierung von In
   - wird erstellt bei Registrierung und beinhaltet die Userdaten die gespeichert werden während der session;
 - server.js:
   - Die hauptdatei des Node.js Webservers, diese muss zum starten der Anwendung ausgeführt werden. 
-
-## Installation
-Führen Sie folgende Schritte aus um das Programm ausliefern zu können. 
-
-- Anforderungen damit Programme laufen zur Überprüfung
-- Datenbank
-- Testdaten
-
-## Entwicklung
-clonen, einrichten der Entwicklungsumgebung
-
-- Nutze Visual Studio Code und installiere die vorgeschlagenen Erweiterungen. 
