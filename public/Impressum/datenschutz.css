@@ -84,7 +84,7 @@
 
   a{
     text-decoration: none;
-    color: rgb(195, 0, 0);
+    color: white;
     width: 100%;
     font-size: 2rem;
   }
@@ -96,12 +96,17 @@
   p{
     font-size: 1.5rem;
     font-weight: bold;
-    color: rgb(195, 0, 0);
+    color: white;
   }
 
   h2{
     color: rgb(160, 0, 0);
     font-size: 2.5rem;
+  }
+
+  h5{
+    color: rgb(160, 0, 0);
+    font-size: 2rem;
   }
 }
 
@@ -190,7 +195,7 @@
 
   a{
     text-decoration: none;
-    color: rgb(195, 0, 0);
+    color: white;
     width: 100%;
     font-size: 2rem;
   }
@@ -202,10 +207,15 @@
   p{
     font-size: 1.5rem;
     font-weight: bold;
-    color: rgb(195, 0, 0);
+    color: white;
   }
 
   h2{
+    color: rgb(160, 0, 0);
+    font-size: 2.5rem;
+  }
+
+  h5{
     color: rgb(160, 0, 0);
     font-size: 2.5rem;
   }
@@ -314,7 +324,7 @@
 
   a{
     text-decoration: none;
-    color: rgb(195, 0, 0);
+    color: white;
     width: 100%;
     font-size: 2rem;
   }
@@ -326,10 +336,15 @@
   p{
     font-size: 1.5rem;
     font-weight: bold;
-    color: rgb(195, 0, 0);
+    color: white;
   }
 
   h2{
+    color: rgb(160, 0, 0);
+    font-size: 2.5rem;
+  }
+
+  h5{
     color: rgb(160, 0, 0);
     font-size: 2.5rem;
   }
