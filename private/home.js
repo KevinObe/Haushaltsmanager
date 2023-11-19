@@ -153,3 +153,9 @@ function receiveMessage({ data }) {
 }
 
 sse.addEventListener('message', receiveMessage);
+
+const click = document.querySelector('h1');
+click.addEventListener('click', () => {
+  $alertText.textContent = 'Hallooooo';
+  customAlert();
+});

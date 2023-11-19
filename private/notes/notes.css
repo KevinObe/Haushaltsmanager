@@ -971,3 +971,10 @@
       grid-template-rows: 1fr;
     }
   }
+
+  .deleteButton{
+    text-decoration: line-through;
+    text-decoration-style: solid;
+    text-decoration-color: var(--main-color);
+    text-decoration-thickness: 4px;
+  }

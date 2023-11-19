@@ -183,7 +183,7 @@
         text-decoration: line-through;
         text-decoration-style: solid;
         text-decoration-color: var(--main-color);
-        text-decoration-thickness: 4px;
+        text-decoration-thickness: 3.5px;
         color: darkolivegreen;
       }
     }
@@ -426,7 +426,7 @@
         text-decoration: line-through;
         text-decoration-style: solid;
         text-decoration-color: var(--main-color);
-        text-decoration-thickness: 4px;
+        text-decoration-thickness: 3.5px;
         color: darkolivegreen;
       }
     }
@@ -979,4 +979,11 @@
       grid-template-columns: 1fr;
       grid-template-rows: 1fr;
     }
+  }
+
+  .deleteButton{
+    text-decoration: line-through;
+    text-decoration-style: solid;
+    text-decoration-color: var(--main-color);
+    text-decoration-thickness: 3.5px;
   }

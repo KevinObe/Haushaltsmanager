@@ -8,8 +8,6 @@ endpoints.add('/public/image.background.(jpg|png)', async (request, response, se
     return 405;
   };
 
-  console.log('public')
-
   try{
     response.setHeader('Cache-Control', `max-age=${twoWeeksInSeconds}`);
     serve(response, 'public/image.background.jpg');
@@ -24,8 +22,6 @@ endpoints.add('/private/image.background.(jpg|png)', async (request, response, s
   if(request.method !== 'GET'){
     return 405;
   };
-
-  console.log('private')
 
   try{
     response.setHeader('Cache-Control', `max-age=${twoWeeksInSeconds}`);
