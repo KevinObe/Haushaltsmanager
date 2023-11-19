@@ -1,0 +1,15 @@
+{
+  "id": "52604fc9-e1cf-48d5-b826-a4840744686c",
+  "username": "ghost",
+  "password": "606defe98762ccfe201dee5b6b4338a7f4630e575bf97c21550a197ef4d7552b",
+  "groups": [
+    {
+      "id": "fab1e750-6da0-4470-8223-e6f1404371eb",
+      "groupname": "test"
+    }
+  ],
+  "name": {
+    "first": "ghost",
+    "last": "ghost"
+  }
+}

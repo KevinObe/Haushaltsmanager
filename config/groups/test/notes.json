@@ -1,0 +1,17 @@
+[
+  {
+    "id": "47fe077f-0e07-4537-8195-1421e4ea0b88",
+    "text": "Einkaufen gehen",
+    "done": false
+  },
+  {
+    "id": "95ff914f-8026-482b-ae7c-a1eadce30896",
+    "text": "Aufräumen",
+    "done": true
+  },
+  {
+    "id": "37ecbd8f-110a-4237-8c62-227a2b867555",
+    "text": "Putzen",
+    "done": true
+  }
+]

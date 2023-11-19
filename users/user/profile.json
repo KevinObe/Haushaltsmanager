@@ -1,0 +1,15 @@
+{
+  "id": "445e0a33-e829-47d5-b561-2da0202e0b20",
+  "username": "user",
+  "password": "928d7173c3d1badfa94eeb8cc6fd81d732d36e41f360b79bb7254a3f576a6821",
+  "groups": [
+    {
+      "id": "fab1e750-6da0-4470-8223-e6f1404371eb",
+      "groupname": "test"
+    }
+  ],
+  "name": {
+    "first": "user",
+    "last": "user"
+  }
+}

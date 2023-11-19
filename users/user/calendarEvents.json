@@ -1,0 +1,14 @@
+[
+  {
+    "id": "1ee403f5-7503-421a-9ab6-66024dde5292",
+    "eventTitle": "Beispiel event",
+    "eventDate": "7 August 2023",
+    "eventTime": "12:00"
+  },
+  {
+    "id": "b454c8e9-3d9d-497e-82f4-ced7c1b7ac5e",
+    "eventTitle": "Abgabe Kursprojekt",
+    "eventDate": "27 Novenber 2023",
+    "eventTime": "23:59"
+  }
+]

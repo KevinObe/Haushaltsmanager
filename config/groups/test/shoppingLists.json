@@ -1,0 +1,55 @@
+[
+  {
+    "id": "5520ab0e-2da0-42f5-8d85-2030f9b5bd0a",
+    "title": "Lebensmittel",
+    "entries": [
+      {
+        "id": "42ab2174-7349-457f-b8bb-eb828bcfabdd",
+        "text": "Bier",
+        "listId": "5520ab0e-2da0-42f5-8d85-2030f9b5bd0a"
+      },
+      {
+        "id": "5c88cd3c-d6a4-435f-b802-ecee51d9b7c1",
+        "text": "Nudeln",
+        "listId": "5520ab0e-2da0-42f5-8d85-2030f9b5bd0a"
+      },
+      {
+        "id": "22ef21bc-fbb9-4d46-930a-daf2791195b7",
+        "text": "Pizza",
+        "listId": "5520ab0e-2da0-42f5-8d85-2030f9b5bd0a"
+      }
+    ]
+  },
+  {
+    "id": "27213944-a023-489a-a76a-6c5c0f9c30a5",
+    "title": "Weihnachtsgeschenke",
+    "entries": [
+      {
+        "id": "62c0e578-b372-4b79-98b3-e6e7f61b863b",
+        "text": "Socken",
+        "listId": "27213944-a023-489a-a76a-6c5c0f9c30a5"
+      },
+      {
+        "id": "2f9f9ad0-9a1a-4545-a158-81c156170e15",
+        "text": "Hässlicher Weihnachtspullover",
+        "listId": "27213944-a023-489a-a76a-6c5c0f9c30a5"
+      }
+    ]
+  },
+  {
+    "id": "cc72589b-4582-443a-84d6-fa16b56d49ba",
+    "title": "Sonstige Einkäufe",
+    "entries": [
+      {
+        "id": "702711c7-0ffe-4d17-b638-eb20e7ae709e",
+        "text": "Katzenfutter",
+        "listId": "cc72589b-4582-443a-84d6-fa16b56d49ba"
+      },
+      {
+        "id": "614ed2d6-5c5c-466a-84c7-9fc19fad8fdc",
+        "text": "Hundefutter",
+        "listId": "cc72589b-4582-443a-84d6-fa16b56d49ba"
+      }
+    ]
+  }
+]
