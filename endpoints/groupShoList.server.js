@@ -12,11 +12,9 @@ endpoints.add(`/api/v1/groupShoppinglist/:id`, async (request, response, session
     return 403;
   }
 
-  if(session.profile.groups.length < 1){
+  if(session.profile.groups.length !== 1){
     return 409;
   }
-
-  console.log(request.url)
 
   let joinedGroup = session.profile.groups[0];
   let file = `config/groups/${joinedGroup.groupname}/shoppingLists.json`;
@@ -39,9 +37,7 @@ endpoints.add(`/api/v1/groupShoppinglist/:id`, async (request, response, session
     index = list.id;
 
     if(request.url.endsWith(index)){
-      console.log('gotcha')
       session.shoppinglist = list;
-      console.log(session)
 
       response.end(JSON.stringify(list));
       return;
@@ -61,7 +57,7 @@ endpoints.add(`/api/v1/groupShoppinglist`, async (request, response, session) =>
     return 403;
   }
 
-  if(session.profile.groups.length < 1){
+  if(session.profile.groups.length !== 1){
     return 409;
   }
 
@@ -86,7 +82,7 @@ endpoints.add(`/api/v1/groupShoppinglist`, async (request, response, session) =>
   for(const list of shoppingLists){
     try{
       if(list.id === clickedList.id){
-        response.end(JSON.stringify(clickedList));
+        response.end(JSON.stringify(list));
         return;
       };
     } catch(error){
@@ -106,7 +102,7 @@ endpoints.add(`/api/v1/groupShoppingList/:id`, async (request, response, session
     return 403;
   }
 
-  if(session.profile.groups.length < 1){
+  if(session.profile.groups.length !== 1){
     return 409;
   }
 
@@ -187,7 +183,6 @@ endpoints.add(`/api/v1/groupShoppingList/:id`, async (request, response, session
   for(shoppingList of shoppingLists){
     if(shoppingList.id === listIndex){
       entries = shoppingList.entries;
-      console.log('its a match')
       entries.push(entry);
     }
   }
