@@ -51,6 +51,8 @@ function receiveMessage({ data }) {
     if(index === -1){
       $alertText.textContent = `${message.info}`;
       customAlert();
+      shoppingList.save = saveList;
+      shoppingList.delete = deleteList;
       createNewList(shoppingList);
       return;
     } else {
