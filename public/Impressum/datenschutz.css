@@ -195,7 +195,7 @@
 
   a{
     text-decoration: none;
-    color: white;
+    color: rgb(195, 0, 0);
     width: 100%;
     font-size: 2rem;
   }
@@ -207,7 +207,7 @@
   p{
     font-size: 1.5rem;
     font-weight: bold;
-    color: white;
+    color: rgb(195, 0, 0);
   }
 
   h2{
