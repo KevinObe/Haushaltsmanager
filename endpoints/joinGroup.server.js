@@ -57,6 +57,7 @@ endpoints.add('/api/v1/joinGroup', async (request, response, session) => {
     savedGroup = await fs.readFile(file, 'utf8');
   } catch(error) {
     console.log('Gruppe nicht gefunden');
+    response.statusCode = 500;
     return 500;
   }
 
@@ -64,17 +65,18 @@ endpoints.add('/api/v1/joinGroup', async (request, response, session) => {
     savedGroup = JSON.parse(savedGroup);
   } catch (error) {
     console.log('Fehler beim parsen der Gruppen.');
+    response.statusCode = 500;
     return 500;
   }
 
   password = group.password;
 
   password = crypto
-    .createHash('sha256')
-    .update(`${group.groupname}:${group.password}`)
-    .digest('hex');
+  .createHash('sha256')
+  .update(`${group.groupname}:${group.password}`)
+  .digest('hex');
 
-    if(savedGroup.groupname === groupname && savedGroup.password === password){
+  if(savedGroup.groupname === groupname && savedGroup.password === password){
       let member = {
       id: session.profile.id,
       username: session.profile.username,
@@ -106,14 +108,11 @@ endpoints.add('/api/v1/joinGroup', async (request, response, session) => {
       return 500;
     }
 
-    liveClients.send({
-      type: 'online',
-      info: `${session.profile.username} ist der Gruppe beigetreten.`,
-      group: joinedGroup,
-    });
-
     response.statusCode = 204;
-    response.end();
-    return;
+    return 204;
+  } else {
+    console.log('Falsches Passwort');
+    response.statusCode = 500;
+    return 500;
   };
 });
