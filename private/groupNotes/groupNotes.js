@@ -53,6 +53,8 @@ function receiveMessage({ data }) {
     if(index === -1){
       $alertText.textContent = `${message.info}`;
       customAlert();
+      note.save = saveNote;
+      note.delete = deleteNote;
       createNewNote(note);
       return;
     } else {

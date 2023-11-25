@@ -15,6 +15,7 @@ const $addButton = document.querySelector('.addButton');
 const $input = document.querySelector('.entryValue');
 const $list = document.querySelector('.list');
 const $backArrow = document.querySelector('.arrow');
+const $li = document.querySelectorAll('.listItem');
 
 let entries = [];
 let shoppingLists = [];
@@ -26,7 +27,33 @@ let joinedGroup = {};
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
 /**************************************************************************************************/
+function renderEntries(){
+  const request = new XMLHttpRequest();
+  request.open('GET', '/api/v1/groupShoppinglist');
+  request.send();
+  request.responseType = 'json';
 
+  request.addEventListener('load', function () {
+    if(request.readyState === 4 && request.status === 200){
+
+
+
+      clickedList = request.response;
+      let savedEntries = clickedList.entries;
+      for(let savedEntry of savedEntries){
+        entry = savedEntry;
+        entry.save = saveEntry;
+        entry.delete = deleteEntry;
+
+
+      }
+      return;
+    } else{
+      $alertText.textContent = `Fehler beim Laden der Einträge.`;
+      customAlert();
+    }
+  });
+}
 
 
 /**************************************************************************************************/
@@ -56,6 +83,8 @@ function receiveMessage({ data }) {
       if(index === -1){
         $alertText.textContent = `${message.info}`;
         customAlert();
+        entry.save = saveEntry;
+        entry.delete = deleteEntry;
         createNewEntry(entry);
         return;
       } else {
@@ -114,23 +143,18 @@ function receiveMessage({ data }) {
   }
 }
 
-function loadEntries(){
-  const request = new XMLHttpRequest();
+async function loadEntries(){
+  const response = await fetch('/api/v1/groupShoppinglist');
 
-  request.open('GET', '/api/v1/groupShoppinglist');
-  request.send();
-  request.responseType = 'json';
-
-  request.addEventListener('load', function () {
-    if(request.readyState === 4 && request.status === 200){
-      clickedList = request.response;
-
+    if(response.status === 200){
+      clickedList =  await response.json();
+      console.log(clickedList)
       let savedEntries = clickedList.entries;
+      console.log(savedEntries)
       for(let savedEntry of savedEntries){
         entry = savedEntry;
         entry.save = saveEntry;
         entry.delete = deleteEntry;
-
         createNewEntry(entry);
       }
         return;
@@ -138,14 +162,17 @@ function loadEntries(){
       $alertText.textContent = `Fehler beim Laden der Einträge.`;
       customAlert();
     }
-  });
 }
 
-function saveEntry() {
-  const entry = this;
+function saveEntry(entry) {
+  // const entry = this;
 
   if(clickedList.id){
     entry.listId = clickedList.id;
+  } else {
+    $alertText.textContent = `Fehler beim Speichern des Eintrages.`;
+    customAlert();
+    return;
   };
   const request = new XMLHttpRequest();
 
@@ -191,8 +218,11 @@ function addEntry() {
   };
 
   entries.push(entry);
-  entry.save();
+  entry.save(entry);
   $input.value = '';
+
+
+
   createNewEntry(entry);
 };
 
@@ -222,7 +252,6 @@ function createNewEntry(entry){
   $list.append($listItem);
 };
 
-
 /**************************************************************************************************/
 /** EVENTS                                                                                       **/
 /** Combine the Elements from above with the declared Functions in this section.                 **/
@@ -236,5 +265,5 @@ sse.addEventListener('message', receiveMessage);
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/
 /**************************************************************************************************/
-loadEntries();
 checkGroup();
+loadEntries();
