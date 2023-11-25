@@ -48,20 +48,6 @@ function receiveMessage({ data }) {
   // parse the received json message from the server
   const message = JSON.parse(data);
 
-  if(message.type === 'online' && message.group.id === joinedGroup.id){
-    const online = message.info;
-    $alertText.textContent = `${online}`;
-    customAlert();
-    return;
-  }
-
-  if(message.type === 'online' && message.group.id === false){
-    const online = message.info;
-    $alertText.textContent = `${online}`;
-    customAlert();
-    return;
-  }
-
   //info messages todo
   if(message.type === 'ToDo' && message.group.id === joinedGroup.id){
     $alertText.textContent = `${message.info}`;
