@@ -1,0 +1,13 @@
+[
+  {
+    "id": "6681fad1-94b3-4eb1-921d-44240d7280a3",
+    "title": "Beispiel Einkaufsliste",
+    "entries": [
+      {
+        "id": "e31fd65c-1426-4fde-9efb-66ca1e40dd40",
+        "text": "Beispiel Eintrag",
+        "listId": "6681fad1-94b3-4eb1-921d-44240d7280a3"
+      }
+    ]
+  }
+]

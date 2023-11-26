@@ -1,54 +1,64 @@
 [
   {
-    "id": "5520ab0e-2da0-42f5-8d85-2030f9b5bd0a",
+    "id": "7f9ec69b-5c06-46f6-8221-1ed17a92b206",
     "title": "Lebensmittel",
     "entries": [
       {
-        "id": "42ab2174-7349-457f-b8bb-eb828bcfabdd",
+        "id": "c39faae4-9482-457f-847d-471b125187ff",
         "text": "Bier",
-        "listId": "5520ab0e-2da0-42f5-8d85-2030f9b5bd0a"
+        "listId": "7f9ec69b-5c06-46f6-8221-1ed17a92b206"
       },
       {
-        "id": "5c88cd3c-d6a4-435f-b802-ecee51d9b7c1",
-        "text": "Nudeln",
-        "listId": "5520ab0e-2da0-42f5-8d85-2030f9b5bd0a"
+        "id": "62f8d219-d37f-4e75-af4c-f0a6f2b0f689",
+        "text": "Pommes",
+        "listId": "7f9ec69b-5c06-46f6-8221-1ed17a92b206"
       },
       {
-        "id": "22ef21bc-fbb9-4d46-930a-daf2791195b7",
+        "id": "26df9418-a94b-4802-a6c9-824ecf07fe00",
         "text": "Pizza",
-        "listId": "5520ab0e-2da0-42f5-8d85-2030f9b5bd0a"
+        "listId": "7f9ec69b-5c06-46f6-8221-1ed17a92b206"
+      },
+      {
+        "id": "01fcfca6-493b-4a88-b80c-f04173014073",
+        "text": "Burger",
+        "listId": "7f9ec69b-5c06-46f6-8221-1ed17a92b206"
+      },
+      {
+        "id": "3e47a760-9bb8-4ada-8baa-e8c0c1528ee6",
+        "text": "Wein",
+        "listId": "7f9ec69b-5c06-46f6-8221-1ed17a92b206"
       }
     ]
   },
   {
-    "id": "27213944-a023-489a-a76a-6c5c0f9c30a5",
+    "id": "b8b4c81f-3250-4d48-b045-19e4e290f582",
     "title": "Weihnachtsgeschenke",
     "entries": [
       {
-        "id": "62c0e578-b372-4b79-98b3-e6e7f61b863b",
+        "id": "1c7301cf-2503-454a-839b-5325c3219c6f",
         "text": "Socken",
-        "listId": "27213944-a023-489a-a76a-6c5c0f9c30a5"
+        "listId": "b8b4c81f-3250-4d48-b045-19e4e290f582"
       },
       {
-        "id": "2f9f9ad0-9a1a-4545-a158-81c156170e15",
-        "text": "Hässlicher Weihnachtspullover",
-        "listId": "27213944-a023-489a-a76a-6c5c0f9c30a5"
+        "id": "bb906a25-8f5c-4e60-bb77-db1dd18df26a",
+        "text": "Weihnachtspullover",
+        "listId": "b8b4c81f-3250-4d48-b045-19e4e290f582"
       }
     ]
   },
   {
-    "id": "cc72589b-4582-443a-84d6-fa16b56d49ba",
-    "title": "Sonstige Einkäufe",
+    "id": "3b22d610-343c-4c13-9425-051f7987ffba",
+    "title": "sonstige Einkäufe",
     "entries": [
       {
-        "id": "702711c7-0ffe-4d17-b638-eb20e7ae709e",
+        "id": "d355b6dd-1573-444c-b168-a210635d64a4",
         "text": "Katzenfutter",
-        "listId": "cc72589b-4582-443a-84d6-fa16b56d49ba"
+        "listId": "3b22d610-343c-4c13-9425-051f7987ffba"
       },
       {
-        "id": "614ed2d6-5c5c-466a-84c7-9fc19fad8fdc",
+        "id": "6e9cbdb4-af54-4f9d-9ce5-7225cf43ff98",
         "text": "Hundefutter",
-        "listId": "cc72589b-4582-443a-84d6-fa16b56d49ba"
+        "listId": "3b22d610-343c-4c13-9425-051f7987ffba"
       }
     ]
   }
