@@ -196,9 +196,21 @@
     font-weight: bolder;
   }
 
+  .previous:hover{
+    padding: 20%;
+    font-weight: bolder;
+    cursor: pointer;
+  }
+
   .next{
     padding: 20%;
     font-weight: bolder;
+  }
+
+  .next:hover{
+    padding: 20%;
+    font-weight: bolder;
+    cursor: pointer;
   }
 
   .calendar p{
@@ -437,9 +449,21 @@
     font-weight: bolder;
   }
 
+  .previous:hover{
+    padding: 20%;
+    font-weight: bolder;
+    cursor: pointer;
+  }
+
   .next{
     padding: 20%;
     font-weight: bolder;
+  }
+
+  .next:hover{
+    padding: 20%;
+    font-weight: bolder;
+    cursor: pointer;
   }
 
   .calendar p{
@@ -690,9 +714,21 @@
     font-weight: bolder;
   }
 
+  .previous:hover{
+    padding: 20%;
+    font-weight: bolder;
+    cursor: pointer;
+  }
+
   .next{
     padding: 20%;
     font-weight: bolder;
+  }
+
+  .next:hover{
+    padding: 20%;
+    font-weight: bolder;
+    cursor: pointer;
   }
 
   .calendar p{

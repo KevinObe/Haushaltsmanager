@@ -8,7 +8,7 @@ let date = new Date();
 let currentYear = date.getFullYear();
 let currentMonth = date.getMonth(); //returns 0 to 11!
 
-const months = ['Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'Novenber', 'Dezember'];
+const months = ['Jänner', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
 
 /**************************************************************************************************/
 /** ELEMENTS                                                                                     **/
