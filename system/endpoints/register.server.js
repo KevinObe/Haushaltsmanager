@@ -45,45 +45,9 @@ endpoints.add('/register/register{.html}?', (request, response, session) => {
   // using a GET or HEAD request the user will either get the default register page integrated into
   // the server or a custom one provided in the location `public/register.html`
   if (['GET', 'HEAD'].includes(request.method)) {
-    // first try to read the custom register page provided within the public directory
-    fs.access('public/register/register.html', (error) => {
-      // if an error occured then we could not exist the custom register page thus we response with
-      // the default integrated register page instead
-      if (error) {
-        // prepare and send the integrated default register page
-        response.setHeader('Content-Type', 'text/html; charset=utf-8');
-        response.end(`
-          <!DOCTYPE html>
-          <html lang="de">
-            <head>
-              <title>Registrieren</title>
-              <meta charset="utf-8">
-            </head>
-            <body>
-              <form method="post">
-                <div>
-                  <input type="text" name="firstname" placeholder="Vorname" required>
-                  <input type="text" name="lastname" placeholder="Nachname" required>
-                </div>
-                <div>
-                  <input type="text" name="username" placeholder="Benutzer" required>
-                </div>
-                <div>
-                  <input type="password" name="password" placeholder="Passwort" required>
-                </div>
-                <input type="submit" value="Registrieren">
-              </form>
-            </body>
-          </html>
-        `);
-
-        // the integrated register page has been served
-        return;
-      }
-
-      // at this point the existence of the custom register page is confirmed thus serve that file
-      serve(response, 'public/register/register.html');
-    });
+    // serve the user custom `public/register.html` file or the system default `system/public/
+    // register.html`
+    serve.default(response, 'public/register/register.html');
 
     // the register page has been served
     return;
@@ -224,34 +188,12 @@ endpoints.add('/register/register{.html}?', (request, response, session) => {
 // Add a registration success page, which can be customised by proding a custom one in the public
 // directory called `public/registered.html`.
 endpoints.add('/registered{.html}?', (request, response, session) => {
-  // this endpoint is effectively overruling the default static file delivery in case the user has
-  // provided a custom registered.html page, so in order to deliver our default one or the user
-  // provided one we have to check if the latter is available
-  fs.access('public/register/registered.html', (error) => {
-    // if no custom index.html file is available, then use our internal one, which contains a simple
-    // explanation of the server
-    if (error) {
-      response.setHeader('Content-Type', 'text/html; charset=utf-8');
-      response.end(`
-        <!DOCTYPE html>
-        <html lang="de">
-          <head>
-            <title>Registriert</title>
-            <meta charset="utf-8">
-          </head>
-          <body>
-            <h1>Registriert</h1>
-            <p>Hallo <i>${session.profile.name.first}</i>, du bist nun registriert und kannst dich mit dem Benutzernamen <code>${session.profile.username}</code> anmelden.</p>
-            <a href="/login.html">Zum Login</a>
-          </body>
-        </html>
-      `);
-
-      // this endpoint has been served
-      return;
-    }
-
-    // at this point we know that the user has created a custom index.html page, thus we serve that
-    serve(response, 'public/register/registered.html');
+  // serve the user custom `public/registered.html` file or the system default `system/public/
+  // registered.html` and pass along some placeholders to better customise the page
+  serve.default(response, 'public/register/registered.html', {
+    '%NAME%': session.profile.name.first,
+    '%LASTNAME%': session.profile.name.last,
+    '%USERNAME%': session.profile.username,
+    '%MAIL%': session.profile.mail,
   });
 });

@@ -29,42 +29,9 @@ endpoints.add('/login{.html}?', (request, response, session) => {
   // using a GET or HEAD request the user will either get the default login page integrated into the
   // server or a custom one provided in the location `public/login.html`
   if (['GET', 'HEAD'].includes(request.method)) {
-    // first try to read the custom login page provided within the public directory
-    fs.access('public/login.html', (error) => {
-      // if an error occured then we could not exist the custom login page thus we response with the
-      // default integrated login page instead
-      if (error) {
-        // prepare and send the integrated default login page
-        response.setHeader('Content-Type', 'text/html; charset=utf-8');
-        response.end(`
-          <!DOCTYPE html>
-          <html lang="de">
-            <head>
-              <title>Anmelden</title>
-              <meta charset="utf-8">
-            </head>
-            <body>
-              <form method="post">
-                <div>
-                  <input type="text" name="username" placeholder="Benutzer" max="64" required>
-                </div>
-                <div>
-                  <input type="password" name="password" placeholder="Passwort" max="512" required>
-                </div>
-                <input type="submit" value="Anmelden">
-              </form>
-            </body>
-          </html>
-        `);
-
-        // the integrated login page has been served
-
-        return;
-      }
-
-      // at this point the existence of the custom login page is confirmed thus serve that file
-      serve(response, 'public/login.html');
-    });
+    // serve the user custom `public/login.html` file or the system default `system/public/
+    // login.html`
+    serve.default(response, 'public/login.html');
 
     // the login page has been served
     return;
@@ -179,7 +146,7 @@ endpoints.add('/login{.html}?', (request, response, session) => {
 
       // forward the user to the private homepage, which is only accessable for logged in users
       response.statusCode = 302;
-      response.setHeader('Location', 'private/home.html');
+      response.setHeader('Location', '/private/');
       response.end();
     });
   });
@@ -193,9 +160,9 @@ endpoints.add('/logout{.html}?', (request, response, session) => {
   // remove the profile from the session indicating that the session owner is no longer logged in
   delete session.profile;
   session.save();
-  console.log('abgemeldet')
+
   // forward the user back to the public homepage
   response.statusCode = 302;
-  response.setHeader('Location', 'public/logout/logout.html');
+  response.setHeader('Location', '/');
   response.end();
 });

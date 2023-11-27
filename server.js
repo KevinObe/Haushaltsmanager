@@ -7,7 +7,7 @@ const path = require('node:path/posix');
 
 
 // ensure all the user related directories do exist when the server gets started
-for (const dir of ['config', 'endpoints', 'library', 'private/admin', 'public', 'templates', 'users']) {
+for (const dir of ['config', 'endpoints', 'library', 'licenses', 'private/admin', 'public', 'templates', 'users']) {
   fs.mkdirSync(dir, { recursive: true });
 }
 
@@ -64,6 +64,13 @@ const server = http.createServer(async (request, response) => {
     // check if we get a match for the current endpoint against the requests full url
     const match = endpoint.exec(url.href);
     if (match) {
+      // extend the request object so it can be destructured to get all the individual parameters
+      // this way as well
+      request.request = request;
+      request.response = response;
+      request.session = session;
+      request.match = match;
+
       // execute the endpoints serve method and pass along any vital data related to the request
       const statusCode = await endpoint.serve(request, response, session, match);
 

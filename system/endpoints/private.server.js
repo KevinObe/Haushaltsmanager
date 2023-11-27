@@ -2,7 +2,7 @@
 
 
 // include the required modules
-const path = require('node:path/posix')
+const path = require('node:path/posix');
 const serve = require('../library/serve.js');
 
 
