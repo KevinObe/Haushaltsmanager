@@ -233,7 +233,7 @@ function openList(shoppingList){
 /**************************************************************************************************/
 $addButton.addEventListener('click', addNewList);
 $backArrow.addEventListener('click', () => {
-  window.location.href = '../home.html';
+  window.location.href = '../index.html';
 });
 sse.addEventListener('message', receiveMessage);
 /**************************************************************************************************/

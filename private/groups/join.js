@@ -56,7 +56,7 @@ $submitBtn.addEventListener('click', async() => {
   }
 });
 
-$backArrow.addEventListener('click', () => window.location.href = '../home.html');
+$backArrow.addEventListener('click', () => window.location.href = '../index.html');
 
 $backArrow.addEventListener('click', () => {
   window.location.href = 'groups.html';

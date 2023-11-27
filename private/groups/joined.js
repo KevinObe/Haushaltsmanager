@@ -80,7 +80,7 @@ function receiveMessage({ data }) {
 /** Combine the Elements from above with the declared Functions in this section.                 **/
 /**************************************************************************************************/
 $homeBtn.addEventListener('click', () => {
-  window.location.href = '../home.html';
+  window.location.href = '../index.html';
 });
 
 sse.addEventListener('message', receiveMessage);

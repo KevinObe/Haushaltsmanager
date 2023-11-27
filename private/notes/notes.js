@@ -217,7 +217,7 @@ $addButton.addEventListener('click', addNote);
 sse.addEventListener('message', receiveMessage);
 
 $backArrow.addEventListener('click', () => {
-  window.location.href = '../home.html';
+  window.location.href = '../index.html';
 })
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
