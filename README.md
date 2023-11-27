@@ -77,7 +77,7 @@ Die Features wie Kalender, Einkaufen und To-Dos sind dagegen immer zugänglich, 
 Die Dateien dazu befinden sich im private Verzeichnis. 
 Server Seitige Dateien dazu im Verzeichnis endpoints. 
 
-![screenshot of the homepage for logged in users](home1.png)
+![screenshot of the homepage for logged in users](docs/home1.png)
 
 ## Kalender
 
@@ -86,7 +86,7 @@ Hier wird die Kalender Seite mit dem aktuellen Datum und den Notwendigen Daten m
 Dem User werden die gespeicherten Ereignisse und das aktuelle Datum angezeigt.
 Beim Auswählen eines Tages, wird auf die Seite events.html weitergeleitet und dort die Möglichkeit geboten, Ereignisse zu erstellen. 
 
-![screenshot of the calendar function for logged in users](calend.png)
+![screenshot of the calendar function for logged in users](docs/calend.png)
 
 ## To-Do
 
@@ -95,7 +95,7 @@ Die Gruppen-ToDos und die privaten To-Dos unterscheiden sich im Wesentlichen nur
 To-Dos können erstellt, erledigt, gespeichert und gelöscht werden. Diese Veränderungen werden in der Gruppen-ToDo Seite vom Server erkannt und in Echtzeit geupdatet bei anderen Gruppenmitgliedern. 
 Die Dateien befinden sich im private Verzeichnis unter groupNotes und notes, Serverseitige Features befinden sich im endpoints Verzeichnis unter den jeweiligen Namen. 
 
-![screenshot of the todo function for logged in users](todos.png)
+![screenshot of the todo function for logged in users](docs/todos.png)
 
 ## Einkaufen
 
@@ -105,7 +105,7 @@ Die Listen die innerhalb der Gruppenseite erstellt werden, werden in Echtzeit f�
 Die Liste lässt sich nach dem Erstellen öffnen und darin können Einträge gespeichert werden. 
 Die zugehörigen Dateien befinden sich im private Verzeichnis in den Ordnern groupShopping sowie shopping. Serverseitige Dateien befinden sich im endpoints Verzeichnis. 
 
-![screenshot of the shopping function for logged in users](einkauf.png)
+![screenshot of the shopping function for logged in users](docs/einkauf.png)
 
 # Bekannte Fehler (Work in Progress)
 
