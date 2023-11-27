@@ -16,6 +16,7 @@ const $input = document.querySelector('.entryValue');
 const $list = document.querySelector('.list');
 const $backArrow = document.querySelector('.arrow');
 const $li = document.querySelectorAll('.listItem');
+const $form = document.querySelector('form');
 
 let entries = [];
 let shoppingLists = [];
@@ -261,6 +262,12 @@ $backArrow.addEventListener('click', () => {
   window.location.href = 'groupShopping.html';
 });
 sse.addEventListener('message', receiveMessage);
+
+$form.addEventListener('submit', (event) => {
+  event.preventDefault();
+});
+
+$input.focus();
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/

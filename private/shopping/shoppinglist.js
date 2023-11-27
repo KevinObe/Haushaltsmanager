@@ -15,6 +15,7 @@ const $addButton = document.querySelector('.addButton');
 const $input = document.querySelector('.entryValue');
 const $list = document.querySelector('.list');
 const $backArrow = document.querySelector('.arrow');
+const $form = document.querySelector('form');
 
 let entries = [];
 let shoppingLists = [];
@@ -198,6 +199,12 @@ sse.addEventListener('message', receiveMessage);
 $backArrow.addEventListener('click', () => {
   window.location.href = 'shopping.html';
 })
+
+$form.addEventListener('submit', (event) => {
+  event.preventDefault();
+});
+
+$input.focus();
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/

@@ -11,7 +11,7 @@
       grid-row: 1;
     }
 
-    & section{
+    & form{
       grid-column: 2/12;
       grid-row: 2;
     }
@@ -48,7 +48,7 @@
 
   /* main area grid */
 
-  section{
+  form{
     height: 100%;
 
     & .newList{
@@ -145,7 +145,7 @@
     }
   }
 
-  section{
+  form{
     & .newList{
       border: 2px solid rgb(150, 142, 142);
     }
@@ -191,7 +191,7 @@
       grid-row: 1;
     }
 
-    & section{
+    & form{
       grid-column: 3/11;
       grid-row: 2;
     }
@@ -228,7 +228,7 @@
 
   /* main area grid */
 
-  section{
+  form{
     height: 100%;
 
     & .newList{
@@ -325,7 +325,7 @@
     }
   }
 
-  section{
+  form{
     & .newList{
       border: 2px solid rgb(150, 142, 142);
     }
@@ -371,7 +371,7 @@
       grid-row: 1;
     }
 
-    & section{
+    & form{
       grid-column: 4/10;
       grid-row: 2;
     }
@@ -424,7 +424,7 @@
 
   /* main area grid */
 
-  section{
+  form{
     height: 100%;
 
     & .newList{
@@ -522,7 +522,7 @@
     }
   }
 
-  section{
+  form{
     & .newList{
       border: 2px solid rgb(150, 142, 142);
     }

@@ -15,6 +15,7 @@ const $addButton = document.querySelector('.addButton');
 const $input = document.querySelector('.entryValue');
 const $notes = document.querySelector('.notes');
 const $backArrow = document.querySelector('.arrow');
+const $form = document.querySelector('form');
 
 let notes = [];
 let joinedGroup = {};
@@ -237,6 +238,12 @@ $backArrow.addEventListener('click', () => {
   window.location.href = '../index.html';
 })
 sse.addEventListener('message', receiveMessage);
+
+$input.focus();
+
+$form.addEventListener('submit', (event) => {
+  event.preventDefault();
+});
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/

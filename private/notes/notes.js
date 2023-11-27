@@ -15,6 +15,7 @@ const $addButton = document.querySelector('.addButton');
 const $input = document.querySelector('.entryValue');
 const $notes = document.querySelector('.notes');
 const $backArrow = document.querySelector('.arrow');
+const $form = document.querySelector('form');
 
 let notes = [];
 
@@ -218,6 +219,12 @@ sse.addEventListener('message', receiveMessage);
 
 $backArrow.addEventListener('click', () => {
   window.location.href = '../index.html';
+})
+
+$input.focus();
+
+$form.addEventListener('submit', (event) => {
+  event.preventDefault();
 })
 /**************************************************************************************************/
 /** SETUP                                                                                        **/

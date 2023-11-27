@@ -11,7 +11,7 @@
       grid-row: 1;
     }
 
-    & section{
+    & form{
       grid-column: 2/12;
       grid-row: 2;
     }
@@ -54,7 +54,7 @@
 
   /* main area grid */
 
-  section{
+  form{
     height: 100%;
 
     & .newNote{
@@ -218,7 +218,7 @@
       }
     }
   }
-  section{
+  form{
     & .newNote{
       border: 2px solid black;
     }
@@ -254,7 +254,7 @@
       grid-row: 1;
     }
 
-    & section{
+    & form{
       grid-column: 3/11;
       grid-row: 2;
     }
@@ -297,7 +297,7 @@
 
   /* main area grid */
 
-  section{
+  form{
     height: 100%;
 
     & .newNote{
@@ -461,7 +461,7 @@
       }
     }
   }
-  section{
+  form{
     & .newNote{
       border: 2px solid black;
     }
@@ -497,7 +497,7 @@
         grid-row: 1;
       }
 
-      & section{
+      & form{
         grid-column: 4/10;
         grid-row: 2;
       }
@@ -540,7 +540,7 @@
 
     /* main area grid */
 
-    section{
+    form{
       height: 100%;
 
       & .newNote{
@@ -702,7 +702,7 @@
         }
       }
     }
-    section{
+    form{
       & .newNote{
         border: 2px solid black;
       }
@@ -737,7 +737,7 @@
         grid-row: 1;
       }
 
-      & section{
+      & form{
         grid-column: 4/10;
         grid-row: 2;
       }
@@ -795,7 +795,7 @@
 
     /* main area grid */
 
-    section{
+    form{
       height: 100%;
 
       & .newNote{
@@ -957,7 +957,7 @@
         }
       }
     }
-    section{
+    form{
       & .newNote{
         border: 2px solid black;
       }
