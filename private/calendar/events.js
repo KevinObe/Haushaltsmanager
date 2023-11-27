@@ -158,12 +158,16 @@ function addNewEvent() {
     if($inputTime.value === typeof('string')) throw 'Verwende ausschließlich Zahlen.';
 
     let eventTitle = $inputTitle.value;
+    if(!eventTitle) throw 'Bitte gib einen Eventtitel ein.';
     let time = $inputTime.value.trim();
     let eventTime = '';
     {
       let hours = time.substr(0, 2);
       let minutes = time.substr(3, 2);
-      eventTime = `${hours}:${minutes}`;
+      eventTime = `${hours}:${minutes} Uhr`;
+      if(eventTime === ': Uhr'){
+        throw 'Bitte gib eine gültige Uhrzeit ein.'
+      }
     }
     calendarEvent = {
       id: clickedDay.id,
@@ -205,7 +209,7 @@ function createNewEvent(calendarEvent) {
   $eventDate.className = 'eventDate';
 
   const $eventTime = document.createElement('div');
-  $eventTime.textContent = `${calendarEvent.eventTime} Uhr`;
+  $eventTime.textContent = `${calendarEvent.eventTime}`;
   $eventTime.className = 'eventTime';
 
   const $deleteButton = document.createElement('button');
