@@ -4,13 +4,25 @@
 // include the required modules
 const crypto = require('node:crypto');
 const fs = require('node:fs');
+const getProfileForMail = require('../library/profile.js');
 const serve = require('../library/serve.js');
 
 
 //
+// isValidMail: RegExp
+// Regular expression to match a valid mail adresse, take from https://stackoverflow.com/a/1373724
+const isValidMail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+
+
+//
 // config: Object<enabled: Boolean>
-// (Default) configuration object read from disk.
-let config = { enabled: true };
+// (Default) configuration object read from disk, including the settings wether registration is en-
+// abled in the first place and if the registration requires the user to provide a mail address.
+let config = {
+  enabled: true,
+  includeMail: true,
+};
+
 {
   // path to the configuration file in the public config directory
   const file = './config/register.json';
@@ -72,13 +84,14 @@ endpoints.add('/register/register{.html}?', (request, response, session) => {
   // collect the body the user has sent as string
   let body = '';
   request.on('data', (chunk) => body += chunk);
-  request.on('end', () => {
+  request.on('end', async () => {
     // now that the body has been fully received we parse it as a query string, which is the default
     // format a form from the client sends to us
     body = new URLSearchParams(body);
 
-    // safely extract and check the username, password and names from the body
-    let username, password, firstname, lastname;
+    // safely extract and check the username, password, names and (optionally, if configured) mail
+    // address from the body
+    let username, password, firstname, lastname, mail;
     try {
       // extract the username from the body, ensure it is a string only consisting of numbers or
       // letters and does not exceed a limit of 64 signs
@@ -100,6 +113,23 @@ endpoints.add('/register/register{.html}?', (request, response, session) => {
       lastname = body.get('lastname');
       if (!lastname) throw 'missing lastname';
       if (!lastname.match(/^[a-zöäüß ]+$/i)) throw 'invalid lastname';
+
+      // if enabled check if a valid mail address has been provided as well
+      if (config.includeMail) {
+        // properly extract and check the mail address
+        mail = body.get('mail');
+        if (!mail) throw 'missing mail';
+        if (!mail.match(isValidMail)) throw 'invalid mail';
+        if (mail.length > 512) throw 'mail too long';
+
+        // ensure the mail address is unique and not used by another user
+        const { profile } = await getProfileForMail(mail);
+        if (profile) {
+          response.statusCode = 409;
+          response.end('409 Conflict');
+          return;
+        }
+      }
     }
 
     // catch any errors which occur when extracting and testing the sent body data
@@ -135,11 +165,20 @@ endpoints.add('/register/register{.html}?', (request, response, session) => {
         username,
         password,
         groups: [],
+        mail,
         name: {
           first: firstname,
           last: lastname,
         },
       };
+
+      // above we inserted the mail address, so it is at a conventient spot within the config file,
+      // but if the feature to require the mail address in the first place is not enabled, then re-
+      // move it from the config, as it is not needed (and the variable value is undefined in the
+      // first place)
+      if (!config.includeMail) {
+        delete profile.mail;
+      }
 
       // never store any passwords in cleartext on the server! to comply with that rule we generate
       // a sha256 hashsum of the users profile and username (both are considered as the salt of the

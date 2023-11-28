@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <title>Passwort zurücksetzen</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <h1>Passwort zurücksetzen</h1>
+    <p>Öffne deine E-Mails und gib den empfangenen Code ein, um ein neues Passwort zu setzen:</p>
+    <form method="post" action="/reseted.html">
+      <div>
+        <input type="hidden" name="mail" value="%MAIL%">
+        <input type="text" name="code" min="8" max="8" placeholder="Code" required>
+        <input type="password" name="password" placeholder="Neues Passwort" required>
+      </div>
+      <input type="submit" value="Passwort ändern">
+    </form>
+  </body>
+</html>

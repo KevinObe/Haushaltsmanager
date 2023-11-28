@@ -226,6 +226,28 @@ endpoints.add('/top-secret-page.html', ({ session, response }) => {
 ```
 
 
+### Passwort zurücksetzen
+
+Wenn es in der Konfigurationsdatei `config/sessions.json` explizit konfiguriert ist, was der Standardeinstellung entspricht, dann kann ein Benutzer sein Passwort via E-Mail zurücksetzen. Hierzu wird dem Benutzer eine E-Mail mit einem 8-stelligen Code gesendet, welcher innerhalb von 30 Minuten (konfigurierbar) zusammen mit einem neuen Passwort in ein Formular eingegeben werden muss.
+
+Um dieses Feature zu aktivieren ist es notwendig, dass für den Benutzer eine E-Mail Adresse hinterlegt ist. Dies ist die Standardeinstellung des Schlüssels `includeMail` in der Konfigurationsdatei `config/register.json` und wird in der Standardseite zur Registrierung am System berücksichtigt.
+
+Zusätzlich müssen zur Aktivierung dieses Features in den beiden genannten Konfigurationsdateien gültige E-Mail Zugangsdaten in der Konfigurationsdatei `config/mail.json` konfiguriert sein (TLS basierter Mail Exchange Server mit dem _Login_ basierten Authentifikationssystem). Diese Konfigurationsdatei sieht beispielsweise wie folgt aus:
+
+```json
+{
+  "debug": false,
+  "server": {
+    "host": "mail.gmx.net",
+    "port": 465
+  },
+  "name": "Your Name",
+  "mail": "your-gmx-mail-address@gmx.net",
+  "password": "your-gmx-password"
+}
+```
+
+
 ### Seiten überladen
 
 Im Auslieferungszustand verfügt der Server über rudimentäre Standardseiten, welche eine grundsätzliche Funktionalität für die Startseiten (in `public/`, `private/` und `private/admin/`), den Login sowie die Registrierung ermöglichen. Diese Standardseiten sind in den Ordnern `system/public/`, `system/private/` und `system/private/admin/`.
