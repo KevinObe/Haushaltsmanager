@@ -15,6 +15,7 @@ const $inputTitle = document.querySelector('.inputTitle');
 const $inputTime = document.querySelector('.inputTime');
 const $addButton = document.querySelector('.addButton');
 const $backArrow = document.querySelector('.arrow');
+const $form = document.querySelector('form');
 
 let calendarEvent = {};
 let calendarEvents = [];
@@ -193,6 +194,7 @@ function addNewEvent() {
   } catch (error) {
     $alertText.textContent = `${error}`;
     customAlert();
+    return;
   };
 };
 
@@ -242,6 +244,13 @@ sse.addEventListener('message', receiveMessage);
 $backArrow.addEventListener('click', () => {
   window.location.href = 'calendar.html';
 });
+
+$form.addEventListener('submit', (event) => {
+  event.preventDefault();
+});
+
+$inputTitle.focus();
+
 /**************************************************************************************************/
 /** SETUP                                                                                        **/
 /** If there are any additional steps to take in order to prepare the app, so use this section.  **/
