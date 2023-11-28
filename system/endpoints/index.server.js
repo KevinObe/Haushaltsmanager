@@ -12,7 +12,7 @@ const serve = require('../library/serve.js');
 // not provided a custom one yet.
 endpoints.add('/{index.html}?', (request, response) => {
   // serve the user custom `public/index.html` file or the system default `system/public/index.html`
-  serve.default(response, 'public/index.html');
+  serve.default(response, 'public/startpage.html');
 });
 
 
