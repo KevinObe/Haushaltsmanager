@@ -37,15 +37,12 @@ function renderEntries(){
   request.addEventListener('load', function () {
     if(request.readyState === 4 && request.status === 200){
 
-
-
       clickedList = request.response;
       let savedEntries = clickedList.entries;
       for(let savedEntry of savedEntries){
         entry = savedEntry;
         entry.save = saveEntry;
         entry.delete = deleteEntry;
-
 
       }
       return;
@@ -149,9 +146,12 @@ async function loadEntries(){
 
     if(response.status === 200){
       clickedList =  await response.json();
-      console.log(clickedList)
       let savedEntries = clickedList.entries;
-      console.log(savedEntries)
+
+      if(savedEntries.length === 0){
+        renderPlaceholder();
+      };
+
       for(let savedEntry of savedEntries){
         entry = savedEntry;
         entry.save = saveEntry;
@@ -163,6 +163,19 @@ async function loadEntries(){
       $alertText.textContent = `Fehler beim Laden der Einträge.`;
       customAlert();
     }
+}
+
+function renderPlaceholder(){
+  const li = document.createElement('li');
+  if(entries.length === 0){
+    li.className = 'placeholder';
+    li.style.color = 'white';
+    li.textContent = 'Es wurden noch keine Einträge erstellt.';
+    $list.append(li);
+  } else {
+    const li = document.querySelector('.placeholder');
+    li.remove();
+  }
 }
 
 function saveEntry(entry) {
@@ -203,6 +216,7 @@ function deleteEntry(){
       $alertText.textContent = `Fehler beim Löschen des Eintrages.`;
       customAlert();
     }
+    renderPlaceholder();
   });
 }
 
@@ -221,8 +235,6 @@ function addEntry() {
   entries.push(entry);
   entry.save(entry);
   $input.value = '';
-
-
 
   createNewEntry(entry);
 };
@@ -251,6 +263,7 @@ function createNewEntry(entry){
   $listItem.append($textarea, $deleteButton);
 
   $list.append($listItem);
+  renderPlaceholder();
 };
 
 /**************************************************************************************************/

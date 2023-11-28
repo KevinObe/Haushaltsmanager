@@ -95,6 +95,11 @@ function loadEntries(){
       clickedList = request.response;
 
       let savedEntries = clickedList.entries;
+
+      if(savedEntries.length === 0){
+        renderPlaceholder();
+      };
+
       for(let savedEntry of savedEntries){
         entry = savedEntry;
         entry.save = saveEntry;
@@ -108,6 +113,20 @@ function loadEntries(){
       customAlert();
     }
   });
+}
+
+function renderPlaceholder(){
+  const p = document.createElement('p');
+  if(shoppingLists.length === 0){
+    p.className = 'placeholder';
+    p.style.color = 'white';
+    p.textContent = 'Es wurden noch keine Einträge erstellt.';
+    const $main = document.querySelector('main');
+    $main.append(p);
+  } else {
+    const p = document.querySelector('.placeholder');
+    p.remove();
+  }
 }
 
 function saveEntry() {
@@ -142,6 +161,7 @@ function deleteEntry(){
       $alertText.textContent = `Fehler beim Löschen des Eintrages.`;
       customAlert();
     }
+    renderPlaceholder();
   });
 }
 
@@ -187,6 +207,7 @@ function createNewEntry(entry){
   $listItem.append($textarea, $deleteButton);
 
   $list.append($listItem);
+  renderPlaceholder();
 };
 
 

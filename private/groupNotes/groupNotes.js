@@ -117,6 +117,9 @@ function loadNotes(){
   request.addEventListener('load', () => {
     if(request.status === 200){
       notes = request.response;
+      if(notes.length === 0){
+        renderPlaceholder();
+      };
       for(const note of notes) {
         note.save = saveNote;
         note.delete = deleteNote;
@@ -127,6 +130,19 @@ function loadNotes(){
     $alertText.textContent = `Fehler beim Laden der Notizen.`;
     customAlert();
   });
+}
+
+function renderPlaceholder(){
+  const li = document.createElement('li');
+  if(notes.length === 0){
+    li.className = 'placeholder';
+    li.style.color = 'white';
+    li.textContent = 'Es wurden noch keine To-Dos erstellt.';
+    $notes.append(li);
+  } else {
+    const li = document.querySelector('.placeholder');
+    li.remove();
+  }
 }
 
 
@@ -161,6 +177,7 @@ function deleteNote(){
       $alertText.textContent = `Fehler beim Löschen der Notiz.`;
       customAlert();
     }
+    renderPlaceholder();
   });
 }
 
@@ -225,7 +242,7 @@ function createNewNote(note){
   $note.append($checkbox, $textarea, $deleteButton);
 
   $notes.append($note);
-
+  renderPlaceholder();
 };
 
 

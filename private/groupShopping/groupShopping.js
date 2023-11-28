@@ -107,6 +107,10 @@ function loadLists(){
     if(request.status === 200){
       shoppingLists = JSON.parse(request.response);
 
+      if(shoppingLists.length === 0){
+        renderPlaceholder();
+      };
+
       for(const shoppingList of shoppingLists){
         shoppingList.save = saveList;
         shoppingList.delete = deleteList;
@@ -119,6 +123,20 @@ function loadLists(){
       customAlert();
     }
   });
+}
+
+function renderPlaceholder(){
+  const p = document.createElement('p');
+  if(shoppingLists.length === 0){
+    p.className = 'placeholder';
+    p.style.color = 'white';
+    p.textContent = 'Es wurden noch keine Einkaufslisten erstellt.';
+    const $main = document.querySelector('main');
+    $main.append(p);
+  } else {
+    const p = document.querySelector('.placeholder');
+    p.remove();
+  }
 }
 
 function saveList(){
@@ -152,6 +170,7 @@ function deleteList(){
       $alertText.textContent = `Fehler beim Löschen der Liste.`;
       customAlert();
     };
+    renderPlaceholder();
   });
 }
 
@@ -206,7 +225,7 @@ function createNewList(shoppingList){
 
     $shoppingList.remove();
   });
-
+  renderPlaceholder();
 };
 
 function openList(shoppingList){
