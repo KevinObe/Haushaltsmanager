@@ -166,15 +166,16 @@ async function loadEntries(){
 }
 
 function renderPlaceholder(){
-  const li = document.createElement('li');
+  const p = document.createElement('p');
   if(entries.length === 0){
-    li.className = 'placeholder';
-    li.style.color = 'white';
-    li.textContent = 'Es wurden noch keine Einträge erstellt.';
-    $list.append(li);
+    p.className = 'placeholder';
+    p.style.color = 'white';
+    p.textContent = 'Es wurden noch keine Einträge erstellt.';
+    const $main = document.querySelector('main');
+    $main.append(p);
   } else {
-    const li = document.querySelector('.placeholder');
-    li.remove();
+    const p = document.querySelector('.placeholder');
+    p.remove();
   }
 }
 

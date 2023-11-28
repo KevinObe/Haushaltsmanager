@@ -117,7 +117,7 @@ function loadEntries(){
 
 function renderPlaceholder(){
   const p = document.createElement('p');
-  if(shoppingLists.length === 0){
+  if(entries.length === 0){
     p.className = 'placeholder';
     p.style.color = 'white';
     p.textContent = 'Es wurden noch keine Einträge erstellt.';
