@@ -24,6 +24,7 @@ let shoppingList = {};
 let clickedList = {};
 let entry = {};
 let joinedGroup = {};
+let counter = 0;
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -39,6 +40,11 @@ function renderEntries(){
 
       clickedList = request.response;
       let savedEntries = clickedList.entries;
+
+      if(savedEntries.length === 0){
+        renderPlaceholder();
+      };
+
       for(let savedEntry of savedEntries){
         entry = savedEntry;
         entry.save = saveEntry;
@@ -100,6 +106,7 @@ function receiveMessage({ data }) {
       const $entries = document.querySelectorAll('.listItem');
       $entries.forEach((li) => {
         li.remove();
+        counter -= 1;
       });
       loadEntries();
       $alertText.textContent = `${message.info}`;
@@ -166,8 +173,8 @@ async function loadEntries(){
 }
 
 function renderPlaceholder(){
-  const p = document.createElement('p');
-  if(entries.length === 0){
+  if(counter === 0){
+    const p = document.createElement('p');
     p.className = 'placeholder';
     p.style.color = 'white';
     p.textContent = 'Es wurden noch keine Einträge erstellt.';
@@ -175,13 +182,16 @@ function renderPlaceholder(){
     $main.append(p);
   } else {
     const p = document.querySelector('.placeholder');
-    p.remove();
+    if(p){
+      p.remove();
+      return;
+    }
   }
 }
 
 function saveEntry(entry) {
   // const entry = this;
-
+  counter = counter;
   if(clickedList.id){
     entry.listId = clickedList.id;
   } else {
@@ -217,6 +227,7 @@ function deleteEntry(){
       $alertText.textContent = `Fehler beim Löschen des Eintrages.`;
       customAlert();
     }
+    counter -= 1;
     renderPlaceholder();
   });
 }
@@ -264,6 +275,7 @@ function createNewEntry(entry){
   $listItem.append($textarea, $deleteButton);
 
   $list.append($listItem);
+  counter += 1;
   renderPlaceholder();
 };
 

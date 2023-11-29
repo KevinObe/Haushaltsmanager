@@ -23,6 +23,7 @@ let shoppingList = {};
 let clickedList = {};
 let entry = {};
 let joinedGroup = {};
+let counter = 0;
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -91,7 +92,7 @@ function loadEntries(){
   request.responseType = 'json';
 
   request.addEventListener('load', function () {
-    if(request.readyState === 4 && request.status === 200){
+    if(request.status === 200){
       clickedList = request.response;
 
       let savedEntries = clickedList.entries;
@@ -116,8 +117,8 @@ function loadEntries(){
 }
 
 function renderPlaceholder(){
-  const p = document.createElement('p');
-  if(entries.length === 0){
+  if(counter === 0){
+    const p = document.createElement('p');
     p.className = 'placeholder';
     p.style.color = 'white';
     p.textContent = 'Es wurden noch keine Einträge erstellt.';
@@ -125,11 +126,15 @@ function renderPlaceholder(){
     $main.append(p);
   } else {
     const p = document.querySelector('.placeholder');
-    p.remove();
+    if(p){
+      p.remove();
+      return;
+    }
   }
 }
 
 function saveEntry() {
+  counter = counter;
   const entry = this;
 
   if(clickedList.id){
@@ -161,6 +166,7 @@ function deleteEntry(){
       $alertText.textContent = `Fehler beim Löschen des Eintrages.`;
       customAlert();
     }
+    counter -= 1;
     renderPlaceholder();
   });
 }
@@ -207,6 +213,7 @@ function createNewEntry(entry){
   $listItem.append($textarea, $deleteButton);
 
   $list.append($listItem);
+  counter += 1;
   renderPlaceholder();
 };
 

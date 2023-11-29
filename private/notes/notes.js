@@ -115,11 +115,14 @@ function renderPlaceholder(){
   if(notes.length === 0){
     li.className = 'placeholder';
     li.style.color = 'white';
-    li.textContent = 'Es wurden noch keine To-Dos erstellt.';
+    li.textContent = 'Es wurden noch keine To Dos erstellt.';
     $notes.append(li);
   } else {
     const li = document.querySelector('.placeholder');
-    li.remove();
+    if(li){
+      li.remove();
+      return;
+    }
   }
 }
 

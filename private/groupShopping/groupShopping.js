@@ -18,7 +18,7 @@ const $form = document.querySelector('form');
 
 const $entries = [];
 let shoppingLists = [];
-
+let counter = 0;
 let joinedGroup = {};
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
@@ -67,6 +67,7 @@ function receiveMessage({ data }) {
     const $lists = document.querySelectorAll('.shoppingList');
     $lists.forEach((list) => {
       list.remove();
+      counter -= 1;
     });
     loadLists();
     $alertText.textContent = `${message.info}`;
@@ -126,8 +127,8 @@ function loadLists(){
 }
 
 function renderPlaceholder(){
-  const p = document.createElement('p');
-  if(shoppingLists.length === 0){
+  if(counter === 0){
+    const p = document.createElement('p');
     p.className = 'placeholder';
     p.style.color = 'white';
     p.textContent = 'Es wurden noch keine Einkaufslisten erstellt.';
@@ -135,13 +136,16 @@ function renderPlaceholder(){
     $main.append(p);
   } else {
     const p = document.querySelector('.placeholder');
-    p.remove();
+    if(p){
+      p.remove();
+      return;
+    }
   }
 }
 
 function saveList(){
   const shoppingList = this;
-
+  counter = counter;
   const request = new XMLHttpRequest();
 
   request.open('POST', `/api/v1/groupShoppingLists/${shoppingList.id}`)
@@ -170,6 +174,7 @@ function deleteList(){
       $alertText.textContent = `Fehler beim Löschen der Liste.`;
       customAlert();
     };
+    counter -= 1;
     renderPlaceholder();
   });
 }
@@ -225,6 +230,7 @@ function createNewList(shoppingList){
 
     $shoppingList.remove();
   });
+  counter += 1;
   renderPlaceholder();
 };
 

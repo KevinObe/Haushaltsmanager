@@ -19,6 +19,7 @@ const $form = document.querySelector('form');
 
 let notes = [];
 let joinedGroup = {};
+let counter = 0;
 /**************************************************************************************************/
 /** RUNTIME                                                                                      **/
 /** Declare additial variables for the application in this section.                              **/
@@ -71,6 +72,7 @@ function receiveMessage({ data }) {
       const $li = document.querySelectorAll('.note');
       $li.forEach((li) => {
         li.remove();
+        counter -= 1;
       });
       loadNotes();
       $alertText.textContent = `${message.info}`;
@@ -84,6 +86,7 @@ function receiveMessage({ data }) {
     const $li = document.querySelectorAll('.note');
     $li.forEach((li) => {
       li.remove();
+      counter -= 1;
     });
     loadNotes();
     $alertText.textContent = `${message.info}`;
@@ -117,9 +120,11 @@ function loadNotes(){
   request.addEventListener('load', () => {
     if(request.status === 200){
       notes = request.response;
+
       if(notes.length === 0){
         renderPlaceholder();
       };
+
       for(const note of notes) {
         note.save = saveNote;
         note.delete = deleteNote;
@@ -133,22 +138,26 @@ function loadNotes(){
 }
 
 function renderPlaceholder(){
-  const li = document.createElement('li');
-  if(notes.length === 0){
+  if(counter === 0){
+    const li = document.createElement('li');
     li.className = 'placeholder';
     li.style.color = 'white';
-    li.textContent = 'Es wurden noch keine To-Dos erstellt.';
+    li.textContent = 'Es wurden noch keine To Dos erstellt.';
     $notes.append(li);
+    return;
   } else {
     const li = document.querySelector('.placeholder');
-    li.remove();
+    if(li){
+      li.remove();
+      return;
+    }
   }
 }
 
 
 function saveNote(note) {
  // const note = this;
-
+  counter = counter;
   const request = new XMLHttpRequest();
 
   request.open('POST', `/api/v1/groupNotes/${note.id}`)
@@ -177,6 +186,7 @@ function deleteNote(){
       $alertText.textContent = `Fehler beim Löschen der Notiz.`;
       customAlert();
     }
+    counter -= 1;
     renderPlaceholder();
   });
 }
@@ -199,7 +209,6 @@ function addNote() {
   notes.push(note);
   note.save(note);
   $input.value = '';
-  console.log(note)
   createNewNote(note);
 };
 
@@ -242,6 +251,7 @@ function createNewNote(note){
   $note.append($checkbox, $textarea, $deleteButton);
 
   $notes.append($note);
+  counter += 1;
   renderPlaceholder();
 };
 

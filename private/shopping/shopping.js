@@ -121,7 +121,11 @@ function renderPlaceholder(){
     $main.append(p);
   } else {
     const p = document.querySelector('.placeholder');
-    p.remove();
+    if(p){
+      p.remove();
+      return;
+    }
+
   }
 }
 
