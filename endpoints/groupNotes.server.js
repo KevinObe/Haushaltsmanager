@@ -110,7 +110,7 @@ endpoints.add(`/api/v1/groupNotes/:id`, async (request, response, session) => {
 
       liveClients.send({
         type: 'deleteTodo',
-        info: `${session.profile.username} hat eine ToDo gelöscht.`,
+        info: `${session.profile.username} hat eine To Do gelöscht.`,
         content: notes[index],
         user: session.profile.username,
         group: group,
@@ -162,7 +162,7 @@ endpoints.add(`/api/v1/groupNotes/:id`, async (request, response, session) => {
       notes.push(note);
       liveClients.send({
         type: 'ToDo',
-        info: `${session.profile.username} hat eine ToDo erstellt.`,
+        info: `${session.profile.username} hat eine To Do erstellt.`,
         content: note,
         group: group,
       });
@@ -171,7 +171,7 @@ endpoints.add(`/api/v1/groupNotes/:id`, async (request, response, session) => {
       if(note.done){
         liveClients.send({
           type: 'checked',
-          info: `${session.profile.username} hat eine ToDo erledigt.`,
+          info: `${session.profile.username} hat eine To Do erledigt.`,
           user: session.profile.username,
           content: note,
           group: group,
@@ -180,7 +180,7 @@ endpoints.add(`/api/v1/groupNotes/:id`, async (request, response, session) => {
        if(!note.done){
         liveClients.send({
           type: 'checked',
-          info: `${session.profile.username} hat eine ToDo erstellt.`,
+          info: `${session.profile.username} hat eine To Do erstellt.`,
           user: session.profile.username,
           content: note,
           group: group,
